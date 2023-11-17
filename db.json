@@ -21,5 +21,12 @@
       "coursepartecipants": 43,
       "id": 4
     }
+  ],
+  "assignments": [
+    {
+      "id": 3,
+      "teacherid": 3,
+      "courseid": 4
+    }
   ]
 }
