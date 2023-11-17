@@ -1,6 +1,6 @@
 <template>
     <div class="assignments-container">
-      <Button @btn-click="$emit('toggle-create-assignments')" text="CREATE ASSIGNMENT" />
+      <Button @btn-click="$emit('toggle-create-assignment')" text="CREATE ASSIGNMENT" />
       <div class="columnsNames">
         <div class="columnName">Teacher name</div>
         <div class="columnName">Course name</div>

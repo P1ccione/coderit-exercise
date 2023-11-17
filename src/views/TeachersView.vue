@@ -24,6 +24,7 @@ import AddTeacherForm from "../components/AddTeacherForm"
         data() {
         return {
             teachers: [],
+            assignments: [],
             showCreateTeacher: false,
             showEditTeacherForm: false,
             showTeachersContainer: true,
@@ -31,7 +32,8 @@ import AddTeacherForm from "../components/AddTeacherForm"
         }
         },
         async created() {
-        this.teachers = await this.fetchTeachers();
+          this.teachers = await this.fetchTeachers();
+          this.assignments = await this.fetchaAssignments();
         },
         methods: {
         // fetch dei dati nel file db.json dell'array teachers
@@ -49,9 +51,27 @@ import AddTeacherForm from "../components/AddTeacherForm"
 
             return data
         },
+        async fetchaAssignments() {
+            const res = await fetch('http://localhost:5000/assignments')
+
+            const data = await res.json()
+
+            return data
+        },
+        async fetchaAssignmentsTeacher(teacherId) {
+            const res = await fetch(`http://localhost:5000/assignments?teacherid=${teacherId}`)
+
+            const data = await res.json()
+
+            return data.length > 0;
+        },
         async deleteTeacher(id) {
             // console.log('task', id);
-            if(confirm('Are you sure?')) {
+            const hasAssignments = await this.fetchaAssignmentsTeacher(id);
+
+            if (hasAssignments) {
+              alert("Cannot delete teacher. There are assignments associated with this teacher.");
+            } else if(confirm('Are you sure?')) {
                     
             const res = await fetch(`http://localhost:5000/teachers/${id}`, {
                 method: "DELETE",
@@ -141,7 +161,6 @@ import AddTeacherForm from "../components/AddTeacherForm"
             const data = await res.json();
 
             this.teachers = [...this.teachers, data];
-            this.showForm = !this.showForm;
             this.showCreateTeacher = !this.showCreateTeacher;
         },
         

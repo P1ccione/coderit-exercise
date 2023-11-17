@@ -24,6 +24,7 @@
         data() {
         return {
             courses: [],
+            assignments: [],
             showCreateCourse: false,
             showEditCourseForm: false,
             editingCourse: null
@@ -31,6 +32,7 @@
         },
         async created() {
             this.courses = await this.fetchCourses();
+            this.assignments = await this.fetchaAssignments();
         },
         methods: {
         // fetch dei dati nel file db.json dell'array courses
@@ -48,16 +50,36 @@
 
             return data
         },
-        async deleteCourse(id) {
-            // console.log('task', id);
-            if(confirm('Are you sure?')) {
-                    
-            const res = await fetch(`http://localhost:5000/courses/${id}`, {
-                method: "DELETE",
-            })
+        async fetchaAssignments() {
+            const res = await fetch('http://localhost:5000/assignments')
 
-            res.status === 200 ? (this.courses = this.courses.filter((course) => course.id !== id)) : alert("Error deleting course")
+            const data = await res.json()
+
+            return data
+        },
+        async fetchaAssignmentsCourse(courseId) {
+            const res = await fetch(`http://localhost:5000/assignments?courseid=${courseId}`)
+
+            const data = await res.json()
+
+            return data.length > 0;
+        },
+        async deleteCourse(id) {
+          const hasAssignments = await this.fetchaAssignmentsCourse(id);
+
+          if (hasAssignments) {
+            alert("Cannot delete course. There are assignments associated with this course.");
+          } else if (confirm("Are you sure you want to delete this course?")) {
+            const res = await fetch(`http://localhost:5000/courses/${id}`, {
+              method: "DELETE",
+            });
+
+            if (res.status === 200) {
+              this.courses = this.courses.filter((course) => course.id !== id);
+            } else {
+              alert("Error deleting course");
             }
+          }
         },
 
         async isCourseExists(coursename) {

@@ -3,53 +3,66 @@
     <form @submit="submitForm">
         <div class="input-container">
             <label for="idcourse">Course</label>
-            <select name="idcourse" id="idcourse"></select>
+            <select name="idcourse" id="idcourse" v-model="idcourse">
+                <option :key="course.id" v-for="course in courses" :value="course.id">{{ course.coursename }}</option>
+            </select>
         </div>
         <div class="input-container">
             <label for="idteacher">Teacher</label>
-            <select name="idteacher" id="idteacher"></select>
+            <select name="idteacher" id="idteacher" v-model="idteacher">
+                <option :key="teacher.id" v-for="teacher in teachers" :value="teacher.id">{{ teacher.firstname }} {{ teacher.lastname }}</option>
+            </select>
         </div>
         <input type="submit" value="CREATE ASSIGNMENT"/>
     </form>
 </template>
 
 <script>
+import Button from "./Button";
 
-    import Button from "./Button"
-
-    export default {
-        name: "AddAssignmentFrom",
-        data(){
-            return{
-                idcourse:'',
-                idteacher:'',
-            }
+export default {
+    name: "AddAssignmentForm",
+    data() {
+        return {
+            idcourse: null,
+            idteacher: null,
+        };
+    },
+    props: {
+        courses: {
+            type: Array,
+            required: true,
         },
-        components: {
-            Button,
+        teachers: {
+            type: Array,
+            required: true,
         },
-        methods:{
-            submitForm(e){
-                e.preventDefault()
-                if(!this.idteacher) {
-                    alert('Please select a teacher')
-                    return
-                } else if(!this.idcourse) {
-                    alert('Please select a course')
-                    return
-                }
-                const newAssignment = {
-                    idteacher: this.idteacher,
-                    idcourse: this.idcourse,
-                }
-
-                this.$emit('create-assignment', newAssignment)
-
-                this.idteacher = ''
-                this.idcourse = ''
+    },
+    components: {
+        Button,
+    },
+    methods: {
+        submitForm(e) {
+            e.preventDefault();
+            if (!this.idcourse) {
+                alert("Please select a course");
+                return;
+            } else if (!this.idteacher) {
+                alert("Please select a teacher");
+                return;
             }
-        }
-    }
+            const newAssignment = {
+                idteacher: this.idteacher,
+                idcourse: this.idcourse,
+            };
+            console.log(newAssignment);
+            this.$emit("create-assignment", newAssignment);
+
+            this.idteacher = null;
+            this.idcourse = null;
+        },
+    },
+};
 </script>
              
 <style scoped>
@@ -73,7 +86,7 @@
         flex-direction: column;
     }
 
-    form input {
+    form select, input {
         width: 200px;
         height: 35px;
         padding-left: 10px;
