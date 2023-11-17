@@ -76,7 +76,7 @@
             },
 
             async createAssignment(assignment) {
-                // Verifica se esiste già un insegnante con la stessa email
+                // Verifica se esiste già un collegamento tra insegnante e corso
                 console.log(assignment);
                 const isAssignmentExisting = await this.isAssignmentExists(assignment);
                 if (isAssignmentExisting) {

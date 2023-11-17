@@ -10,75 +10,83 @@
 
 <script>
 
-import AddTeacherForm from "../components/AddTeacherForm"
+  import AddTeacherForm from "../components/AddTeacherForm"
   import TeachersContainer from "../components/TeachersContainer"
   import EditTeacherForm from "../components/EditTeacherForm"
-    export default {
-        name: "TeachersView",
+  export default {
+      name: "TeachersView",
 
-        components: {
-        AddTeacherForm,
-        TeachersContainer,
-        EditTeacherForm,
-        },
-        data() {
+      components: {
+      AddTeacherForm,
+      TeachersContainer,
+      EditTeacherForm,
+      },
+      data() {
         return {
-            teachers: [],
-            assignments: [],
-            showCreateTeacher: false,
-            showEditTeacherForm: false,
-            showTeachersContainer: true,
-            editingTeacher: null
+          teachers: [],
+          assignments: [],
+          showCreateTeacher: false,
+          showEditTeacherForm: false,
+          showTeachersContainer: true,
+          editingTeacher: null
         }
-        },
-        async created() {
-          this.teachers = await this.fetchTeachers();
-          this.assignments = await this.fetchaAssignments();
-        },
-        methods: {
-        // fetch dei dati nel file db.json dell'array teachers
-        async fetchTeachers() {
-            const res = await fetch("http://localhost:5000/teachers")
+      },
+      async created() {
+        this.teachers = await this.fetchTeachers();
+        this.assignments = await this.fetchaAssignments();
+      },
 
-            const data = await res.json()
+      methods: {
+      // fetch dei dati nel file db.json dell'array teachers
+      async fetchTeachers() {
+          const res = await fetch("http://localhost:5000/teachers")
 
-            return data;
-        },
-        async fetchTeacher(id) {
-            const res = await fetch(`http://localhost:5000/teachers/${id}`)
+          const data = await res.json()
 
-            const data = await res.json()
+          return data;
+      },
+      
+      // funzione di fetch per prendere i teachers dal db
+      async fetchTeacher(id) {
+          const res = await fetch(`http://localhost:5000/teachers/${id}`)
 
-            return data
-        },
-        async fetchaAssignments() {
-            const res = await fetch('http://localhost:5000/assignments')
+          const data = await res.json()
 
-            const data = await res.json()
+          return data
+      },
 
-            return data
-        },
-        async fetchaAssignmentsTeacher(teacherId) {
-            const res = await fetch(`http://localhost:5000/assignments?teacherid=${teacherId}`)
+      // funzione di fetch per prendere gli assignments dal db
+      async fetchaAssignments() {
+          const res = await fetch('http://localhost:5000/assignments')
 
-            const data = await res.json()
+          const data = await res.json()
 
-            return data.length > 0;
-        },
-        async deleteTeacher(id) {
-            // console.log('task', id);
-            const hasAssignments = await this.fetchaAssignmentsTeacher(id);
+          return data
+      },
 
-            if (hasAssignments) {
-              alert("Cannot delete teacher. There are assignments associated with this teacher.");
-            } else if(confirm('Are you sure?')) {
-                    
+      // funzione di fetch del db per controllare la presenza di collegamenti tra insegnante e corsi
+      async fetchaAssignmentsTeacher(teacherId) {
+          const res = await fetch(`http://localhost:5000/assignments?teacherid=${teacherId}`)
+
+          const data = await res.json()
+
+          return data.length > 0;
+      },
+      async deleteTeacher(id) {
+          // controllo che l'insegnante non abbia collegamenti ai corsi
+          const hasAssignments = await this.fetchaAssignmentsTeacher(id);
+
+          if (hasAssignments) {
+            // se vero blocco il delete dell'insegnante
+            alert("Cannot delete teacher. There are assignments associated with this teacher.");
+          } else if(confirm('Are you sure?')) {
+            // altrimenti continua con il delete
             const res = await fetch(`http://localhost:5000/teachers/${id}`, {
-                method: "DELETE",
+              method: "DELETE",
             })
 
             res.status === 200 ? (this.teachers = this.teachers.filter((teacher) => teacher.id !== id)) : alert("Error deleting teacher")
-            }
+          }
         },
 
         async isEmailExists(email) {
@@ -98,64 +106,64 @@ import AddTeacherForm from "../components/AddTeacherForm"
         },
 
         async EditTeacherForm(id, newTeacher) {
-            const teacherToEdit = await this.fetchTeacher(id);
+          const teacherToEdit = await this.fetchTeacher(id);
 
-            // Verifica se esiste già un insegnante con la stessa email
-            const isEmailExisting = await this.isEmailExists(newTeacher.email);
-            if (isEmailExisting && newTeacher.email !== teacherToEdit.email) {
+          // Verifica se esiste già un insegnante con la stessa email
+          const isEmailExisting = await this.isEmailExists(newTeacher.email);
+          if (isEmailExisting && newTeacher.email !== teacherToEdit.email) {
             alert('Esiste già un insegnante con la stessa email.');
             return;
-            }
+          }
 
-            // Verifica se esiste già un insegnante con lo stesso numero di telefono
-            const isPhoneExisting = await this.isPhoneExists(newTeacher.phonenumber);
-            if (isPhoneExisting && newTeacher.phonenumber !== teacherToEdit.phonenumber) {
+          // Verifica se esiste già un insegnante con lo stesso numero di telefono
+          const isPhoneExisting = await this.isPhoneExists(newTeacher.phonenumber);
+          if (isPhoneExisting && newTeacher.phonenumber !== teacherToEdit.phonenumber) {
             alert('Esiste già un insegnante con lo stesso numero di telefono.');
             return;
-            }
+          }
 
-            const upTeacher = {
-            id: teacherToEdit.id,
-            ...newTeacher,
-            };
+          const upTeacher = {
+          id: teacherToEdit.id,
+          ...newTeacher,
+          };
 
-            const res = await fetch(`http://localhost:5000/teachers/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(upTeacher),
-            });
+          const res = await fetch(`http://localhost:5000/teachers/${id}`, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(upTeacher),
+          });
 
-            const data = await res.json();
+          const data = await res.json();
 
-            // Aggiorna la lista degli insegnanti con il nuovo dato ricevuto dal server
-            this.teachers = this.teachers.map((teacher) =>
-            teacher.id === id ? { ...teacher, ...data } : teacher
-            );
+          // Aggiorna la lista degli insegnanti con il nuovo dato ricevuto dal server
+          this.teachers = this.teachers.map((teacher) =>
+          teacher.id === id ? { ...teacher, ...data } : teacher
+          );
 
-            this.showEditTeacherForm = !this.showEditTeacherForm;
+          this.showEditTeacherForm = !this.showEditTeacherForm;
         },
 
         async createTeacher(teacher) {
             // Verifica se esiste già un insegnante con la stessa email
             const isEmailExisting = await this.isEmailExists(teacher.email);
             if (isEmailExisting) {
-            alert('Esiste già un insegnante con la stessa email.');
-            return;
+              alert('Esiste già un insegnante con la stessa email.');
+              return;
             }
 
             // Verifica se esiste già un insegnante con lo stesso numero di telefono
             const isPhoneExisting = await this.isPhoneExists(teacher.phonenumber);
             if (isPhoneExisting) {
-            alert('Esiste già un insegnante con lo stesso numero di telefono.');
-            return;
+              alert('Esiste già un insegnante con lo stesso numero di telefono.');
+              return;
             }
 
             const res = await fetch("http://localhost:5000/teachers", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(teacher),
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(teacher),
             });
 
             const data = await res.json();
@@ -169,6 +177,7 @@ import AddTeacherForm from "../components/AddTeacherForm"
             this.showCreateTeacher = !this.showCreateTeacher
         },
 
+        // toggle del form edit teacher
         toggleEditTeacherForm(teacher) {
             this.editingTeacher = teacher;
             this.showEditTeacherForm = !this.showEditTeacherForm
