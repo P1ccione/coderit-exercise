@@ -1,0 +1,25 @@
+{
+  "teachers": [
+    {
+      "id": 3,
+      "firstname": "Gianlucone",
+      "lastname": "Giallo",
+      "email": "giallo@gmail.com",
+      "phonenumber": "2361872498"
+    }
+  ],
+  "courses": [
+    {
+      "id": 3,
+      "coursename": "Java",
+      "courseduration": "200h",
+      "coursepartecipants": 20
+    },
+    {
+      "coursename": "Phyton",
+      "courseduration": "30h",
+      "coursepartecipants": 43,
+      "id": 4
+    }
+  ]
+}
