@@ -57,8 +57,8 @@
 
             return data
         },
-        async fetchaAssignmentsCourse(courseId) {
-            const res = await fetch(`http://localhost:5000/assignments?courseid=${courseId}`)
+        async fetchaAssignmentsCourse(idcourse) {
+            const res = await fetch(`http://localhost:5000/assignments?idcourse=${idcourse}`)
 
             const data = await res.json()
 

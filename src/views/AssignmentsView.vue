@@ -69,7 +69,7 @@
 
             async isAssignmentExists(assignment) {
                 // Effettua una chiamata API per verificare se esiste già un collegamento tra insegnante e corso
-                const res = await fetch(`http://localhost:5000/assignments?courseid=${assignment.courseid}&teacherid=${assignment.teacherid}`);
+                const res = await fetch(`http://localhost:5000/assignments?idcourse=${assignment.idcourse}&idteacher=${assignment.idteacher}`);
                 const data = await res.json();
 
                 return data.length > 0; // Restituisce true se esiste già un collegamento tra insegnante e corso, altrimenti false

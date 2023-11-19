@@ -8,8 +8,8 @@
       <div :key="assignment.id" v-for="assignment in assignments">
         <Assignment
           :assignment="assignment"
-          :teacher="getTeacher(assignment.teacherid)"
-          :course="getCourse(assignment.courseid)"
+          :teacher="getTeacher(assignment.idteacher)"
+          :course="getCourse(assignment.idcourse)"
           @delete-assignment="$emit('delete-assignment', assignment.id)"
         />
       </div>
@@ -38,11 +38,15 @@
       },
     },
     methods: {
-      getTeacher(teacherId) {
-        return this.teachers.find((teacher) => teacher.id === teacherId) || {};
+      getTeacher(idteacher) {
+        // console.log(idteacher);
+        // console.log(this.teachers.find((teacher) => teacher.id === idteacher) || {});
+        return this.teachers.find((teacher) => teacher.id === idteacher) || {};
       },
-      getCourse(courseId) {
-        return this.courses.find((course) => course.id === courseId) || {};
+      getCourse(idcourse) {
+        // console.log(idcourse);
+        // console.log(this.courses.find((course) => course.id === idcourse) || {});
+        return this.courses.find((course) => course.id === idcourse) || {};
       },
     },
   };

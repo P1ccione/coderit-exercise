@@ -49,23 +49,24 @@ export default {
         e.preventDefault();
         console.log(this.teacher.id);
         if (!this.teacher.firstname) {
-        alert("Please add the first name");
-        return;
+          alert("Please add the first name");
+          return;
         } else if (!this.teacher.lastname) {
-        alert("Please add the last name");
-        return;
+          alert("Please add the last name");
+          return;
         } else if (!this.teacher.email) {
-        alert("Please add the email address");
-        return;
+          alert("Please add the email address");
+          return;
         } else if (!this.teacher.phonenumber) {
-        alert("Please add the phone number");
-        return;
+          alert("Please add the phone number");
+          return;
         }
+        console.log("passed");
         const newTeacher = {
-        firstname: this.teacher.firstname,
-        lastname: this.teacher.lastname,
-        email: this.teacher.email,
-        phonenumber: this.teacher.phonenumber,
+          firstname: this.teacher.firstname,
+          lastname: this.teacher.lastname,
+          email: this.teacher.email,
+          phonenumber: this.teacher.phonenumber,
         };
         console.log(newTeacher);
         this.$emit("edit-teacher", this.teacher.id, newTeacher);

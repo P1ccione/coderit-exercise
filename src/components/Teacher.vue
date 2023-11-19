@@ -32,7 +32,7 @@
 
     .teacher-card {
         width: auto;
-        height: 150px;
+        height: 50px;
         display: flex;
         align-items: center;
     }
