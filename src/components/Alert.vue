@@ -21,7 +21,7 @@
         position: absolute;
         top: 20px;
         width: auto;
-        min-width: 300px;
+        min-width: 400px;
         background: white;
         border: 2px solid red;
         border-radius: 50px;
@@ -43,6 +43,6 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-         word-break: break-all;
+        line-break: break-all;
     }
 </style>

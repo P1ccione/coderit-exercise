@@ -3,15 +3,15 @@
     <form @submit="submitForm">
         <div class="input-container">
             <label for="coursename">Course Name</label>
-            <input type="text" name="coursename" id="coursename" v-if="course && course.coursename" v-model="course.coursename" />
+            <input type="text" name="coursename" id="coursename" v-show="course && course.coursename" v-model="coursename" />
         </div>
         <div class="input-container">
             <label for="courseduration">Course Duration</label>
-            <input type="text" name="courseduration" id="courseduration" v-if="course && course.courseduration" v-model="course.courseduration" />
+            <input type="text" name="courseduration" id="courseduration" v-show="course && course.courseduration" v-model="courseduration" />
         </div>
         <div class="input-container">
             <label for="coursepartecipants">Course Partecipants</label>
-            <input type="number" name="coursepartecipants" id="coursepartecipants" v-if="course && course.coursepartecipants" v-model="course.coursepartecipants" />
+            <input type="number" name="coursepartecipants" id="coursepartecipants" v-show="course && course.coursepartecipants" v-model="coursepartecipants" />
         </div>
         <input type="submit" value="EDIT COURSE"/>
     </form>
@@ -39,6 +39,14 @@ export default {
     },
   },
   emits: ['edit-course', 'toggle-edit-course'],
+  mounted() {
+    console.log(this.course);
+    if (this.course) {
+      this.coursename = this.course.coursename;
+      this.courseduration = this.course.courseduration;
+      this.coursepartecipants = this.course.coursepartecipants;
+    }
+  },
   methods: {
     submitForm(e) {
         e.preventDefault();
