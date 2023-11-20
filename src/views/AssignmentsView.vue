@@ -1,4 +1,5 @@
 <template>
+    <Alert v-show="showAlert" :alertText="alertText"/>
    <AssignmentsContainer @toggle-create-assignment="toggleCreateAssignment" @delete-assignment="deleteAssignment" :assignments="assignments" :teachers="teachers" :courses="courses" @toggle-edit-assignment="toggleEditAssignmentForm" />
    <div class="form-container" v-show="showCreateAssignment">
         <AddAssignmentFrom @create-assignment="createAssignment" @toggle-create-assignment="toggleCreateAssignment" :courses="courses" :teachers="teachers"/>
@@ -9,12 +10,14 @@
 
     import AssignmentsContainer from "../components/AssignmentsContainer"
     import AddAssignmentFrom from "../components/AddAssignmentFrom"
+    import Alert from "../components/Alert"
 
     export default {
         name: "AssignmentsView",
         components: {
             AssignmentsContainer,
             AddAssignmentFrom,
+            Alert,
         },
         data() {
             return {
@@ -22,6 +25,8 @@
                 teachers: [],
                 courses: [],
                 showCreateAssignment: false,
+                showAlert: false,
+                alertText: "ALERT"
             }
         },
         async created() {
@@ -30,6 +35,19 @@
             this.courses = await this.fetchCourses();
         },
         methods: {
+            showAlertWithTimeout(text, timeout) {
+                this.showAlert = true;
+                this.alertText = text;
+
+                // Memorizza il riferimento all'istanza Vue corrente
+                const self = this;
+
+                setTimeout(function() {
+                // Ora, usa self invece di this
+                self.showAlert = false;
+                // console.log("time passed");
+                }, timeout);
+            },
             // fetch dei dati nel file db.json dell'array assignments
             async fetchaAssignments() {
                 const res = await fetch("http://localhost:5000/assignments")
@@ -62,7 +80,7 @@
                     if (res.status === 200) {
                         this.assignments = this.assignments.filter((assignment) => assignment.id !== id);
                     } else {
-                        alert("Error deleting assignment");
+                        this.showAlertWithTimeout("Error deleting assignment", 7000)
                     }
                 }
             },
@@ -80,7 +98,7 @@
                 console.log(assignment);
                 const isAssignmentExisting = await this.isAssignmentExists(assignment);
                 if (isAssignmentExisting) {
-                    alert('Esiste già questo collegamento.');
+                    this.showAlertWithTimeout('Esiste già questo collegamento.', 7000)
                     return;
                 }
 

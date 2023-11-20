@@ -2,7 +2,7 @@
     <div class="teachers-container">
         <div class="big-group">
             <Button @btn-click="$emit('toggle-create-teacher')" text="CREATE TEACHER" />
-            <input @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher">
+            <!-- <input @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher"> -->
         </div>
         <div class="columnsNames">
             <div class="columnName">First name</div>
@@ -10,7 +10,7 @@
             <div class="columnName">Email</div>
             <div class="columnName">Phone number</div>
         </div>
-        <div :key="teacher.id" v-for="teacher in filteredTeachers">
+        <div :key="teacher.id" v-for="teacher in teachers /*filteredTeachers*/">
             <Teacher :teacher="teacher" @toggle-edit-teacher="$emit('toggle-edit-teacher', teacher)" @delete-teacher="$emit('delete-teacher', teacher.id)"/>
         </div>
     </div>
@@ -42,26 +42,26 @@
             this.filteredTeachers = [...this.teachers];          
         },
         methods: {
-            searchChange() {
-                // rimuovo spazi aggiuntivi
-                const searchTerm = this.searchteacher.trim().toLowerCase();
+            // searchChange() {
+            //     // rimuovo spazi aggiuntivi
+            //     const searchTerm = this.searchteacher.trim().toLowerCase();
 
-                if (searchTerm) {
-                    // filtro i teachers in base all'input
-                    this.filteredTeachers = this.teachers.filter((teacher) => {
-                        // trasformo l'input in minuscolo
-                        const fullName = `${teacher.firstname} ${teacher.lastname}`.toLowerCase();
-                        return (
-                            fullName.includes(searchTerm) ||
-                            teacher.email.toLowerCase().includes(searchTerm) ||
-                            teacher.phonenumber.includes(searchTerm)
-                        );
-                    });
-                } else {
-                    // se vuoto mostro tutti
-                    this.filteredTeachers = [...this.teachers];
-                }
-            },
+            //     if (searchTerm) {
+            //         // filtro i teachers in base all'input
+            //         this.filteredTeachers = this.teachers.filter((teacher) => {
+            //             // trasformo l'input in minuscolo
+            //             const fullName = `${teacher.firstname} ${teacher.lastname}`.toLowerCase();
+            //             return (
+            //                 fullName.includes(searchTerm) ||
+            //                 teacher.email.toLowerCase().includes(searchTerm) ||
+            //                 teacher.phonenumber.includes(searchTerm)
+            //             );
+            //         });
+            //     } else {
+            //         // se vuoto mostro tutti
+            //         this.filteredTeachers = [...this.teachers];
+            //     }
+            // },
         }
     }
 </script>

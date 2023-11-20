@@ -2,15 +2,15 @@
   "teachers": [
     {
       "id": 3,
-      "firstname": "Gianlucone",
+      "firstname": "Gianluca",
       "lastname": "Giallo",
       "email": "giallo@gmail.com",
       "phonenumber": "2361872498"
     },
     {
       "id": 4,
-      "firstname": "Gianluca",
-      "lastname": "Giallo",
+      "firstname": "Andrea",
+      "lastname": "Ciao",
       "email": "ciao@gmail.com",
       "phonenumber": "2361872495"
     }

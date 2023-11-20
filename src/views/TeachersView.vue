@@ -1,11 +1,12 @@
 <template>
-    <TeachersContainer @toggle-create-teacher="toggleCreateTeacher" @edit-teacher="EditTeacherForm" @delete-teacher="deleteTeacher" :teachers="teachers" @toggle-edit-teacher="toggleEditTeacherForm" />
-      <div class="form-container" v-show="showCreateTeacher">
-        <AddTeacherForm @create-teacher="createTeacher" @toggle-create-teacher="toggleCreateTeacher"/>
-      </div>
-      <div class="form-container" v-show="showEditTeacherForm">
-        <EditTeacherForm @edit-teacher="EditTeacherForm" @toggle-edit-teacher="toggleEditTeacherForm" :teacher="editingTeacher" />
-      </div>
+  <Alert v-show="showAlert" :alertText="alertText"/>
+  <TeachersContainer @toggle-create-teacher="toggleCreateTeacher" @delete-teacher="deleteTeacher" :teachers="teachers" @toggle-edit-teacher="toggleEditTeacherForm" />
+  <div class="form-container" v-show="showCreateTeacher">
+    <AddTeacherForm @create-teacher="createTeacher" @toggle-create-teacher="toggleCreateTeacher"/>
+  </div>
+  <div class="form-container" v-show="showEditTeacherForm">
+    <EditTeacherForm @edit-teacher="EditTeacherForm" @toggle-edit-teacher="toggleEditTeacherForm" :teacher="editingTeacher" />
+  </div>
 </template>
 
 <script>
@@ -13,13 +14,16 @@
   import AddTeacherForm from "../components/AddTeacherForm"
   import TeachersContainer from "../components/TeachersContainer"
   import EditTeacherForm from "../components/EditTeacherForm"
+  import Alert from "../components/Alert"
+
   export default {
       name: "TeachersView",
 
       components: {
-      AddTeacherForm,
-      TeachersContainer,
-      EditTeacherForm,
+        AddTeacherForm,
+        TeachersContainer,
+        EditTeacherForm,
+        Alert,
       },
       data() {
         return {
@@ -28,7 +32,9 @@
           showCreateTeacher: false,
           showEditTeacherForm: false,
           showTeachersContainer: true,
-          editingTeacher: null
+          editingTeacher: null,
+          showAlert: false,
+          alertText: "ALERT"
         }
       },
       async created() {
@@ -78,14 +84,20 @@
 
           if (hasAssignments) {
             // se vero blocco il delete dell'insegnante
-            alert("Cannot delete teacher. There are assignments associated with this teacher.");
+            this.showAlertWithTimeout("Cannot delete teacher. There are assignments associated with this teacher.", 7000)
           } else if(confirm('Are you sure?')) {
             // altrimenti continua con il delete
             const res = await fetch(`http://localhost:5000/teachers/${id}`, {
               method: "DELETE",
-            })
+            })  
 
-            res.status === 200 ? (this.teachers = this.teachers.filter((teacher) => teacher.id !== id)) : alert("Error deleting teacher")
+            
+            if (res.status === 200) {
+                this.teachers = this.teachers.filter((teacher) => teacher.id !== id);
+            } else {
+              this.showAlertWithTimeout("Error deleting teacher", 7000)
+            }
+
           }
         },
 
@@ -105,20 +117,35 @@
             return data.length > 0; // Restituisce true se esiste già un insegnante con lo stesso numero di telefono, altrimenti false
         },
 
+        showAlertWithTimeout(text, timeout) {
+          this.showAlert = true;
+          this.alertText = text;
+
+          // Memorizza il riferimento all'istanza Vue corrente
+          const self = this;
+
+          setTimeout(function() {
+            // Ora, usa self invece di this
+            self.showAlert = false;
+            // console.log("time passed");
+          }, timeout);
+        },
+
         async EditTeacherForm(id, newTeacher) {
           const teacherToEdit = await this.fetchTeacher(id);
 
           // Verifica se esiste già un insegnante con la stessa email
           const isEmailExisting = await this.isEmailExists(newTeacher.email);
           if (isEmailExisting && newTeacher.email !== teacherToEdit.email) {
-            alert('Esiste già un insegnante con la stessa email.');
+            this.showAlertWithTimeout("Esiste già un insegnante con la stessa email.", 7000)
             return;
           }
 
           // Verifica se esiste già un insegnante con lo stesso numero di telefono
           const isPhoneExisting = await this.isPhoneExists(newTeacher.phonenumber);
           if (isPhoneExisting && newTeacher.phonenumber !== teacherToEdit.phonenumber) {
-            alert('Esiste già un insegnante con lo stesso numero di telefono.');
+            // alert('Esiste già un insegnante con lo stesso numero di telefono.');
+            this.showAlertWithTimeout('Esiste già un insegnante con lo stesso numero di telefono.', 7000)
             return;
           }
 
@@ -149,14 +176,14 @@
             // Verifica se esiste già un insegnante con la stessa email
             const isEmailExisting = await this.isEmailExists(teacher.email);
             if (isEmailExisting) {
-              alert('Esiste già un insegnante con la stessa email.');
+              this.showAlertWithTimeout('Esiste già un insegnante con la stessa email.', 7000)
               return;
             }
 
             // Verifica se esiste già un insegnante con lo stesso numero di telefono
             const isPhoneExisting = await this.isPhoneExists(teacher.phonenumber);
             if (isPhoneExisting) {
-              alert('Esiste già un insegnante con lo stesso numero di telefono.');
+              this.showAlertWithTimeout('Esiste già un insegnante con lo stesso numero di telefono.', 7000)
               return;
             }
 

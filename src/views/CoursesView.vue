@@ -1,11 +1,12 @@
 <template>
-    <CoursesContainer @toggle-create-course="toggleCreateCourse" @edit-course="EditCourseForm" @delete-course="deleteCourse" :courses="courses" @toggle-edit-course="toggleEditCourseForm" />
-      <div class="form-container" v-show="showCreateCourse">
-        <AddCourseForm @create-course="createCourse" @toggle-create-course="toggleCreateCourse"/>
-      </div>
-      <div class="form-container" v-show="showEditCourseForm">
-        <EditCourseForm @edit-course="EditCourseForm" @toggle-edit-course="toggleEditCourseForm" :course="editingCourse" />
-      </div>
+  <Alert v-show="showAlert" :alertText="alertText"/>
+  <CoursesContainer @toggle-create-course="toggleCreateCourse" @delete-course="deleteCourse" :courses="courses" @toggle-edit-course="toggleEditCourseForm" />
+  <div class="form-container" v-show="showCreateCourse">
+    <AddCourseForm @create-course="createCourse" @toggle-create-course="toggleCreateCourse"/>
+  </div>
+  <div class="form-container" v-show="showEditCourseForm">
+    <EditCourseForm @edit-course="EditCourseForm" @toggle-edit-course="toggleEditCourseForm" :course="editingCourse" />
+  </div>
 </template>
 
 <script>
@@ -13,6 +14,8 @@
     import AddCourseForm from "../components/AddCourseForm"
     import CoursesContainer from "../components/CoursesContainer"
     import EditCourseForm from "../components/EditCourseForm"
+    import Alert from "../components/Alert"
+
     export default {
         name: "CoursesView",
 
@@ -20,6 +23,7 @@
         AddCourseForm,
         CoursesContainer,
         EditCourseForm,
+        Alert,
         },
         data() {
         return {
@@ -27,7 +31,9 @@
             assignments: [],
             showCreateCourse: false,
             showEditCourseForm: false,
-            editingCourse: null
+            editingCourse: null,
+            showAlert: false,
+            alertText: "ALERT"
         }
         },
         async created() {
@@ -35,123 +41,137 @@
             this.assignments = await this.fetchaAssignments();
         },
         methods: {
-        // fetch dei dati nel file db.json dell'array courses
-        async fetchCourses() {
-            const res = await fetch("http://localhost:5000/courses")
 
-            const data = await res.json()
+          showAlertWithTimeout(text, timeout) {
+            this.showAlert = true;
+            this.alertText = text;
 
-            return data;
-        },
-        async fetchCourse(id) {
-            const res = await fetch(`http://localhost:5000/courses/${id}`)
+            // Memorizza il riferimento all'istanza Vue corrente
+            const self = this;
 
-            const data = await res.json()
+            setTimeout(function() {
+              // Ora, usa self invece di this
+              self.showAlert = false;
+              // console.log("time passed");
+            }, timeout);
+          },
+          // fetch dei dati nel file db.json dell'array courses
+          async fetchCourses() {
+              const res = await fetch("http://localhost:5000/courses")
 
-            return data
-        },
-        async fetchaAssignments() {
-            const res = await fetch('http://localhost:5000/assignments')
+              const data = await res.json()
 
-            const data = await res.json()
+              return data;
+          },
+          async fetchCourse(id) {
+              const res = await fetch(`http://localhost:5000/courses/${id}`)
 
-            return data
-        },
-        async fetchaAssignmentsCourse(idcourse) {
-            const res = await fetch(`http://localhost:5000/assignments?idcourse=${idcourse}`)
+              const data = await res.json()
 
-            const data = await res.json()
+              return data
+          },
+          async fetchaAssignments() {
+              const res = await fetch('http://localhost:5000/assignments')
 
-            return data.length > 0;
-        },
-        async deleteCourse(id) {
-          const hasAssignments = await this.fetchaAssignmentsCourse(id);
+              const data = await res.json()
 
-          if (hasAssignments) {
-            alert("Cannot delete course. There are assignments associated with this course.");
-          } else if (confirm("Are you sure you want to delete this course?")) {
-            const res = await fetch(`http://localhost:5000/courses/${id}`, {
-              method: "DELETE",
-            });
+              return data
+          },
+          async fetchaAssignmentsCourse(idcourse) {
+              const res = await fetch(`http://localhost:5000/assignments?idcourse=${idcourse}`)
 
-            if (res.status === 200) {
-              this.courses = this.courses.filter((course) => course.id !== id);
-            } else {
-              alert("Error deleting course");
+              const data = await res.json()
+
+              return data.length > 0;
+          },
+          async deleteCourse(id) {
+            const hasAssignments = await this.fetchaAssignmentsCourse(id);
+
+            if (hasAssignments) {
+              this.showAlertWithTimeout("Cannot delete course. There are assignments associated with this course.", 7000)
+            } else if (confirm("Are you sure you want to delete this course?")) {
+              const res = await fetch(`http://localhost:5000/courses/${id}`, {
+                method: "DELETE",
+              });
+
+              if (res.status === 200) {
+                this.courses = this.courses.filter((course) => course.id !== id);
+              } else {
+                this.showAlertWithTimeout("Error deleting course", 7000)
+              }
             }
-          }
-        },
+          },
 
-        async isCourseExists(coursename) {
-            // Effettua una chiamata API per verificare se esiste già un corso con lo stesso nome
-            const res = await fetch(`http://localhost:5000/courses?coursename=${coursename}`);
-            const data = await res.json();
+          async isCourseExisting(coursename) {
+              // Effettua una chiamata API per verificare se esiste già un corso con lo stesso nome
+              const res = await fetch(`http://localhost:5000/courses?coursename=${coursename}`);
+              const data = await res.json();
 
-            return data.length > 0; // Restituisce true se esiste già un corso con lo stesso nome, altrimenti false
-        },
+              return data.length > 0; // Restituisce true se esiste già un corso con lo stesso nome, altrimenti false
+          },
 
-        async EditCourseForm(id, newCourse) {
-            const courseToEdit = await this.fetchCourse(id);
+          async EditCourseForm(id, newCourse) {
+              const courseToEdit = await this.fetchCourse(id);
 
-            // Verifica se esiste già un corso con lo stesso nome
-            const isCourseExisting = await this.isCourseExists(newCourse.coursename);
-            if (isCourseExisting) {
-                alert('Esiste già un corso con lo stesso nome.');
-                return;
-            }
+              // Verifica se esiste già un corso con lo stesso nome
+              const isCourseExisting = await this.isCourseExisting(newCourse.coursename);
+              if (isCourseExisting) {
+                  this.showAlertWithTimeout('Esiste già un corso con lo stesso nome.', 7000)
+                  return;
+              }
 
-            const upCourse = {
-            id: courseToEdit.id,
-            ...newCourse,
-            };
+              const upCourse = {
+              id: courseToEdit.id,
+              ...newCourse,
+              };
 
-            const res = await fetch(`http://localhost:5000/courses/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(upCourse),
-            });
+              const res = await fetch(`http://localhost:5000/courses/${id}`, {
+              method: "PUT",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify(upCourse),
+              });
 
-            const data = await res.json();
+              const data = await res.json();
 
-            // Aggiorna la lista dei corsi con il nuovo dato ricevuto dal server
-            this.courses = this.courses.map((course) =>
-            course.id === id ? { ...course, ...data } : course
-            );
+              // Aggiorna la lista dei corsi con il nuovo dato ricevuto dal server
+              this.courses = this.courses.map((course) =>
+              course.id === id ? { ...course, ...data } : course
+              );
 
-            this.showEditCourseForm = !this.showEditCourseForm
-        },
+              this.showEditCourseForm = !this.showEditCourseForm
+          },
 
-        async createCourse(course) {
-            // Verifica se esiste già un corso con lo stesso nome
-            const isCourseExisting = await this.isCourseExists(course.coursename);
-            if (isCourseExisting) {
-                alert('Esiste già un corso con lo stesso nome.');
-                return;
-            }
+          async createCourse(course) {
+              // Verifica se esiste già un corso con lo stesso nome
+              const isCourseExisting = await this.isCourseExisting(course.coursename);
+              if (isCourseExisting) {
+                  this.showAlertWithTimeout('Esiste già un corso con lo stesso nome.', 7000)
+                  return;
+              }
 
-            const res = await fetch("http://localhost:5000/courses", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(course),
-            });
+              const res = await fetch("http://localhost:5000/courses", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(course),
+              });
 
-            const data = await res.json();
+              const data = await res.json();
 
-            this.courses = [...this.courses, data];
-            this.showCreateCourse = !this.showCreateCourse;
-        },
-        
-        // toggle del form create course
-        toggleCreateCourse() {
-            this.showCreateCourse = !this.showCreateCourse
-        },
+              this.courses = [...this.courses, data];
+              this.showCreateCourse = !this.showCreateCourse;
+          },
+          
+          // toggle del form create course
+          toggleCreateCourse() {
+              this.showCreateCourse = !this.showCreateCourse
+          },
 
-        toggleEditCourseForm(course) {
-            this.editingCourse = course;
-            this.showEditCourseForm = !this.showEditCourseForm
-        },
+          toggleEditCourseForm(course) {
+              this.editingCourse = course;
+              this.showEditCourseForm = !this.showEditCourseForm
+          },
 
         }
     }
