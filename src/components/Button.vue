@@ -1,6 +1,7 @@
 <template>
     <button :style="{width: btnwidth, height: btnheight, background: color}" @click="onClick()" class="btn">
         {{ text }}
+        <slot name="icon"></slot>
     </button>
 </template>
 

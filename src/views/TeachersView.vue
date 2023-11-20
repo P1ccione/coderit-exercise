@@ -135,23 +135,27 @@
           const teacherToEdit = await this.fetchTeacher(id);
 
           // Verifica se esiste già un insegnante con la stessa email
-          const isEmailExisting = await this.isEmailExists(newTeacher.email);
-          if (isEmailExisting && newTeacher.email !== teacherToEdit.email) {
-            this.showAlertWithTimeout("Esiste già un insegnante con la stessa email.", 7000)
-            return;
+          if (newTeacher.email !== teacherToEdit.email) {
+            const isEmailExisting = await this.isEmailExists(newTeacher.email);
+            if (isEmailExisting && newTeacher.email !== teacherToEdit.email) {
+              this.showAlertWithTimeout("Esiste già un insegnante con la stessa email.", 7000)
+              return;
+            }
           }
 
           // Verifica se esiste già un insegnante con lo stesso numero di telefono
-          const isPhoneExisting = await this.isPhoneExists(newTeacher.phonenumber);
-          if (isPhoneExisting && newTeacher.phonenumber !== teacherToEdit.phonenumber) {
-            // alert('Esiste già un insegnante con lo stesso numero di telefono.');
-            this.showAlertWithTimeout('Esiste già un insegnante con lo stesso numero di telefono.', 7000)
-            return;
+          if (newTeacher.phonenumber !== teacherToEdit.phonenumber) {
+            const isPhoneExisting = await this.isPhoneExists(newTeacher.phonenumber);
+            if (isPhoneExisting && newTeacher.phonenumber !== teacherToEdit.phonenumber) {
+              // alert('Esiste già un insegnante con lo stesso numero di telefono.');
+              this.showAlertWithTimeout('Esiste già un insegnante con lo stesso numero di telefono.', 7000)
+              return;
+            }
           }
 
           const upTeacher = {
-          id: teacherToEdit.id,
-          ...newTeacher,
+            id: teacherToEdit.id,
+            ...newTeacher,
           };
 
           const res = await fetch(`http://localhost:5000/teachers/${id}`, {

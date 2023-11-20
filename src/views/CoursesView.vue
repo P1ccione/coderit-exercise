@@ -31,7 +31,7 @@
             assignments: [],
             showCreateCourse: false,
             showEditCourseForm: false,
-            editingCourse: null,
+            editingCourse: {},
             showAlert: false,
             alertText: "ALERT"
         }
@@ -111,36 +111,48 @@
           },
 
           async EditCourseForm(id, newCourse) {
-              const courseToEdit = await this.fetchCourse(id);
+            const hasAssignments = await this.fetchaAssignmentsCourse(id);
 
-              // Verifica se esiste già un corso con lo stesso nome
+            if (hasAssignments && !confirm("This course has assignments. Are you sure to edit this course?")) {
+              return;
+            }
+
+            const courseToEdit = await this.fetchCourse(id);
+
+            // Se il nome del corso è cambiato, verifica se esiste già un corso con lo stesso nome
+            if (newCourse.coursename !== courseToEdit.coursename) {
               const isCourseExisting = await this.isCourseExisting(newCourse.coursename);
               if (isCourseExisting) {
-                  this.showAlertWithTimeout('Esiste già un corso con lo stesso nome.', 7000)
-                  return;
+                this.showAlertWithTimeout('Esiste già un corso con lo stesso nome.', 7000);
+                return;
               }
+            }
 
-              const upCourse = {
-              id: courseToEdit.id,
+            const upCourse = {
+              id: id,
               ...newCourse,
-              };
+            };
 
-              const res = await fetch(`http://localhost:5000/courses/${id}`, {
+            console.log(upCourse, "upCourse");
+            console.log(id, "id");
+            console.log(newCourse, "newCourse");
+
+            const res = await fetch(`http://localhost:5000/courses/${id}`, {
               method: "PUT",
               headers: {
-                  "Content-Type": "application/json",
+                "Content-Type": "application/json",
               },
               body: JSON.stringify(upCourse),
-              });
+            });
 
-              const data = await res.json();
+            const data = await res.json();
 
-              // Aggiorna la lista dei corsi con il nuovo dato ricevuto dal server
-              this.courses = this.courses.map((course) =>
+            // Aggiorna la lista dei corsi con il nuovo dato ricevuto dal server
+            this.courses = this.courses.map((course) =>
               course.id === id ? { ...course, ...data } : course
-              );
+            );
 
-              this.showEditCourseForm = !this.showEditCourseForm
+            this.showEditCourseForm = !this.showEditCourseForm;
           },
 
           async createCourse(course) {

@@ -3,11 +3,15 @@
       <div class="column-content">{{ teacher.firstname }} {{ teacher.lastname }}</div>
       <div class="column-content">{{ course.coursename }}</div>
       <div class="buttons-group">
-        <Button btnheight="30px" btnwidth="80px" @btn-click="deleteAssignment" text="DELETE" color="red" />
+        <Button btnheight="40px" btnwidth="40px" @btn-click="deleteAssignment" color="red" >
+            <template #icon>
+                <img src="../assets/delete_icon.svg" alt="">
+            </template>
+        </Button>
       </div>
     </div>
   </template>
-  
+
   <script>
   import Button from "./Button";
   
@@ -68,7 +72,7 @@
         row-gap: 10px;
     }
     .buttons-group {
-        width: 200px;
+        width: 85px;
         display: flex;
         justify-content: center;
         align-items: center;

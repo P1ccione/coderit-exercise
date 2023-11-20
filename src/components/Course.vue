@@ -4,8 +4,16 @@
         <div class="column-content">{{ course.courseduration }}</div>
         <div class="column-content">{{ course.coursepartecipants }}</div>
         <div class="buttons-group">
-            <Button btnheight="30px" btnwidth="80px" @btn-click="$emit('toggle-edit-course', course)" text="EDIT" />
-            <Button btnheight="30px" btnwidth="80px" @btn-click="$emit('delete-course', course.id)" text="DELETE" color="red" />
+            <Button btnheight="40px" btnwidth="40px" @btn-click="$emit('toggle-edit-course', course)" >
+                <template #icon>
+                    <img src="../assets/edit_icon.svg" alt="">
+                </template>
+            </Button>
+            <Button btnheight="40px" btnwidth="40px" @btn-click="$emit('delete-course', course.id)" color="red" >
+                <template #icon>
+                    <img src="../assets/delete_icon.svg" alt="">
+                </template>
+            </Button>
         </div>
     </div>
 </template>
@@ -55,7 +63,7 @@
         row-gap: 10px;
     }
     .buttons-group {
-        width: 200px;
+        width: 125px;
         display: flex;
         justify-content: center;
         align-items: center;

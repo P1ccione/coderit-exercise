@@ -2,7 +2,7 @@
     <div class="teachers-container">
         <div class="big-group">
             <Button @btn-click="$emit('toggle-create-teacher')" text="CREATE TEACHER" />
-            <!-- <input @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher"> -->
+            <input @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher">
         </div>
         <div class="columnsNames">
             <div class="columnName">First name</div>
@@ -10,8 +10,11 @@
             <div class="columnName">Email</div>
             <div class="columnName">Phone number</div>
         </div>
-        <div :key="teacher.id" v-for="teacher in teachers /*filteredTeachers*/">
-            <Teacher :teacher="teacher" @toggle-edit-teacher="$emit('toggle-edit-teacher', teacher)" @delete-teacher="$emit('delete-teacher', teacher.id)"/>
+        <div v-if="teachers.length > 0">
+            <Teacher :key="teacher.id" v-for="teacher in filteredTeachers" :teacher="teacher" @toggle-edit-teacher="$emit('toggle-edit-teacher', teacher)" @delete-teacher="$emit('delete-teacher', teacher.id)"/>
+        </div>
+        <div v-else class="msg">
+            <p>NO TEACHERS FOUND</p>
         </div>
     </div>
 </template>
@@ -24,8 +27,8 @@
         name: "TeachersContainer",
         data(){
             return{
-                searchteacher:'',
-                filteredTeachers: [],
+                searchteacher: '',
+                filteredTeachers: []
             }
         },
         components: {
@@ -37,31 +40,32 @@
                 type: Array
             }
         },
-        created() {
+        mounted() {
             // Inizialmente mostra tutti i teachers
-            this.filteredTeachers = [...this.teachers];          
+            this.searchteacher = ''
+            this.filteredTeachers = [...this.teachers];
         },
         methods: {
-            // searchChange() {
-            //     // rimuovo spazi aggiuntivi
-            //     const searchTerm = this.searchteacher.trim().toLowerCase();
+            searchChange() {
+                // rimuovo spazi aggiuntivi
+                const searchTerm = this.searchteacher.trim().toLowerCase();
 
-            //     if (searchTerm) {
-            //         // filtro i teachers in base all'input
-            //         this.filteredTeachers = this.teachers.filter((teacher) => {
-            //             // trasformo l'input in minuscolo
-            //             const fullName = `${teacher.firstname} ${teacher.lastname}`.toLowerCase();
-            //             return (
-            //                 fullName.includes(searchTerm) ||
-            //                 teacher.email.toLowerCase().includes(searchTerm) ||
-            //                 teacher.phonenumber.includes(searchTerm)
-            //             );
-            //         });
-            //     } else {
-            //         // se vuoto mostro tutti
-            //         this.filteredTeachers = [...this.teachers];
-            //     }
-            // },
+                if (searchTerm) {
+                    // filtro i teachers in base all'input
+                    this.filteredTeachers = this.teachers.filter((teacher) => {
+                        // trasformo l'input in minuscolo
+                        const fullName = `${teacher.firstname} ${teacher.lastname}`.toLowerCase();
+                        return (
+                            fullName.includes(searchTerm) ||
+                            teacher.email.toLowerCase().includes(searchTerm) ||
+                            teacher.phonenumber.includes(searchTerm)
+                        );
+                    });
+                } else {
+                    // se vuoto mostro tutti
+                    this.filteredTeachers = [...this.teachers];
+                }
+            },
         }
     }
 </script>
@@ -75,6 +79,17 @@
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .msg {
+        width: 100%;
+        display: flex;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-top: 60px
     }
 
     .big-group {

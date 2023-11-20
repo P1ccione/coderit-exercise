@@ -9,9 +9,9 @@
     },
     {
       "id": 4,
-      "firstname": "Andrea",
-      "lastname": "Ciao",
-      "email": "ciao@gmail.com",
+      "firstname": "Pietro",
+      "lastname": "Blu",
+      "email": "blu@gmail.com",
       "phonenumber": "2361872495"
     }
   ],
@@ -19,8 +19,8 @@
     {
       "id": 3,
       "coursename": "Java",
-      "courseduration": "200h",
-      "coursepartecipants": 20
+      "courseduration": "30h",
+      "coursepartecipants": 432423
     },
     {
       "id": 4,
@@ -31,14 +31,14 @@
   ],
   "assignments": [
     {
-      "id": 1,
       "idteacher": 3,
-      "idcourse": 4
+      "idcourse": 3,
+      "id": 1
     },
     {
-      "id": 2,
-      "idteacher": 3,
-      "idcourse": 3
+      "idteacher": 4,
+      "idcourse": 4,
+      "id": 2
     }
   ]
 }

@@ -5,13 +5,16 @@
         <div class="columnName">Teacher name</div>
         <div class="columnName">Course name</div>
       </div>
-      <div :key="assignment.id" v-for="assignment in assignments">
-        <Assignment
+      <div v-if="assignments.length > 0">
+        <Assignment :key="assignment.id" v-for="assignment in assignments" 
           :assignment="assignment"
           :teacher="getTeacher(assignment.idteacher)"
           :course="getCourse(assignment.idcourse)"
           @delete-assignment="$emit('delete-assignment', assignment.id)"
         />
+      </div>
+      <div v-else class="msg">
+          <p>NO ASSIGNMENTS FOUND</p>
       </div>
     </div>
   </template>
@@ -63,6 +66,16 @@
         justify-content: center;
     }
 
+    .msg {
+        width: 100%;
+        display: flex;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-top: 60px
+    }
     .columnsNames {
         width: auto;
         height: 50px;
