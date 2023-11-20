@@ -1,11 +1,11 @@
 <template>
   <Alert v-show="showAlert" :alertText="alertText"/>
-  <TeachersContainer @toggle-create-teacher="toggleCreateTeacher" @delete-teacher="deleteTeacher" :teachers="teachers" @toggle-edit-teacher="toggleEditTeacherForm" />
+  <TeachersContainer @toggle-create-teacher="toggleCreateTeacher" @delete-teacher="deleteTeacher" :teachers="teachers" @toggle-edit-teacher="toggleEditTeacherForm1" />
   <div class="form-container" v-show="showCreateTeacher">
     <AddTeacherForm @create-teacher="createTeacher" @toggle-create-teacher="toggleCreateTeacher"/>
   </div>
   <div class="form-container" v-show="showEditTeacherForm">
-    <EditTeacherForm @edit-teacher="EditTeacherForm" @toggle-edit-teacher="toggleEditTeacherForm" :teacher="editingTeacher" />
+    <EditTeacherForm @edit-teacher="EditTeacherForm" @toggle-edit-teacher="toggleEditTeacherForm" :editingTeacher="this.editingTeacher" />
   </div>
 </template>
 
@@ -205,8 +205,14 @@
         },
 
         // toggle del form edit teacher
-        toggleEditTeacherForm(teacher) {
+        toggleEditTeacherForm1(teacher) {
             this.editingTeacher = teacher;
+            console.log(teacher);
+            console.log(this.editingTeacher);
+            this.showEditTeacherForm = !this.showEditTeacherForm
+        },
+
+        toggleEditTeacherForm() {
             this.showEditTeacherForm = !this.showEditTeacherForm
         },
 

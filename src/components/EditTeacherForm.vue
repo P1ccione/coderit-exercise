@@ -1,24 +1,24 @@
 <template>
-    <Button @btn-click="$emit('toggle-edit-teacher')" text="CLOSE FORM" />
-    <form @submit="submitForm">
-        <div class="input-container">
-            <label for="firstname">First Name</label>
-            <input type="text" name="firstname" id="firstname" v-if="teacher && teacher.firstname" v-model="teacher.firstname" />
-        </div>
-        <div class="input-container">
-            <label for="lastname">Last Name</label>
-            <input type="text" name="lastname" id="lastname" v-if="teacher && teacher.lastname" v-model="teacher.lastname" />
-        </div>
-        <div class="input-container">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" v-if="teacher && teacher.email" v-model="teacher.email" />
-        </div>
-        <div class="input-container">
-            <label for="phonenumber">Phone Number</label>
-            <input type="tel" name="phonenumber" id="phonenumber" v-if="teacher && teacher.phonenumber" v-model="teacher.phonenumber" />
-        </div>
-        <input type="submit" value="EDIT TEACHER"/>
-    </form>
+  <Button @btn-click="$emit('toggle-edit-teacher')" text="CLOSE FORM" />
+  <form @submit="submitForm">
+    <div class="input-container">
+        <label for="firstname">First Name</label>
+        <input type="text" name="firstname" id="firstname" v-show="editingTeacher && editingTeacher.firstname" v-model="firstname" />
+    </div>
+    <div class="input-container">
+        <label for="lastname">Last Name</label>
+        <input type="text" name="lastname" id="lastname" v-show="editingTeacher && editingTeacher.lastname" v-model="lastname" />
+    </div>
+    <div class="input-container">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" v-show="editingTeacher && editingTeacher.email" v-model="email" />
+    </div>
+    <div class="input-container">
+        <label for="phonenumber">Phone Number</label>
+        <input type="tel" name="phonenumber" id="phonenumber" v-show="editingTeacher && editingTeacher.phonenumber" v-model="phonenumber" />
+    </div>
+    <input type="submit" value="EDIT TEACHER"/>
+  </form>
 </template>
 
 <script>
@@ -38,38 +38,47 @@ export default {
     Button,
   },
   props: {
-    teacher: {
+    editingTeacher: {
       type: Object,
       default: null,
     },
   },
   emits: ['edit-teacher', 'toggle-edit-teacher'],
+  mounted() {
+    console.log(this.editingTeacher);
+    if (this.editingTeacher) {
+      this.firstname = this.editingTeacher.firstname;
+      this.lastname = this.editingTeacher.lastname;
+      this.email = this.editingTeacher.email;
+      this.phonenumber = this.editingTeacher.phonenumber;
+    }
+  },
   methods: {
     submitForm(e) {
         e.preventDefault();
-        console.log(this.teacher.id);
-        if (!this.teacher.firstname) {
+        console.log(this.editingTeacher.id);
+        if (!this.firstname) {
           alert("Please add the first name");
           return;
-        } else if (!this.teacher.lastname) {
+        } else if (!this.lastname) {
           alert("Please add the last name");
           return;
-        } else if (!this.teacher.email) {
+        } else if (!this.email) {
           alert("Please add the email address");
           return;
-        } else if (!this.teacher.phonenumber) {
+        } else if (!this.phonenumber) {
           alert("Please add the phone number");
           return;
         }
         console.log("passed");
         const newTeacher = {
-          firstname: this.teacher.firstname,
-          lastname: this.teacher.lastname,
-          email: this.teacher.email,
-          phonenumber: this.teacher.phonenumber,
+          firstname: this.firstname,
+          lastname: this.lastname,
+          email: this.email,
+          phonenumber: this.phonenumber,
         };
         console.log(newTeacher);
-        this.$emit("edit-teacher", this.teacher.id, newTeacher);
+        this.$emit("edit-teacher", this.editingTeacher.id, newTeacher);
     },
   },
 };
