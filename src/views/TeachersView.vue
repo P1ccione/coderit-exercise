@@ -169,9 +169,7 @@
           const data = await res.json();
 
           // Aggiorna la lista degli insegnanti con il nuovo dato ricevuto dal server
-          this.teachers = this.teachers.map((teacher) =>
-          teacher.id === id ? { ...teacher, ...data } : teacher
-          );
+          this.teachers = await this.fetchTeachers();
 
           this.showEditTeacherForm = !this.showEditTeacherForm;
         },

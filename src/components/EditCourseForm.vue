@@ -51,20 +51,20 @@ export default {
     submitForm(e) {
         e.preventDefault();
         console.log(this.course.id);
-        if (!this.course.coursename) {
+        if (!this.coursename) {
             alert("Please add the course name");
             return;
-        } else if (!this.course.courseduration) {
+        } else if (!this.courseduration) {
             alert("Please add the course duration");
             return;
-        } else if (!this.course.coursepartecipants) {
+        } else if (!this.coursepartecipants) {
             alert("Please add the course partecipants");
             return;
         }
         const newCourse = {
-            coursename: this.course.coursename,
-            courseduration: this.course.courseduration,
-            coursepartecipants: this.course.coursepartecipants,
+            coursename: this.coursename,
+            courseduration: this.courseduration,
+            coursepartecipants: this.coursepartecipants,
         };
         console.log(newCourse);
         this.$emit("edit-course", this.course.id, newCourse);

@@ -2,7 +2,7 @@
     <div class="teachers-container">
         <div class="big-group">
             <Button @btn-click="$emit('toggle-create-teacher')" text="CREATE TEACHER" />
-            <input @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher">
+            <input @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher.filter">
         </div>
         <div class="columnsNames">
             <div class="columnName">First name</div>
@@ -22,12 +22,15 @@
 <script>
     import Teacher from "./Teacher"
     import Button from "./Button"
+    import { thisTypeAnnotation } from "@babel/types";
 
     export default {
         name: "TeachersContainer",
         data(){
             return{
-                searchteacher: '',
+                searchteacher: {
+                    filter: ""
+                },
                 filteredTeachers: []
             }
         },
@@ -42,13 +45,23 @@
         },
         mounted() {
             // Inizialmente mostra tutti i teachers
-            this.searchteacher = ''
+            console.log("mounted start");
             this.filteredTeachers = [...this.teachers];
+            this.searchChange();
+        },
+        // reazione ai cambiamenti dei props
+        watch: {
+            teachers: function(newVal, oldVal) {
+                console.log(newVal);
+                this.searchChange()
+            }
         },
         methods: {
             searchChange() {
                 // rimuovo spazi aggiuntivi
-                const searchTerm = this.searchteacher.trim().toLowerCase();
+                const searchTerm = this.searchteacher.filter.trim().toLowerCase();
+                console.log(searchTerm);
+                console.log(!!searchTerm);
 
                 if (searchTerm) {
                     // filtro i teachers in base all'input
@@ -64,6 +77,8 @@
                 } else {
                     // se vuoto mostro tutti
                     this.filteredTeachers = [...this.teachers];
+                    console.log("filteredarray", this.filteredTeachers)
+                    console.log("filteredarray", this.teachers)
                 }
             },
         }

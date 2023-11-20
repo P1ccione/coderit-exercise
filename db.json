@@ -4,8 +4,8 @@
       "id": 3,
       "firstname": "Gianluca",
       "lastname": "Giallo",
-      "email": "giallo@gmail.com",
-      "phonenumber": "2361872497"
+      "email": "ciao@gmail.com",
+      "phonenumber": "2361872490"
     },
     {
       "id": 4,
@@ -19,8 +19,8 @@
     {
       "id": 3,
       "coursename": "Java",
-      "courseduration": "30h",
-      "coursepartecipants": 432423
+      "courseduration": "43h",
+      "coursepartecipants": 322
     },
     {
       "id": 4,
@@ -34,11 +34,6 @@
       "idteacher": 3,
       "idcourse": 3,
       "id": 1
-    },
-    {
-      "idteacher": 4,
-      "idcourse": 4,
-      "id": 2
     }
   ]
 }
