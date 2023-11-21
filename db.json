@@ -243,7 +243,7 @@
       "id": 5,
       "coursename": "JavaScript",
       "courseduration": "35h",
-      "coursepartecipants": 200
+      "coursepartecipants": "2001"
     },
     {
       "id": 6,
@@ -388,24 +388,6 @@
       "coursename": "Virtual Reality",
       "courseduration": "40h",
       "coursepartecipants": 150
-    },
-    {
-      "id": 30,
-      "coursename": "Natural Language Processing",
-      "courseduration": "50h",
-      "coursepartecipants": 200
-    },
-    {
-      "coursename": "Python-2",
-      "courseduration": "23h",
-      "coursepartecipants": "12",
-      "id": 31
-    },
-    {
-      "coursename": "Java-2",
-      "courseduration": "333h",
-      "coursepartecipants": "12",
-      "id": 32
     }
   ],
   "assignments": [

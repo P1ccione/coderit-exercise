@@ -1,19 +1,18 @@
-<template>
-    <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
-</template>
-
 <script>
     import AssignmentsTable from '../components/AssignmentsTable.vue';
+    import AddAssignmentForm from '../components/AddAssignmentForm.vue';
     export default {
         name: "AssignmentsView",
         components: {
             AssignmentsTable,
+            AddAssignmentForm
         },
         data() {
             return {
                 assignments: [],
                 teachers: [],
                 courses: [],
+                showAddAssignmentForm: true
             }
         },
         async created() {
@@ -57,6 +56,26 @@
     }
 </script>
 
-<style scoped>
+<template>
+    <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
+    <div v-show="showAddAssignmentForm" class="form-container">
+        <AddAssignmentForm />
+    </div>
+</template>
 
+<style scoped>
+    .form-container{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 30px;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        background-color: rgba(0,0,0,0.6);
+        z-index: 100;
+        backdrop-filter: blur(2px);
+    }
 </style>

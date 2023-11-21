@@ -186,7 +186,7 @@
         position: absolute;
         top: 0;
         background-color: rgba(0,0,0,0.6);
-        z-index: 100000;
+        z-index: 100;
         backdrop-filter: blur(2px);
     }
 </style>

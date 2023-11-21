@@ -53,12 +53,12 @@
                         <td>{{ item.coursepartecipants }}</td>
                         <td>
                             <div class="btn-group">
-                                <Button buttoncolor="#d11b0f">
+                                <Button buttoncolor="#d11b0f" @btn-click="$emit('delete-course', item.id)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
                                 </Button>
-                                <Button buttoncolor="grey">
+                                <Button buttoncolor="grey" @btn-click="$emit('toggle-edit-course-form', item)">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
                                     </template>

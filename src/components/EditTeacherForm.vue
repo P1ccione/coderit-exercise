@@ -20,7 +20,7 @@
             return 'Last Name needs to be at least 2 characters.'
         },
         phonenumber(value) {
-            if (value?.length > 9 && /^[0-9-]+$/.test(value)) return true
+            if (value?.length >= 9 && /^[0-9-]+$/.test(value)) return true
             return 'Phone Number needs to be at least 9 digits.'
         },
         email(value) {
