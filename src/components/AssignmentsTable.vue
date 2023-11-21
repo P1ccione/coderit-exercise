@@ -39,7 +39,8 @@
         <div v-if="assignments.length > 0">
             <v-table
                 fixed-header
-                height="500px"
+                max-height="500px"
+                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px"
             >
                 <thead>
                     <tr>

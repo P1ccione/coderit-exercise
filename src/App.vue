@@ -18,7 +18,7 @@
       }
     },
     methods: {
-      showAlert(alerttext, alerttitle, timeout) {
+      showAlert(alerttitle, alerttext, timeout) {
         this.text = alerttext
         this.title = alerttitle
         this.showAlertState = true
@@ -46,5 +46,6 @@
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 9999999;
   }
 </style>

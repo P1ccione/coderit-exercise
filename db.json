@@ -4,15 +4,15 @@
       "id": 3,
       "firstname": "Gianluca",
       "lastname": "Giallo",
-      "email": "giallo@gmail.com",
-      "phonenumber": "2361872490"
+      "phonenumber": 2361872495,
+      "email": "giallo@gmail.com"
     },
     {
       "id": 4,
       "firstname": "Pietro",
       "lastname": "Blu",
-      "email": "blu@gmail.com",
-      "phonenumber": "2361872495"
+      "phonenumber": 2361872497,
+      "email": "blu@gmail.com"
     },
     {
       "id": 5,
@@ -25,8 +25,8 @@
       "id": 6,
       "firstname": "Roberto",
       "lastname": "Rossi",
-      "email": "roberto@hotmail.com",
-      "phonenumber": "3487654321"
+      "phonenumber": 3487654321,
+      "email": "roberto@hotmail.com"
     },
     {
       "id": 7,
@@ -193,8 +193,8 @@
       "id": 30,
       "firstname": "Giacomo",
       "lastname": "Arancio",
-      "email": "giacomo@yahoo.com",
-      "phonenumber": "3389012345"
+      "phonenumber": 3389012045,
+      "email": "giacomo@yahoo.com"
     },
     {
       "id": 31,
@@ -209,6 +209,27 @@
       "lastname": "Viola",
       "email": "riccardo@hotmail.com",
       "phonenumber": "3345678901"
+    },
+    {
+      "id": 35,
+      "firstname": "Gaia",
+      "lastname": "Bellini",
+      "email": "bellini@gmail.com",
+      "phonenumber": "2514257841"
+    },
+    {
+      "firstname": "Giorgio",
+      "lastname": "Carriga",
+      "phonenumber": 6532787634,
+      "email": "carriga@gmail.com",
+      "id": 36
+    },
+    {
+      "firstname": "Pino",
+      "lastname": "Pastino",
+      "phonenumber": 6352983654,
+      "email": "pastino@gmai.com",
+      "id": 37
     }
   ],
   "courses": [
@@ -373,6 +394,18 @@
       "coursename": "Natural Language Processing",
       "courseduration": "50h",
       "coursepartecipants": 200
+    },
+    {
+      "coursename": "Python-2",
+      "courseduration": "23h",
+      "coursepartecipants": "12",
+      "id": 31
+    },
+    {
+      "coursename": "Java-2",
+      "courseduration": "333h",
+      "coursepartecipants": "12",
+      "id": 32
     }
   ],
   "assignments": [

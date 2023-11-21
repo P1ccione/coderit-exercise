@@ -21,11 +21,12 @@
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD TEACHER"/>
+        <Button buttoncolor="black" buttontext="ADD TEACHER"  @btn-click="$emit('toggle-add-teacher-form')" />
         <div v-if="teachers.length > 0">
             <v-table
                 fixed-header
                 height="500px"
+                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px"
             >
                 <thead>
                     <tr>
@@ -56,12 +57,12 @@
                         <td>{{ item.phonenumber }}</td>
                         <td>
                             <div class="btn-group">
-                                <Button buttoncolor="#d11b0f">
+                                <Button buttoncolor="#d11b0f" @btn-click="$emit('delete-teacher', item.id)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
                                 </Button>
-                                <Button buttoncolor="grey">
+                                <Button buttoncolor="grey" @btn-click="$emit('toggle-edit-teacher-form', item)">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
                                     </template>

@@ -21,11 +21,12 @@
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD COURSE"/>
+        <Button buttoncolor="black" buttontext="ADD COURSE" @btn-click="$emit('toggle-add-course-form')"/>
         <div v-if="courses.length > 0">
             <v-table
                 fixed-header
                 height="500px"
+                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px"
             >
                 <thead>
                     <tr>
