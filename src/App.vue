@@ -1,63 +1,50 @@
-<template>
-  <div class="container">
-    <Header/>
-    <div class="content-container">
-      <router-view></router-view>
-    </div>
-  </div>
-</template>
-
 <script>
-  import Header from "./components/Header"
- 
+  import Header from './components/Header.vue';
+  import Alert from './components/Alert.vue';
+  import { Icon } from '@iconify/vue';
+
   export default {
-    name: 'App',
+    name: "App",
     components: {
       Header,
+      Alert,
+      Icon,
     },
+    data() {
+      return {
+        showAlertState: false,
+        title: "",
+        text: "",
+      }
+    },
+    methods: {
+      showAlert(alerttext, alerttitle, timeout) {
+        this.text = alerttext
+        this.title = alerttitle
+        this.showAlertState = true
+        const self = this;
+
+        setTimeout(function() {
+          self.showAlertState = false;
+        }, timeout);
+      }
+    }
   }
 </script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
-    
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    /* outline: 1px orange solid */
-  }
 
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
+<template>
+  <Header />
+  <div class="alert-container">
+    <Alert v-show="showAlertState" :title="title" :text="text" />
+  </div>
+  <RouterView @show-alert="showAlert"/>
+</template>
 
-  .container {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .content-container {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .form-container {
+<style scoped>
+  .alert-container{
     position: absolute;
-    width: 100%;
-    height: 100vh;
-    top:0;
-    display: flex;
-    flex-direction: column;
-    row-gap: 50px;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0,0,0,0.3);
-    backdrop-filter: blur(2px);
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
   }
-
 </style>

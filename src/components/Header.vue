@@ -1,3 +1,10 @@
+<script>
+    import { RouterLink, RouterView } from 'vue-router'
+    export default {
+        name: "Header"
+    }
+</script>
+
 <template>
     <header>
         <div class="logo">TEACH-LINKER</div>
@@ -9,14 +16,8 @@
     </header>
 </template>
 
-<script>
-    export default {
-        name: "Header"
-    }
-</script>
-
 <style scoped>
-    header {
+header {
         width: 100%;
         height: 12vh;
         display: flex;
@@ -25,6 +26,7 @@
         align-items: center;
         padding-left: 60px;
         padding-right: 60px;
+        border-bottom: 1px solid rgba(0,0,0,0.5);
     }
 
     .logo {

@@ -1,48 +1,46 @@
-<template>
-    <div class="alert-container">
-        <p class="alert-text">{{ alertText }}</p>
-    </div>
-</template>
-
 <script>
+    import { Icon } from '@iconify/vue';
     export default {
         name: "Alert",
-        props: {
-            alertText: {
-                type: String,
-                default: "ALERT",
-            },
+        components: {
+            Icon,
         },
+        pops: {
+            title: {
+                type: String
+            },
+            text: {
+                type: String
+            },
+        }
     }
 </script>
 
-<style scoped>
-    .alert-container {
-        position: absolute;
-        top: 20px;
-        width: auto;
-        min-width: 400px;
-        background: white;
-        border: 2px solid red;
-        border-radius: 50px;
-        min-height: 50px;
-        height: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        z-index: 1000
-    }
+<template>
+    <v-alert class="alert"
+        density="compact"
+        color="#c42116"
+        :title="title"
+        :text="text"
+    >
+        <Icon icon="ri:alert-fill" width="30" height="30" class="alert-icon" />
+    </v-alert>
+</template>
 
-    .alert-text {
-        color: red;
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 350px;
-        height: auto;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+<style scoped>
+    .alert{
+        max-width: 500px;
+        height: fit-content;
+        padding-left: 60px;
+        padding-right: 20px;
+        position: relative;
         line-break: break-all;
     }
+    .alert-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
 </style>

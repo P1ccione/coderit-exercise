@@ -1,53 +1,36 @@
-<template>
-    <button :style="{width: btnwidth, height: btnheight, background: color}" @click="onClick()" class="btn">
-        {{ text }}
-        <slot name="icon"></slot>
-    </button>
-</template>
-
 <script>
-import { setBlockTracking } from 'vue';
-
-export default {
-    name: "Button",
-    props: {
-        text: {
-            type: String
+    import { Icon } from '@iconify/vue';
+    export default {
+        name: "Button",
+        props: {
+            buttonheight: {
+                type: Number
+            },
+            buttonheight: {
+                type: Number
+            },
+            buttoncolor: {
+                type: String
+            },
+            buttontext: {
+                type: String
+            }
         },
-        btnheight: {
-            type: String,
-            default: "50px"
+        components: {
+            Icon,
         },
-        btnwidth: {
-            type: String,
-            default: "200px"
-        },
-        color: {
-            type: String,
-            default: "black"
-        }
-    },
-    methods: {
-        onClick() {
-            this.$emit('btn-click');
+        methods: {
+            onClick() {
+                this.$emit('btn-click');
+            }
         }
     }
-}
 </script>
 
+<template>
+    <v-btn :color="buttoncolor" @click="onClick()"><slot name="icon"></slot>{{ buttontext }}</v-btn>
+</template>
+
 <style scoped>
-    .btn {
-        /* outline: 1px orange solid; */
-        border-radius: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        outline: none;
-        border: none;
-        padding-left: 10px;
-        padding-right: 10px;
-        color: white
-    }
 
 </style>

@@ -1,9 +1,9 @@
-<template>
-    
-</template>
+<script setup>
 
-<script>
-    export default {
-        name: "HomeView",
-    }
 </script>
+
+<template>
+  <main>
+    
+  </main>
+</template>

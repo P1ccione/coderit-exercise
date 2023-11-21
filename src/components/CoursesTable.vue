@@ -1,0 +1,95 @@
+<script>
+    import { Icon } from '@iconify/vue';
+    import Button from './Button.vue';
+    export default {
+        name: "CoursesTable",
+        components: {
+            Icon,
+            Button,
+        },
+        data() {
+            return {
+            }
+        },
+        props: {
+            courses: {
+                type: Array,
+            }
+        },
+    }
+</script>
+
+<template>
+    <div class="p-table-container">
+        <Button buttoncolor="black" buttontext="ADD COURSE"/>
+        <div v-if="courses.length > 0">
+            <v-table
+                fixed-header
+                height="500px"
+            >
+                <thead>
+                    <tr>
+                        <th class="text-left">
+                            Course Name
+                        </th>
+                        <th class="text-left">
+                            Course Duration
+                        </th>
+                        <th class="text-left">
+                            Course Partecipants
+                        </th>
+                        <th class="text-left">
+                        </th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        v-for="item in courses"
+                        :key="item.id"
+                    >
+                        <td>{{ item.coursename }}</td>
+                        <td>{{ item.courseduration }}</td>
+                        <td>{{ item.coursepartecipants }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <Button buttoncolor="#d11b0f">
+                                    <template #icon>
+                                        <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
+                                    </template>
+                                </Button>
+                                <Button buttoncolor="grey">
+                                    <template #icon>
+                                        <Icon color="black" icon="tabler:edit" width="30" height="30" />
+                                    </template>
+                                </Button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </v-table>
+        </div>
+        <div v-else>
+            <p class="table-msg">NO COURSES FOUND</p>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+    .p-table-container{
+        width: 100%;
+        height: 88vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 20px;
+    }
+    .btn-group{
+        margin-left:20px;
+        width: 150px;
+        /* outline: black 1px solid; */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
