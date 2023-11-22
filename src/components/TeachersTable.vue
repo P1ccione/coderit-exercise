@@ -21,32 +21,20 @@
             }
         },
         mounted() {
-            // Inizialmente mostra tutti i teachers
-            // console.log("mounted start");
             this.filteredTeachers = [...this.teachers];
             this.searchChange();
-        },// reazione ai cambiamenti dei props
+        },
+        // reazione ai cambiamenti dei props
         watch: {
             teachers: function(newVal, oldVal) {
-                // console.log(newVal, "new val");
                 this.searchChange()
             }
         },
         methods: {
             searchChange() {
-                // rimuovo spazi aggiuntivi
-                // console.log("enter searchChange");
                 const searchTerm = this.searchteacher.filter.trim().toLowerCase();
-                // console.log(searchTerm);
-                // console.log(!!searchTerm);
-                
-                // console.log("enter if");
                 if (searchTerm) {
-                    // console.log("entered if");
-                    // console.log(searchTerm, "searchterm");
-                    // filtro i teachers in base all'input
                     this.filteredTeachers = this.teachers.filter((teacher) => {
-                        // trasformo l'input in minuscolo
                         const fullName = `${teacher.firstname} ${teacher.lastname}`.toLowerCase();
                         return (
                             fullName.includes(searchTerm) ||
@@ -54,15 +42,9 @@
                             teacher.phonenumber.includes(searchTerm)
                         );
                     });
-                    // console.log("after filter");
                 } else {
-                    // // se vuoto mostro tutti
-                    // console.log("enter else");
-                    // console.log("teachers", this.teachers);
                     this.filteredTeachers = [...this.teachers];
-                    // console.log("filteredarray", this.filteredTeachers)
                 }
-                // console.log("after if");
             },
         }
     }

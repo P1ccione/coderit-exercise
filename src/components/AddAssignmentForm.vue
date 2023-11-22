@@ -18,7 +18,6 @@
 
   const submit = handleSubmit(async (values) => {
     try {
-      // Esegui la tua logica di invio dati qui
 
       // Trova gli oggetti selezionati
       const selectedTeacher = props.teachers.find(teacher => teacher.email === values.selectTeacher);
