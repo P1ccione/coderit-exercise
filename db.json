@@ -4,28 +4,28 @@
       "id": 3,
       "firstname": "Gianluca",
       "lastname": "Giallo",
-      "phonenumber": 2361872495,
+      "phonenumber": "2361872495",
       "email": "giallo@gmail.com"
     },
     {
       "id": 4,
       "firstname": "Pietro",
       "lastname": "Blu",
-      "phonenumber": 2361872497,
+      "phonenumber": "2361872497",
       "email": "blu@gmail.com"
     },
     {
       "id": 5,
       "firstname": "Alessia",
       "lastname": "Verde",
-      "email": "verde87@gmail.com",
+      "email": "verde@gmail.com",
       "phonenumber": "3452187654"
     },
     {
       "id": 6,
       "firstname": "Roberto",
       "lastname": "Rossi",
-      "phonenumber": 3487654321,
+      "phonenumber": "3487654321",
       "email": "roberto@hotmail.com"
     },
     {
@@ -193,15 +193,8 @@
       "id": 30,
       "firstname": "Giacomo",
       "lastname": "Arancio",
-      "phonenumber": 3389012045,
+      "phonenumber": "3389012045",
       "email": "giacomo@yahoo.com"
-    },
-    {
-      "id": 31,
-      "firstname": "Martina",
-      "lastname": "Celeste",
-      "email": "martina@gmail.com",
-      "phonenumber": "3334567890"
     },
     {
       "id": 32,
@@ -220,16 +213,23 @@
     {
       "firstname": "Giorgio",
       "lastname": "Carriga",
-      "phonenumber": 6532787634,
+      "phonenumber": "6532787634",
       "email": "carriga@gmail.com",
       "id": 36
     },
     {
       "firstname": "Pino",
       "lastname": "Pastino",
-      "phonenumber": 6352983654,
+      "phonenumber": "6352983654",
       "email": "pastino@gmai.com",
       "id": 37
+    },
+    {
+      "firstname": "Pino",
+      "lastname": "Pastino",
+      "phonenumber": "6352983659",
+      "email": "pastino@gmail.com",
+      "id": 38
     }
   ],
   "courses": [
@@ -237,7 +237,7 @@
       "id": 4,
       "coursename": "Python",
       "courseduration": "30h",
-      "coursepartecipants": 250
+      "coursepartecipants": "250"
     },
     {
       "id": 5,
@@ -249,145 +249,145 @@
       "id": 6,
       "coursename": "C++",
       "courseduration": "40h",
-      "coursepartecipants": 180
+      "coursepartecipants": "180"
     },
     {
       "id": 7,
       "coursename": "Web Development",
       "courseduration": "50h",
-      "coursepartecipants": 300
+      "coursepartecipants": "300"
     },
     {
       "id": 8,
       "coursename": "Data Science",
       "courseduration": "45h",
-      "coursepartecipants": 150
+      "coursepartecipants": "150"
     },
     {
       "id": 9,
       "coursename": "Machine Learning",
       "courseduration": "55h",
-      "coursepartecipants": 180
+      "coursepartecipants": "180"
     },
     {
       "id": 10,
       "coursename": "SQL",
       "courseduration": "25h",
-      "coursepartecipants": 200
+      "coursepartecipants": "200"
     },
     {
       "id": 11,
       "coursename": "React",
       "courseduration": "30h",
-      "coursepartecipants": 220
+      "coursepartecipants": "220"
     },
     {
       "id": 12,
       "coursename": "Angular",
       "courseduration": "35h",
-      "coursepartecipants": 180
+      "coursepartecipants": "180"
     },
     {
       "id": 13,
       "coursename": "iOS Development",
       "courseduration": "40h",
-      "coursepartecipants": 120
+      "coursepartecipants": "120"
     },
     {
       "id": 14,
       "coursename": "Android Development",
       "courseduration": "45h",
-      "coursepartecipants": 130
+      "coursepartecipants": "130"
     },
     {
       "id": 15,
       "coursename": "Cybersecurity",
       "courseduration": "50h",
-      "coursepartecipants": 160
+      "coursepartecipants": "160"
     },
     {
       "id": 16,
       "coursename": "DevOps",
       "courseduration": "35h",
-      "coursepartecipants": 180
+      "coursepartecipants": "180"
     },
     {
       "id": 17,
       "coursename": "Blockchain",
       "courseduration": "40h",
-      "coursepartecipants": 100
+      "coursepartecipants": "100"
     },
     {
       "id": 18,
       "coursename": "Cloud Computing",
       "courseduration": "55h",
-      "coursepartecipants": 220
+      "coursepartecipants": "220"
     },
     {
       "id": 19,
       "coursename": "Artificial Intelligence",
       "courseduration": "60h",
-      "coursepartecipants": 250
+      "coursepartecipants": "250"
     },
     {
       "id": 20,
       "coursename": "UI/UX Design",
       "courseduration": "30h",
-      "coursepartecipants": 150
+      "coursepartecipants": "150"
     },
     {
       "id": 21,
       "coursename": "Databases",
       "courseduration": "25h",
-      "coursepartecipants": 170
+      "coursepartecipants": "170"
     },
     {
       "id": 22,
       "coursename": "Big Data",
       "courseduration": "50h",
-      "coursepartecipants": 200
+      "coursepartecipants": "200"
     },
     {
       "id": 23,
       "coursename": "Networking",
       "courseduration": "40h",
-      "coursepartecipants": 180
+      "coursepartecipants": "180"
     },
     {
       "id": 24,
       "coursename": "Agile Methodology",
       "courseduration": "35h",
-      "coursepartecipants": 160
+      "coursepartecipants": "160"
     },
     {
       "id": 25,
       "coursename": "Mobile App Development",
       "courseduration": "45h",
-      "coursepartecipants": 140
+      "coursepartecipants": "140"
     },
     {
       "id": 26,
       "coursename": "Embedded Systems",
       "courseduration": "30h",
-      "coursepartecipants": 120
+      "coursepartecipants": "120"
     },
     {
       "id": 27,
       "coursename": "Computer Graphics",
       "courseduration": "35h",
-      "coursepartecipants": 130
+      "coursepartecipants": "130"
     },
     {
       "id": 28,
       "coursename": "Game Development",
       "courseduration": "55h",
-      "coursepartecipants": 180
+      "coursepartecipants": "180"
     },
     {
       "id": 29,
       "coursename": "Virtual Reality",
       "courseduration": "40h",
-      "coursepartecipants": 150
+      "coursepartecipants": "150"
     }
   ],
   "assignments": [
@@ -410,6 +410,11 @@
       "id": 8,
       "idcourse": 8,
       "idteacher": 7
+    },
+    {
+      "idcourse": 9,
+      "idteacher": 3,
+      "id": 9
     }
   ]
 }

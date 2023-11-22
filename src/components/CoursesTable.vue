@@ -9,24 +9,52 @@
         },
         data() {
             return {
+                searchcourse: {
+                    filter: ""
+                },
+                filteredCourses: []
             }
         },
         props: {
             courses: {
                 type: Array,
             }
+        },mounted() {
+            this.filteredCourses = [...this.courses];
+            this.searchChange();
         },
+        watch: {
+            courses: function(newVal, oldVal) {
+                this.searchChange()
+            }
+        },
+        methods: {
+            searchChange() {
+                const searchTerm = this.searchcourse.filter.trim().toLowerCase();
+                if (searchTerm) {
+                    this.filteredCourses = this.courses.filter((course) => {
+                        return (
+                            course.coursename.toLowerCase().includes(searchTerm)
+                        );
+                    });
+                } else {
+                    this.filteredCourses = [...this.courses];
+                }
+            },
+        }
     }
 </script>
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD COURSE" @btn-click="$emit('toggle-add-course-form')"/>
-        <div v-if="courses.length > 0">
+        <div class="top-container">
+            <Button buttoncolor="black" buttontext="ADD COURSE" @btn-click="$emit('toggle-add-course-form')"/>
+            <input class="search" @input="searchChange" type="search" name="searchcourse" id="searchcourse" placeholder="SEARCH COURSE" v-model.trim="searchcourse.filter">
+        </div>
+        <div v-if="filteredCourses.length > 0">
             <v-table
                 fixed-header
-                height="500px"
-                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px"
+                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
             >
                 <thead>
                     <tr>
@@ -45,7 +73,7 @@
                 </thead>
                 <tbody>
                     <tr
-                        v-for="item in courses"
+                        v-for="item in filteredCourses"
                         :key="item.id"
                     >
                         <td>{{ item.coursename }}</td>
@@ -81,9 +109,21 @@
         height: 88vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         row-gap: 20px;
+        padding-top: 20px;
+    }
+
+    .search {
+        width: 200px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 10px;
+        padding-left: 10px;
+        outline: solid 1px rgba(0,0,0,0.3);
+        border-radius: 5px
     }
     .btn-group{
         margin-left:20px;
@@ -92,5 +132,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .top-container{
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 20px;
     }
 </style>

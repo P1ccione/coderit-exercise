@@ -39,14 +39,14 @@
       id: props.editingTeacher.id,
       firstname: values.firstname,
       lastname: values.lastname,
-      phonenumber: parseInt(values.phonenumber),
+      phonenumber: values.phonenumber,
       email: values.email,
     }
     console.log(newTeacher, "new teacher");
     emit("edit-teacher", newTeacher)
   })
   watch(() => props.editingTeacher, (newTeacher) => {
-    console.log(newTeacher, "old teacher");
+    // console.log(newTeacher, "old teacher");
     if (newTeacher) {
       firstname.value.value = newTeacher.firstname || '';
       lastname.value.value = newTeacher.lastname || '';

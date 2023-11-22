@@ -9,6 +9,10 @@
         },
         data() {
             return {
+                searchteacher: {
+                    filter: ""
+                },
+                filteredTeachers: []
             }
         },
         props: {
@@ -16,17 +20,64 @@
                 type: Array,
             }
         },
+        mounted() {
+            // Inizialmente mostra tutti i teachers
+            // console.log("mounted start");
+            this.filteredTeachers = [...this.teachers];
+            this.searchChange();
+        },// reazione ai cambiamenti dei props
+        watch: {
+            teachers: function(newVal, oldVal) {
+                // console.log(newVal, "new val");
+                this.searchChange()
+            }
+        },
+        methods: {
+            searchChange() {
+                // rimuovo spazi aggiuntivi
+                // console.log("enter searchChange");
+                const searchTerm = this.searchteacher.filter.trim().toLowerCase();
+                // console.log(searchTerm);
+                // console.log(!!searchTerm);
+                
+                // console.log("enter if");
+                if (searchTerm) {
+                    // console.log("entered if");
+                    // console.log(searchTerm, "searchterm");
+                    // filtro i teachers in base all'input
+                    this.filteredTeachers = this.teachers.filter((teacher) => {
+                        // trasformo l'input in minuscolo
+                        const fullName = `${teacher.firstname} ${teacher.lastname}`.toLowerCase();
+                        return (
+                            fullName.includes(searchTerm) ||
+                            teacher.email.toLowerCase().includes(searchTerm) ||
+                            teacher.phonenumber.includes(searchTerm)
+                        );
+                    });
+                    // console.log("after filter");
+                } else {
+                    // // se vuoto mostro tutti
+                    // console.log("enter else");
+                    // console.log("teachers", this.teachers);
+                    this.filteredTeachers = [...this.teachers];
+                    // console.log("filteredarray", this.filteredTeachers)
+                }
+                // console.log("after if");
+            },
+        }
     }
 </script>
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD TEACHER"  @btn-click="$emit('toggle-add-teacher-form')" />
-        <div v-if="teachers.length > 0">
+        <div class="p-top-container">
+            <Button buttoncolor="black" buttontext="ADD TEACHER"  @btn-click="$emit('toggle-add-teacher-form')" />
+            <input class="search" @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher.filter">
+        </div>
+       <div v-if="filteredTeachers.length > 0">
             <v-table
                 fixed-header
-                height="500px"
-                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px"
+                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
             >
                 <thead>
                     <tr>
@@ -48,7 +99,7 @@
                 </thead>
                 <tbody>
                     <tr
-                        v-for="item in teachers"
+                        v-for="item in filteredTeachers"
                         :key="item.id"
                     >
                         <td>{{ item.firstname }}</td>
@@ -85,9 +136,21 @@
         height: 88vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         row-gap: 20px;
+        padding-top: 20px;
+    }
+
+    .search {
+        width: 200px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 10px;
+        padding-left: 10px;
+        outline: solid 1px rgba(0,0,0,0.3);
+        border-radius: 5px
     }
     .btn-group{
         margin-left:20px;
@@ -96,5 +159,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .p-top-container{
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 20px;
     }
 </style>

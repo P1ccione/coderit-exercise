@@ -35,12 +35,12 @@
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT"/>
+        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT" @btn-click="$emit('toggle-add-assignment-form')"/>
         <div v-if="assignments.length > 0">
             <v-table
                 fixed-header
                 max-height="500px"
-                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px"
+                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
             >
                 <thead>
                     <tr>
@@ -86,9 +86,9 @@
         height: 88vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         row-gap: 20px;
+        padding-top: 20px;
     }
     .btn-group{
         margin-left:20px;

@@ -32,7 +32,7 @@
     const teacher = {
       firstname: values.firstname,
       lastname: values.lastname,
-      phonenumber: parseInt(values.phonenumber),
+      phonenumber: values.phonenumber,
       email: values.email,
     }
     // console.log(teacher);
