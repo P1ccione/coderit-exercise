@@ -1,0 +1,413 @@
+{
+  "teachers": [
+    {
+      "id": 3,
+      "firstname": "Gianluca",
+      "lastname": "Giallo",
+      "phonenumber": "2361872495",
+      "email": "giallo@gmail.com"
+    },
+    {
+      "id": 4,
+      "firstname": "Pietro",
+      "lastname": "Blu",
+      "phonenumber": "2361872497",
+      "email": "blu@gmail.com"
+    },
+    {
+      "id": 5,
+      "firstname": "Alessia",
+      "lastname": "Verde",
+      "email": "verde@gmail.com",
+      "phonenumber": "3452187654"
+    },
+    {
+      "id": 6,
+      "firstname": "Roberto",
+      "lastname": "Rossi",
+      "phonenumber": "3487654321",
+      "email": "roberto@hotmail.com"
+    },
+    {
+      "id": 7,
+      "firstname": "Giulia",
+      "lastname": "Bianchi",
+      "email": "giulia@gmail.com",
+      "phonenumber": "3339876543"
+    },
+    {
+      "id": 8,
+      "firstname": "Luigi",
+      "lastname": "Giallo",
+      "email": "luigi@yahoo.com",
+      "phonenumber": "3398765432"
+    },
+    {
+      "id": 9,
+      "firstname": "Maria",
+      "lastname": "Marrone",
+      "email": "maria@gmail.com",
+      "phonenumber": "3345678901"
+    },
+    {
+      "id": 10,
+      "firstname": "Simone",
+      "lastname": "Blu",
+      "email": "simone@hotmail.com",
+      "phonenumber": "3389012345"
+    },
+    {
+      "id": 11,
+      "firstname": "Laura",
+      "lastname": "Nero",
+      "email": "laura@gmail.com",
+      "phonenumber": "3390123456"
+    },
+    {
+      "id": 12,
+      "firstname": "Paolo",
+      "lastname": "Arancio",
+      "email": "paolo@yahoo.com",
+      "phonenumber": "3334567890"
+    },
+    {
+      "id": 13,
+      "firstname": "Elena",
+      "lastname": "Rosa",
+      "email": "elena@hotmail.com",
+      "phonenumber": "3356789012"
+    },
+    {
+      "id": 14,
+      "firstname": "Antonio",
+      "lastname": "Viola",
+      "email": "antonio@gmail.com",
+      "phonenumber": "3345678901"
+    },
+    {
+      "id": 15,
+      "firstname": "Francesca",
+      "lastname": "Celeste",
+      "email": "francesca@yahoo.com",
+      "phonenumber": "3378901234"
+    },
+    {
+      "id": 16,
+      "firstname": "Davide",
+      "lastname": "Azzurro",
+      "email": "davide@gmail.com",
+      "phonenumber": "3367890123"
+    },
+    {
+      "id": 17,
+      "firstname": "Sara",
+      "lastname": "Giallo",
+      "email": "sara@hotmail.com",
+      "phonenumber": "3345678901"
+    },
+    {
+      "id": 18,
+      "firstname": "Giovanni",
+      "lastname": "Blu",
+      "email": "giovanni@yahoo.com",
+      "phonenumber": "3334567890"
+    },
+    {
+      "id": 19,
+      "firstname": "Valentina",
+      "lastname": "Verde",
+      "email": "valentina@gmail.com",
+      "phonenumber": "3356789012"
+    },
+    {
+      "id": 20,
+      "firstname": "Mauro",
+      "lastname": "Nero",
+      "email": "mauro@hotmail.com",
+      "phonenumber": "3389012345"
+    },
+    {
+      "id": 21,
+      "firstname": "Alice",
+      "lastname": "Rosa",
+      "email": "alice@yahoo.com",
+      "phonenumber": "3378901234"
+    },
+    {
+      "id": 22,
+      "firstname": "Fabio",
+      "lastname": "Arancio",
+      "email": "fabio@gmail.com",
+      "phonenumber": "3367890123"
+    },
+    {
+      "id": 23,
+      "firstname": "Cristina",
+      "lastname": "Celeste",
+      "email": "cristina@hotmail.com",
+      "phonenumber": "3356789012"
+    },
+    {
+      "id": 24,
+      "firstname": "Andrea",
+      "lastname": "Viola",
+      "email": "andrea@yahoo.com",
+      "phonenumber": "3389012345"
+    },
+    {
+      "id": 25,
+      "firstname": "Silvia",
+      "lastname": "Giallo",
+      "email": "silvia@gmail.com",
+      "phonenumber": "3334567890"
+    },
+    {
+      "id": 26,
+      "firstname": "Marco",
+      "lastname": "Blu",
+      "email": "marco@hotmail.com",
+      "phonenumber": "3345678901"
+    },
+    {
+      "id": 27,
+      "firstname": "Valeria",
+      "lastname": "Verde",
+      "email": "valeria@yahoo.com",
+      "phonenumber": "3378901234"
+    },
+    {
+      "id": 28,
+      "firstname": "Emanuele",
+      "lastname": "Nero",
+      "email": "emanuele@gmail.com",
+      "phonenumber": "3367890123"
+    },
+    {
+      "id": 29,
+      "firstname": "Daniela",
+      "lastname": "Rosa",
+      "email": "daniela@hotmail.com",
+      "phonenumber": "3356789012"
+    },
+    {
+      "id": 30,
+      "firstname": "Giacomo",
+      "lastname": "Arancio",
+      "phonenumber": "3389012045",
+      "email": "giacomo@yahoo.com"
+    },
+    {
+      "id": 32,
+      "firstname": "Riccardo",
+      "lastname": "Viola",
+      "email": "riccardo@hotmail.com",
+      "phonenumber": "3345678901"
+    },
+    {
+      "id": 35,
+      "firstname": "Gaia",
+      "lastname": "Bellini",
+      "email": "bellini@gmail.com",
+      "phonenumber": "2514257841"
+    },
+    {
+      "firstname": "Giorgio",
+      "lastname": "Carriga",
+      "phonenumber": "6532787634",
+      "email": "carriga@gmail.com",
+      "id": 36
+    },
+    {
+      "id": 38,
+      "firstname": "Pino",
+      "lastname": "Pastino",
+      "phonenumber": "6352983659",
+      "email": "pastino@gmail.com"
+    }
+  ],
+  "courses": [
+    {
+      "id": 4,
+      "coursename": "Python",
+      "courseduration": "30h",
+      "coursepartecipants": "250"
+    },
+    {
+      "id": 5,
+      "coursename": "JavaScript",
+      "courseduration": "35h",
+      "coursepartecipants": "2001"
+    },
+    {
+      "id": 6,
+      "coursename": "C++",
+      "courseduration": "40h",
+      "coursepartecipants": "180"
+    },
+    {
+      "id": 7,
+      "coursename": "Web Development",
+      "courseduration": "50h",
+      "coursepartecipants": "300"
+    },
+    {
+      "id": 8,
+      "coursename": "Data Science",
+      "courseduration": "45h",
+      "coursepartecipants": "150"
+    },
+    {
+      "id": 9,
+      "coursename": "Machine Learning",
+      "courseduration": "55h",
+      "coursepartecipants": "180"
+    },
+    {
+      "id": 10,
+      "coursename": "SQL",
+      "courseduration": "25h",
+      "coursepartecipants": "200"
+    },
+    {
+      "id": 11,
+      "coursename": "React",
+      "courseduration": "30h",
+      "coursepartecipants": "220"
+    },
+    {
+      "id": 12,
+      "coursename": "Angular",
+      "courseduration": "35h",
+      "coursepartecipants": "180"
+    },
+    {
+      "id": 13,
+      "coursename": "iOS Development",
+      "courseduration": "40h",
+      "coursepartecipants": "120"
+    },
+    {
+      "id": 14,
+      "coursename": "Android Development",
+      "courseduration": "45h",
+      "coursepartecipants": "130"
+    },
+    {
+      "id": 15,
+      "coursename": "Cybersecurity",
+      "courseduration": "50h",
+      "coursepartecipants": "160"
+    },
+    {
+      "id": 16,
+      "coursename": "DevOps",
+      "courseduration": "35h",
+      "coursepartecipants": "180"
+    },
+    {
+      "id": 17,
+      "coursename": "Blockchain",
+      "courseduration": "40h",
+      "coursepartecipants": "100"
+    },
+    {
+      "id": 18,
+      "coursename": "Cloud Computing",
+      "courseduration": "55h",
+      "coursepartecipants": "220"
+    },
+    {
+      "id": 19,
+      "coursename": "Artificial Intelligence",
+      "courseduration": "60h",
+      "coursepartecipants": "250"
+    },
+    {
+      "id": 20,
+      "coursename": "UI/UX Design",
+      "courseduration": "30h",
+      "coursepartecipants": "150"
+    },
+    {
+      "id": 21,
+      "coursename": "Databases",
+      "courseduration": "25h",
+      "coursepartecipants": "170"
+    },
+    {
+      "id": 22,
+      "coursename": "Big Data",
+      "courseduration": "50h",
+      "coursepartecipants": "200"
+    },
+    {
+      "id": 23,
+      "coursename": "Networking",
+      "courseduration": "40h",
+      "coursepartecipants": "180"
+    },
+    {
+      "id": 24,
+      "coursename": "Agile Methodology",
+      "courseduration": "35h",
+      "coursepartecipants": "160"
+    },
+    {
+      "id": 25,
+      "coursename": "Mobile App Development",
+      "courseduration": "45h",
+      "coursepartecipants": "140"
+    },
+    {
+      "id": 26,
+      "coursename": "Embedded Systems",
+      "courseduration": "30h",
+      "coursepartecipants": "120"
+    },
+    {
+      "id": 27,
+      "coursename": "Computer Graphics",
+      "courseduration": "35h",
+      "coursepartecipants": "130"
+    },
+    {
+      "id": 28,
+      "coursename": "Game Development",
+      "courseduration": "55h",
+      "coursepartecipants": "180"
+    },
+    {
+      "id": 29,
+      "coursename": "Virtual Reality",
+      "courseduration": "40h",
+      "coursepartecipants": "150"
+    }
+  ],
+  "assignments": [
+    {
+      "id": 5,
+      "idcourse": 5,
+      "idteacher": 4
+    },
+    {
+      "id": 6,
+      "idcourse": 6,
+      "idteacher": 3
+    },
+    {
+      "id": 7,
+      "idcourse": 7,
+      "idteacher": 5
+    },
+    {
+      "id": 8,
+      "idcourse": 8,
+      "idteacher": 7
+    },
+    {
+      "idcourse": 9,
+      "idteacher": 3,
+      "id": 9
+    }
+  ]
+}

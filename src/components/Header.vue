@@ -1,12 +1,14 @@
 <template>
-    <v-app-bar :elevation="2" title="VUE AUTH0">
+    <v-app-bar :elevation="2" title="TEACH-LINKER">
         <template v-slot:append>
             <div class="links">
                 <v-btn variant="outlined" to="/">HOME</v-btn>
                 <v-btn variant="outlined" to="/about">ABOUT</v-btn>
-                <v-btn variant="outlined" to="/contacts">CONTACTS</v-btn>
-                <v-btn variant="outlined" to="/members">MEMBERS</v-btn>
-                <v-btn variant="outlined" to="/login">LOGIN</v-btn>
+                <v-btn variant="outlined" to="/teachers" v-if="this.$store.state.userIsAuthorized">TEACHERS</v-btn>
+                <v-btn variant="outlined" to="/courses" v-if="this.$store.state.userIsAuthorized">COURSES</v-btn>
+                <v-btn variant="outlined" to="/assignments" v-if="this.$store.state.userIsAuthorized">ASSIGNMENTS</v-btn>
+                <v-btn variant="outlined" @click="logout" v-if="this.$store.state.userIsAuthorized">LOGOUT</v-btn>
+                <v-btn variant="outlined" to="/login" v-else>LOGIN</v-btn>
             </div>
         </template>
     </v-app-bar>
@@ -14,7 +16,15 @@
 
 <script>
     export default {
-        name: "Header"
+        name: "Header",
+        methods:{
+            logout(){
+            this.$store.dispatch('auth0Logout');
+            console.log('logging out');
+            }
+        },
+        props: {
+        },
     }
 </script>
 

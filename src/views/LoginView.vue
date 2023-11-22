@@ -3,12 +3,11 @@ export default {
     name: 'LoginView',
     methods: {
         auth0Login(){
-            // this.$store.dispatch('auth0Login');
-
-            console.log('we are in auth0Login');
+            // console.log('we are in auth0Login');
+            this.$store.dispatch('auth0Login');
         },
     },
-    }
+}
 </script>
 
 <template>
@@ -28,14 +27,11 @@ export default {
                       <br><br>
                       Login to connect. 
                       <br><br>
-
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-
                     </div>
                   </div>
                 </v-card-title>
                 <v-card-actions>
-                  <v-btn  @click="auth0Login()">Login</v-btn>
+                  <v-btn variant="outlined" @click="auth0Login()">Login</v-btn>
                 </v-card-actions>
               </v-card>
             </v-flex>
