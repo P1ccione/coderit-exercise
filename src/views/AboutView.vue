@@ -1,5 +1,13 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <h3>ABOUT PAGE</h3>
 </template>
+
+<script>
+    export default {
+        name: "AboutView"
+    }
+</script>
+
+<style lang="scss" scoped>
+
+</style>
