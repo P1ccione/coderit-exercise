@@ -48,6 +48,9 @@
                             Teacher Name
                         </th>
                         <th class="text-left">
+                            Teacher Email
+                        </th>
+                        <th class="text-left">
                             Course Name
                         </th>
                         <th class="text-left">
@@ -60,6 +63,7 @@
                         :key="item.id"
                     >
                         <td>{{ getTeacher(item.idteacher).firstname }} {{ getTeacher(item.idteacher).lastname }}</td>
+                        <td>{{ getTeacher(item.idteacher).email }}</td>
                         <td>{{ getCourse(item.idcourse).coursename }}</td>
                         <td>
                             <div class="btn-group">
