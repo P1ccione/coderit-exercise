@@ -33,11 +33,15 @@
 </script>
 
 <template>
-  <Header />
-  <div class="alert-container">
-    <Alert v-show="showAlertState" :title="title" :text="text" />
-  </div>
-  <RouterView @show-alert="showAlert"/>
+  <v-app>
+    <Header />
+    <div class="alert-container">
+      <Alert v-show="showAlertState" :title="title" :text="text" />
+    </div>
+    <v-main>
+      <RouterView @show-alert="showAlert"/>
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
