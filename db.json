@@ -2,7 +2,7 @@
   "teachers": [
     {
       "id": 3,
-      "firstname": "Gianluca",
+      "firstname": "Gianlucone",
       "lastname": "Giallo",
       "phonenumber": "2361872495",
       "email": "giallo@gmail.com"
@@ -216,13 +216,6 @@
       "phonenumber": "6532787634",
       "email": "carriga@gmail.com",
       "id": 36
-    },
-    {
-      "id": 38,
-      "firstname": "Pino",
-      "lastname": "Pastino",
-      "phonenumber": "6352983659",
-      "email": "pastino@gmail.com"
     }
   ],
   "courses": [
