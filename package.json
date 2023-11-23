@@ -9,6 +9,7 @@
     "backend": "json-server --watch db.json --port 5000"
   },
   "dependencies": {
+    "chalk": "^5.3.0",
     "json-server": "^0.17.4",
     "vee-validate": "^4.5.8",
     "vue": "^3.3.4",
