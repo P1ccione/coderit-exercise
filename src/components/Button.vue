@@ -3,12 +3,6 @@
     export default {
         name: "Button",
         props: {
-            buttonheight: {
-                type: Number
-            },
-            buttonheight: {
-                type: Number
-            },
             buttoncolor: {
                 type: String
             },

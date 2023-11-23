@@ -2,6 +2,7 @@
   import { useField, useForm } from 'vee-validate'
   import { watch, defineProps } from 'vue';
   import Button from './Button.vue';
+  import { Icon } from '@iconify/vue';
     
   const emit = defineEmits(['edit-course'])
   const props = defineProps(
@@ -54,13 +55,18 @@
         name: "EditCourseForm",
         components: {
             Button,
+            Icon,
         },
     }
 </script>
 
 <template>
     <form @submit.prevent="submit">
-      <Button style="margin-bottom:30px" buttoncolor="black" buttontext="CLOSE FORM"  @btn-click="$emit('toggle-edit-course-form')" />
+      <Button buttoncolor="black" @btn-click="$emit('toggle-edit-course-form')" width="fit-content" style="align-self: center; margin-bottom: 20px; margin-top: 10px">
+          <template #icon>
+              <Icon color="white" width="30" height="30" icon="zondicons:close-outline" />
+          </template>
+      </Button>
       <v-text-field
         variant="outlined"
         v-model="coursename.value.value"
@@ -82,7 +88,7 @@
         label="Partecipants"
       ></v-text-field>
   
-        <div class="btn-group">
+        <div class="btn-group"  style="margin-bottom: 20px">
             <v-btn color="#04c717" class="me-4" type="submit"> submit </v-btn>
             <v-btn color="#d11b0f" @click="handleReset"> clear </v-btn>
         </div>
