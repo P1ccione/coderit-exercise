@@ -67,7 +67,7 @@
 
 <template>
     <form @submit.prevent="submit">
-      <Button style="margin-bottom:30px" buttoncolor="black" buttontext="CLOSE FORM"  @btn-click="$emit('toggle-edit-teacher-form')" />
+      <Button style="margin-bottom:30px" buttoncolor="black" buttontext="CLOSE FORM"  @btn-click="this.$store.commit('toggleEditTeacherForm')" />
       <v-text-field
         variant="outlined"
         v-model="firstname.value.value"
