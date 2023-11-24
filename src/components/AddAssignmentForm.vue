@@ -50,30 +50,31 @@
 </script>
 
 <template>
-    <form @submit.prevent="submit">
-      <Button style="margin-bottom:30px" buttoncolor="black" buttontext="CLOSE FORM"  @btn-click="this.$store.commit('toggleCreateAssignment')" />
-      
-      <v-select
-        v-if="props.teachers"
-        v-model="selectTeacher.value.value"
-        :items="props.teachers.map(teacher => teacher.email)"
-        :error-messages="selectTeacher.errorMessage.value"
-        label="Select Teacher"
-        ></v-select>
-
-      <v-select
-        v-if="props.courses"
-        v-model="selectCourse.value.value"
-        :items="props.courses.map(course => course.coursename)"
-        :error-messages="selectCourse.errorMessage.value"
-        label="Select Course"
+  <form @submit.prevent="submit">
+    
+    <v-select
+      v-if="props.teachers"
+      v-model="selectTeacher.value.value"
+      :items="props.teachers.map(teacher => teacher.email)"
+      :error-messages="selectTeacher.errorMessage.value"
+      label="Select Teacher"
       ></v-select>
-  
+
+    <v-select
+      v-if="props.courses"
+      v-model="selectCourse.value.value"
+      :items="props.courses.map(course => course.coursename)"
+      :error-messages="selectCourse.errorMessage.value"
+      label="Select Course"
+    ></v-select>
+    <div class="big-btn-group">
       <div class="btn-group">
           <v-btn color="#04c717" class="me-4" type="submit"> submit </v-btn>
           <v-btn color="#d11b0f" @click="handleReset"> clear </v-btn>
       </div>
-    </form>
+      <Button buttoncolor="black" buttontext="CLOSE"  @btn-click="this.$store.commit('toggleCreateAssignment')" />
+    </div>
+  </form>
 </template>
 
 <style scoped>
@@ -85,5 +86,21 @@
         row-gap: 10px;
         padding: 20px;
         border-radius: 20px;
+    }
+
+    .btn-group{
+      width: fit-content;
+      height: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .big-btn-group{
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 </style>

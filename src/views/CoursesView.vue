@@ -12,7 +12,6 @@
         data() {
             return {
                 courses: [],
-                editingCourse: {}
             }
         },
         async created() {

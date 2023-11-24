@@ -327,14 +327,9 @@
       "idteacher": 7
     },
     {
-      "idcourse": 9,
-      "idteacher": 3,
+      "idcourse": 7,
+      "idteacher": 20,
       "id": 9
-    },
-    {
-      "idcourse": 6,
-      "idteacher": 4,
-      "id": 10
     }
   ]
 }

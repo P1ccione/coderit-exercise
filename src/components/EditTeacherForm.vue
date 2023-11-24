@@ -67,7 +67,6 @@
 
 <template>
     <form @submit.prevent="submit">
-      <Button style="margin-bottom:30px" buttoncolor="black" buttontext="CLOSE FORM"  @btn-click="this.$store.commit('toggleEditTeacherForm')" />
       <v-text-field
         variant="outlined"
         v-model="firstname.value.value"
@@ -95,11 +94,14 @@
         :error-messages="email.errorMessage.value"
         label="Email"
       ></v-text-field>
+      <div class="big-btn-group">
         <div class="btn-group">
             <v-btn color="#04c717" class="me-4" type="submit"> submit </v-btn>
             <v-btn color="#d11b0f" @click="handleReset"> clear </v-btn>
         </div>
-      </form>
+        <Button buttoncolor="black" buttontext="CLOSE"  @btn-click="this.$store.commit('toggleEditTeacherForm')" />
+      </div>
+    </form>
   </template>
 
 <style scoped>
@@ -111,5 +113,21 @@
         row-gap: 10px;
         padding: 20px;
         border-radius: 20px;
+    }
+
+    .btn-group{
+      width: fit-content;
+      height: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .big-btn-group{
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 </style>

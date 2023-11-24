@@ -26,6 +26,7 @@
             },
             decodeToken(token) {
                 console.log(token)
+                console.log(this.idToken);
             },
         },
         props: {
@@ -33,6 +34,7 @@
         data() {
             return {
                 accessToken: Cookies.get("access_token"),
+                idToken: Cookies.get("id_token"),
                 role: 'http://localhost:5000/teachers/roles'
             }
         }
