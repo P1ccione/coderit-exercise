@@ -1,11 +1,11 @@
 <template>
   <v-app>
     <Header :userIsAuthorized="userIsAuthorized"/>
-    <div class="alert-container">
-      <Alert v-show="showAlertState" :title="title" :text="text" />
+    <div class="alert-container" v-show="this.$store.state.showAlertState">
+      <Alert :title="$store.state.alertTitle" :text="$store.state.alertText" />
     </div>
     <v-main>
-      <router-view @show-alert="showAlert"/>
+      <router-view/>
     </v-main>
   </v-app>
 </template>
@@ -21,28 +21,15 @@ export default {
   },
   data() {
     return {
-      clientid: process.env.VUE_APP_AUTH0_CONFIG_CLIENTID,
-      domain: process.env.VUE_APP_AUTH0_CONFIG_DOMAIN,
-      userIsAuthorized: this.$store.state.userIsAuthorized,
-      showAlertState: false,
-      title: "",
-      text: "",
     }
   },
   beforeCreate() {
 
   },
   methods: {
-    showAlert(alerttitle, alerttext, timeout) {
-      this.text = alerttext
-      this.title = alerttitle
-      this.showAlertState = true
-      const self = this;
-
-      setTimeout(function() {
-        self.showAlertState = false;
-      }, timeout);
-    }
+  },
+  mounted() {
+    console.log(this.$store.state.showAlertState, "app.js state alert")
   }
 }
 </script>

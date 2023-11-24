@@ -12,8 +12,6 @@
         data() {
             return {
                 teachers: [],
-                showAddTeacherForm: false,
-                showEditTeacherForm: false,
                 editingTeacher: {}
             }
         },
@@ -31,7 +29,7 @@
 
                 return reversedData;
             },
-                  // funzione di fetch per prendere i teachers dal db
+            // funzione di fetch per prendere i teachers dal db
             async fetchTeacher(id) {
                 const res = await fetch(`http://localhost:5000/teachers/${id}`)
 
@@ -45,13 +43,6 @@
                 const data = await res.json()
 
                 return data.length > 0;
-            },
-            toggleAddTeacherForm() {
-                this.showAddTeacherForm = !this.showAddTeacherForm
-            },
-            toggleEditTeacherForm(teacher) {
-                this.editingTeacher = teacher
-                this.showEditTeacherForm = !this.showEditTeacherForm
             },
             async isEmailExists(email) {
                 // Effettua una chiamata API per verificare se esiste già un insegnante con la stessa email
@@ -72,14 +63,14 @@
 
                 const isEmailExisting = await this.isEmailExists(teacher.email);
                 if (isEmailExisting) {
-                    this.$emit('show-alert' , "ERROR", "There is already a teacher with the same email", 5000)
+                    this.$store.commit('showAlert' , ["ERROR", "There is already a teacher with the same email", 5000])
                     return;
                 }
 
                 // Verifica se esiste già un insegnante con lo stesso numero di telefono
                 const isPhoneExisting = await this.isPhoneExists(teacher.phonenumber);
                 if (isPhoneExisting) {
-                    this.$emit('show-alert' , "ERROR", "There is already a teacher with the same phone number", 5000)
+                    this.$store.commit('showAlert' , ["ERROR", "There is already a teacher with the same phone number", 5000])
                     return;
                 }
 
@@ -92,7 +83,7 @@
                 const data = await res.json();
 
                 this.teachers = await this.fetchTeachers();
-                this.toggleAddTeacherForm();
+                this.$store.commit('toggleAddTeacherForm');
             },
             async editTeacher(newTeacher) {
                 const teacherToEdit = await this.fetchTeacher(newTeacher.id);;
@@ -101,8 +92,8 @@
                 if (newTeacher.email !== teacherToEdit.email) {
                     const isEmailExisting = await this.isEmailExists(newTeacher.email);
                     if (isEmailExisting && newTeacher.email !== teacherToEdit.email) {
-                        this.$emit('show-alert' , "ERROR", "There is already a teacher with the same email", 5000)
-                    return;
+                        this.$store.commit('showAlert' , ["ERROR", "There is already a teacher with the same email", 5000])
+                        return;
                     }
                 }
 
@@ -110,8 +101,8 @@
                 if (newTeacher.phonenumber !== teacherToEdit.phonenumber) {
                     const isPhoneExisting = await this.isPhoneExists(newTeacher.phonenumber);
                     if (isPhoneExisting && newTeacher.phonenumber !== teacherToEdit.phonenumber) {
-                    this.$emit('show-alert' , "ERROR", "There is already a teacher with the same phone number", 5000)
-                    return;
+                        this.$store.commit('showAlert' , ["ERROR", "There is already a teacher with the same phone number", 5000])
+                        return;
                     }
                 }
 
@@ -132,7 +123,7 @@
                 // Aggiorna la lista degli insegnanti con il nuovo dato ricevuto dal server
                 this.teachers = await this.fetchTeachers();
 
-                this.showEditTeacherForm = !this.showEditTeacherForm;
+                this.$store.commit('toggleEditTeacherForm')
                 // console.log("after toggleTeacherForm function");
             },
             async deleteTeacher(id) {
@@ -143,18 +134,17 @@
 
                 if (hasAssignments) {
                     // se vero blocco il delete dell'insegnante
-                        this.$emit('show-alert' , "ERROR", "Cannot delete teacher. There are assignments associated with this teacher", 5000)
+                    this.$store.commit('showAlert' , ["ERROR", "Cannot delete teacher. There are assignments associated with this teacher", 5000])
                 } else if(confirm('Are you sure?')) {
                     // altrimenti continua con il delete
                     const res = await fetch(`http://localhost:5000/teachers/${id}`, {
                     method: "DELETE",
                     })  
 
-                    
                     if (res.status === 200) {
                         this.teachers = await this.fetchTeachers();
                     } else {
-                        this.$emit('show-alert' , "ERROR", "Error deleting teacher", 5000)
+                        this.$store.commit('showAlert' , ["ERROR", "Error deleting teacher", 5000])
                     }
 
                 }
@@ -164,12 +154,12 @@
 </script>
 
 <template>
-    <TeachersTable :teachers="teachers" @toggle-add-teacher-form="toggleAddTeacherForm" @toggle-edit-teacher-form="toggleEditTeacherForm" @delete-teacher="deleteTeacher"/>
-    <div v-show="showAddTeacherForm" class="form-container">
-        <AddTeacherForm @toggle-add-teacher-form="toggleAddTeacherForm" @create-teacher="createTeacher"/>
+    <TeachersTable :teachers="teachers" @delete-teacher="deleteTeacher"/>
+    <div v-show="this.$store.state.showAddTeacherForm" class="form-container">
+        <AddTeacherForm @create-teacher="createTeacher"/>
     </div>
-    <div v-show="showEditTeacherForm" class="form-container">
-        <EditTeacherForm @toggle-edit-teacher-form="toggleEditTeacherForm" @edit-teacher="editTeacher" :editingTeacher="editingTeacher"/>
+    <div v-show="this.$store.state.showEditTeacherForm" class="form-container">
+        <EditTeacherForm @edit-teacher="editTeacher" :editingTeacher="this.$store.state.editingTeacher"/>
     </div>
 </template>
 

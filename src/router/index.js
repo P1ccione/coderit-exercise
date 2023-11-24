@@ -29,19 +29,19 @@ const routes = [
     path: "/courses",
     name: "courses",
     component: CoursesView,
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
   },
   {
     path: "/assignments",
     name: "assignments",
     component: AssignmentsView,
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
   },
   {
     path: "/teachers",
     name: "teachers",
     component: TeachersView,
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
   },
   {
     path: "/auth0callback",

@@ -48,7 +48,7 @@
 <template>
     <div class="p-table-container">
         <div class="top-container">
-            <Button buttoncolor="black" buttontext="ADD COURSE" @btn-click="$emit('toggle-add-course-form')"/>
+            <Button buttoncolor="black" buttontext="ADD COURSE" @btn-click="this.$store.commit('toggleAddCourseForm')"/>
             <input class="search" @input="searchChange" type="search" name="searchcourse" id="searchcourse" placeholder="SEARCH COURSE" v-model.trim="searchcourse.filter">
         </div>
         <div v-if="filteredCourses.length > 0">
@@ -86,7 +86,7 @@
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
                                 </Button>
-                                <Button buttoncolor="grey" @btn-click="$emit('toggle-edit-course-form', item)">
+                                <Button buttoncolor="grey" @btn-click="this.$store.commit('toggleEditCourseForm', [item])">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
                                     </template>

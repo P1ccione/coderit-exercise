@@ -64,13 +64,6 @@
       "phonenumber": "3390123456"
     },
     {
-      "id": 12,
-      "firstname": "Paolo",
-      "lastname": "Arancio",
-      "email": "paolo@yahoo.com",
-      "phonenumber": "3334567890"
-    },
-    {
       "id": 13,
       "firstname": "Elena",
       "lastname": "Rosa",
@@ -186,36 +179,8 @@
       "id": 29,
       "firstname": "Daniela",
       "lastname": "Rosa",
-      "email": "daniela@hotmail.com",
-      "phonenumber": "3356789012"
-    },
-    {
-      "id": 30,
-      "firstname": "Giacomo",
-      "lastname": "Arancio",
-      "phonenumber": "3389012045",
-      "email": "giacomo@yahoo.com"
-    },
-    {
-      "id": 32,
-      "firstname": "Riccardo",
-      "lastname": "Viola",
-      "email": "riccardo@hotmail.com",
-      "phonenumber": "3345678901"
-    },
-    {
-      "id": 35,
-      "firstname": "Gaia",
-      "lastname": "Bellini",
-      "email": "bellini@gmail.com",
-      "phonenumber": "2514257841"
-    },
-    {
-      "firstname": "Giorgio",
-      "lastname": "Carriga",
-      "phonenumber": "6532787634",
-      "email": "carriga@gmail.com",
-      "id": 36
+      "phonenumber": "3356789012",
+      "email": "daniela@hotmail.com"
     }
   ],
   "courses": [
@@ -227,7 +192,7 @@
     },
     {
       "id": 5,
-      "coursename": "JavaScript",
+      "coursename": "javascript",
       "courseduration": "35h",
       "coursepartecipants": "2001"
     },
@@ -330,50 +295,14 @@
     {
       "id": 22,
       "coursename": "Big Data",
-      "courseduration": "50h",
+      "courseduration": "55h",
       "coursepartecipants": "200"
     },
     {
       "id": 23,
       "coursename": "Networking",
-      "courseduration": "40h",
-      "coursepartecipants": "180"
-    },
-    {
-      "id": 24,
-      "coursename": "Agile Methodology",
-      "courseduration": "35h",
-      "coursepartecipants": "160"
-    },
-    {
-      "id": 25,
-      "coursename": "Mobile App Development",
       "courseduration": "45h",
-      "coursepartecipants": "140"
-    },
-    {
-      "id": 26,
-      "coursename": "Embedded Systems",
-      "courseduration": "30h",
-      "coursepartecipants": "120"
-    },
-    {
-      "id": 27,
-      "coursename": "Computer Graphics",
-      "courseduration": "35h",
-      "coursepartecipants": "130"
-    },
-    {
-      "id": 28,
-      "coursename": "Game Development",
-      "courseduration": "55h",
       "coursepartecipants": "180"
-    },
-    {
-      "id": 29,
-      "coursename": "Virtual Reality",
-      "courseduration": "40h",
-      "coursepartecipants": "150"
     }
   ],
   "assignments": [
@@ -401,6 +330,11 @@
       "idcourse": 9,
       "idteacher": 3,
       "id": 9
+    },
+    {
+      "idcourse": 6,
+      "idteacher": 4,
+      "id": 10
     }
   ]
 }

@@ -29,7 +29,6 @@
                 const data = await res.json()
                 // Inverti l'array utilizzando il metodo reverse
                 const reversedData = data.reverse();
-
                 return reversedData;
             },
             async fetchCourses() {
@@ -51,7 +50,7 @@
                     if (res.status === 200) {
                         this.assignments = this.assignments.filter((assignment) => assignment.id !== id);
                     } else {
-                        this.$emit('show-alert' , "ERROR", "Error deleting assignment", 5000)
+                        this.$store.commit('showAlert' , ["ERROR", "Error deleting assignment", 5000])
                     }
                 }
             },
@@ -68,7 +67,7 @@
                 console.log(assignment);
                 const isAssignmentExisting = await this.isAssignmentExists(assignment);
                 if (isAssignmentExisting) {
-                    this.$emit('show-alert' , "ERROR", "There is already a assignment with this course and this teacher", 5000)
+                    this.$store.commit('showAlert' , ["ERROR", "There is already a assignment with this course and this teacher", 5000])
                     return;
                 }
 
@@ -81,21 +80,16 @@
                 const data = await res.json();
 
                 this.assignments = await this.fetchaAssignments();
-                this.toggleCreateAssignment()
-            },
-            
-            // toggle del form create assignment
-            toggleCreateAssignment() {
-                this.showAddAssignmentForm = !this.showAddAssignmentForm
+                this.$store.commit('toggleCreateAssignment')
             },
         },
     }
 </script>
 
 <template>
-    <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment" @toggle-add-assignment-form="toggleCreateAssignment"/>
-    <div v-show="showAddAssignmentForm" class="form-container">
-        <AddAssignmentForm :teachers="teachers" :courses="courses" @create-assignment="createAssignment" @toggle-add-assignment-form="toggleCreateAssignment"/>
+    <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
+    <div v-show="this.$store.state.showAddAssignmentForm" class="form-container">
+        <AddAssignmentForm :teachers="teachers" :courses="courses" @create-assignment="createAssignment"/>
     </div>
 </template>
 

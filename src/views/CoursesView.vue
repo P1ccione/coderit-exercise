@@ -12,8 +12,6 @@
         data() {
             return {
                 courses: [],
-                showAddCourseForm: false,
-                showEditCourseForm: false,
                 editingCourse: {}
             }
         },
@@ -37,13 +35,6 @@
 
                 return data
             },
-            toggleAddCourseForm() {
-                this.showAddCourseForm = !this.showAddCourseForm
-            },
-            toggleEditCourseForm(course) {
-                this.editingCourse = course
-                this.showEditCourseForm = !this.showEditCourseForm
-            },
             async isCourseExisting(coursename) {
               // Effettua una chiamata API per verificare se esiste già un corso con lo stesso nome
               const res = await fetch(`http://localhost:5000/courses?coursename=${coursename}`);
@@ -62,25 +53,27 @@
                 const hasAssignments = await this.fetchaAssignmentsCourse(id);
 
                 if (hasAssignments) {
-                    this.$emit('show-alert' , "ERROR", "Cannot delete course. There are assignments associated with this course", 5000)
+                    this.$store.commit('showAlert' , ["ERROR", "Cannot delete course. There are assignments associated with this course", 5000])
                 } else if (confirm("Are you sure you want to delete this course?")) {
-                const res = await fetch(`http://localhost:5000/courses/${id}`, {
+                    const res = await fetch(`http://localhost:5000/courses/${id}`, {
                     method: "DELETE",
-                });
+                    });
 
-                if (res.status === 200) {
-                    this.courses = await this.fetchCourses();
-                } else {
-                    this.showAlertWithTimeout("Error deleting course", 7000)
-                }
+                    if (res.status === 200) {
+                        this.courses = await this.fetchCourses();
+                    } else {
+                        this.$store.commit('showAlert' , ["ERROR", "Error deleting course", 5000])
+                    }
                 }
             },
             async createCourse(course) {
               // Verifica se esiste già un corso con lo stesso nome
               const isCourseExisting = await this.isCourseExisting(course.coursename);
+              console.log(isCourseExisting, "isCourseExisting")
+              console.log(course.coursename, "course.coursename")
               if (isCourseExisting) {
-                  this.$emit('show-alert' , "ERROR", "There is already a course with the same name", 5000)
-                  return;
+                    this.$store.commit('showAlert' , ["ERROR", "There is already a course with the same name", 5000])
+                    return;
               }
 
               const res = await fetch("http://localhost:5000/courses", {
@@ -92,13 +85,13 @@
               const data = await res.json();
 
               this.courses =  await this.fetchCourses();
-              this.toggleAddCourseForm()
+              this.$store.commit('toggleAddCourseForm')
             },
             async editCourse(newCourse) {
                 const hasAssignments = await this.fetchaAssignmentsCourse(newCourse.id);
 
                 if (hasAssignments && !confirm("This course has assignments. Are you sure to edit this course?")) {
-                return;
+                    return;
                 }
 
                 const courseToEdit = await this.fetchCourse(newCourse.id);
@@ -107,7 +100,7 @@
                 if (newCourse.coursename !== courseToEdit.coursename) {
                 const isCourseExisting = await this.isCourseExisting(newCourse.coursename);
                 if (isCourseExisting) {
-                    this.$emit('show-alert' , "ERROR", "There is already a course with the same name", 5000)
+                    this.$store.commit('showAlert' , ["ERROR", "There is already a course with the same name", 5000])
                     return;
                 }
                 }
@@ -132,19 +125,19 @@
                 // Aggiorna la lista dei corsi con il nuovo dato ricevuto dal server
                 this.courses =  await this.fetchCourses();
 
-                this.showEditCourseForm = !this.showEditCourseForm;
+                this.$store.commit('toggleEditCourseForm')
             },
         },
     }
 </script>
 
 <template>
-    <CoursesTable :courses="courses" @toggle-add-course-form="toggleAddCourseForm" @toggle-edit-course-form="toggleEditCourseForm" @delete-course="deleteCourse"/>
-    <div v-show="showAddCourseForm" class="form-container">
-        <AddCourseForm @toggle-add-course-form="toggleAddCourseForm" @create-course="createCourse"/>
+    <CoursesTable :courses="courses" @toggle-add-course-form="this.$store.commit('toggleAddCourseForm')" @delete-course="deleteCourse"/>
+    <div v-show="this.$store.state.showAddCourseForm" class="form-container">
+        <AddCourseForm @create-course="createCourse"/>
     </div>
-    <div v-show="showEditCourseForm" class="form-container">
-        <EditCourseForm @toggle-edit-course-form="toggleEditCourseForm" @edit-course="editCourse" :editingCourse="editingCourse"/>
+    <div v-show="this.$store.state.showEditCourseForm" class="form-container">
+        <EditCourseForm @edit-course="editCourse" :editingCourse="this.$store.state.editingCourse"/>
     </div>
 </template>
 

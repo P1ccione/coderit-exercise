@@ -35,7 +35,7 @@
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT" @btn-click="$emit('toggle-add-assignment-form')"/>
+        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT" @btn-click="this.$store.commit('toggleCreateAssignment')"/>
         <div v-if="assignments.length > 0">
             <v-table
                 fixed-header

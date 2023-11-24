@@ -9,22 +9,33 @@
                 <v-btn variant="outlined" to="/assignments" v-if="this.$store.state.userIsAuthorized">ASSIGNMENTS</v-btn>
                 <v-btn variant="outlined" @click="logout" v-if="this.$store.state.userIsAuthorized">LOGOUT</v-btn>
                 <v-btn variant="outlined" to="/login" v-else>LOGIN</v-btn>
+                <v-btn variant="outlined" @click="decodeToken(this.accessToken)">Token</v-btn>
             </div>
         </template>
     </v-app-bar>
 </template>
 
 <script>
+    import Cookies from "js-cookie";
     export default {
         name: "Header",
         methods:{
             logout(){
-            this.$store.dispatch('auth0Logout');
-            console.log('logging out');
-            }
+                this.$store.dispatch('auth0Logout');
+                console.log('logging out');
+            },
+            decodeToken(token) {
+                console.log(token)
+            },
         },
         props: {
         },
+        data() {
+            return {
+                accessToken: Cookies.get("access_token"),
+                role: 'http://localhost:5000/teachers/roles'
+            }
+        }
     }
 </script>
 

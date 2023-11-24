@@ -51,7 +51,7 @@
 
 <template>
     <form @submit.prevent="submit">
-      <Button style="margin-bottom:30px" buttoncolor="black" buttontext="CLOSE FORM"  @btn-click="$emit('toggle-add-assignment-form')" />
+      <Button style="margin-bottom:30px" buttoncolor="black" buttontext="CLOSE FORM"  @btn-click="this.$store.commit('toggleCreateAssignment')" />
       
       <v-select
         v-if="props.teachers"
