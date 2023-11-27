@@ -1,31 +1,30 @@
 <template>
-  <h3>HOME PAGE</h3>
-  <v-btn variant="outlined" @click="getAccessToken">ACCESS TOKEN</v-btn>
+  <div v-if="!isAuthenticated">
+    <h2>Effettua il login</h2>
+    <v-btn variant="outlined" @click="login">Log in</v-btn>
+  </div>
+  <div v-else >
+    <h2>BENVENUTO !!</h2>
+  </div>
 </template>
- 
-<script>
-import { defineComponent } from 'vue';
-import Button from '@/components/Button.vue';
-import Cookies from "js-cookie";
 
-export default defineComponent({
+<script>
+import { useAuth0 } from '@auth0/auth0-vue';
+
+export default {
   name: 'HomeView',
+  setup() {
+    const { loginWithRedirect, isAuthenticated, idTokenClaims } = useAuth0();
+
+    return {
+      login: () => {
+        loginWithRedirect();
+      },
+      isAuthenticated,
+      idTokenClaims,
+    };
+  },
   components: {
-    Button,
   },
-  methods: {
-    getAccessToken() {
-      try{
-        const accessToken = Cookies.get("access_token");
-        console.log(accessToken)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  },
-  data () {
-    return{
-    }
-  }
-});
+};
 </script>

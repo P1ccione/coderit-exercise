@@ -1,5 +1,6 @@
 <script setup>
   import { useField, useForm } from 'vee-validate'
+  import { defineEmits } from 'vue'
   import Button from './Button.vue';
     
   const emit = defineEmits(['create-teacher'])
@@ -83,7 +84,7 @@
             <v-btn color="#04c717" class="me-4" type="submit"> submit </v-btn>
             <v-btn color="#d11b0f" @click="handleReset"> clear </v-btn>
         </div>
-        <Button buttoncolor="black" buttontext="CLOSE"  @btn-click="this.$store.commit('toggleAddTeacherForm')" />
+        <Button buttoncolor="black" buttontext="CLOSE"  @btn-click="this.$store.dispatch('toggleAddTeacherForm')" />
       </div>
       </form>
   </template>

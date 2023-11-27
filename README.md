@@ -1,4 +1,4 @@
-# vue-auth0
+# auth0-vue
 
 ## Project setup
 ```

@@ -1,49 +1,55 @@
-<template>
-    <v-app-bar :elevation="2" title="TEACH-LINKER">
-        <template v-slot:append>
-            <div class="links">
-                <v-btn variant="outlined" to="/">HOME</v-btn>
-                <v-btn variant="outlined" to="/about">ABOUT</v-btn>
-                <v-btn variant="outlined" to="/teachers" v-if="this.$store.state.userIsAuthorized">TEACHERS</v-btn>
-                <v-btn variant="outlined" to="/courses" v-if="this.$store.state.userIsAuthorized">COURSES</v-btn>
-                <v-btn variant="outlined" to="/assignments" v-if="this.$store.state.userIsAuthorized">ASSIGNMENTS</v-btn>
-                <v-btn variant="outlined" @click="logout" v-if="this.$store.state.userIsAuthorized">LOGOUT</v-btn>
-                <v-btn variant="outlined" to="/login" v-else>LOGIN</v-btn>
-                <v-btn variant="outlined" @click="decodeToken(this.accessToken)">Token</v-btn>
-            </div>
-        </template>
-    </v-app-bar>
-</template>
-
 <script>
-    import Cookies from "js-cookie";
+    import { useAuth0 } from '@auth0/auth0-vue';
     export default {
+        // eslint-disable-next-line vue/multi-word-component-names
         name: "Header",
-        methods:{
-            logout(){
-                this.$store.dispatch('auth0Logout');
-                console.log('logging out');
-            },
-            decodeToken(token) {
-                console.log(token)
-                console.log(this.idToken);
-            },
-        },
-        props: {
-        },
-        data() {
+        setup() {
+            const { loginWithRedirect } = useAuth0();
+            const { isAuthenticated, idTokenClaims } = useAuth0();
+            const { logout } = useAuth0();
             return {
-                accessToken: Cookies.get("access_token"),
-                idToken: Cookies.get("id_token"),
-                role: 'http://localhost:5000/teachers/roles'
-            }
+                login: () => {
+                    loginWithRedirect();
+                },
+                logout: () => {
+                    logout({ logoutParams: { returnTo: window.location.origin } });
+                },
+                isAuthenticated,
+                idTokenClaims
+            };
         }
     }
 </script>
 
+<template>
+    <v-container>
+        <v-app-bar title="TEACH-LINKER">
+            <template v-slot:append>
+                <div class="links">
+                    <v-btn variant="outlined" to="/" >HOME</v-btn>
+
+                    <v-btn variant="outlined" to="/teachers" v-if="this.$store.state.admin">TAECHERS</v-btn>
+                    <v-btn variant="outlined" to="/courses" v-if="this.$store.state.admin">COURSES</v-btn>
+                    <v-btn variant="outlined" to="/assignments" v-if="this.$store.state.admin">ASSIGNMENTS</v-btn>
+
+                    <v-btn variant="outlined" to="/profile" >PROFILE</v-btn>
+                
+                    <v-btn variant="outlined" v-if="isAuthenticated" @click="logout" >LOGOUT</v-btn>
+
+                    <v-btn variant="outlined" v-else @click="login" >LOGIN</v-btn>
+
+                </div>
+            </template>
+        </v-app-bar>
+    </v-container>
+</template>
+
 <style scoped>
- .links {
-    display: flex;
-    column-gap: 20px;
- }
+    .links{
+        width: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 20px;
+    }
 </style>

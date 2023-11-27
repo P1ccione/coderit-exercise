@@ -53,7 +53,7 @@
 <template>
     <div class="p-table-container">
         <div class="p-top-container">
-            <Button buttoncolor="black" buttontext="ADD TEACHER"  @btn-click="this.$store.commit('toggleAddTeacherForm')" />
+            <Button buttoncolor="black" buttontext="ADD TEACHER"  @btn-click="this.$store.dispatch('toggleAddTeacherForm')" />
             <input class="search" @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher.filter">
         </div>
        <div v-if="filteredTeachers.length > 0">
@@ -95,7 +95,7 @@
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
                                 </Button>
-                                <Button buttoncolor="grey" @btn-click="this.$store.commit('toggleEditTeacherForm', [item])">
+                                <Button buttoncolor="grey" @btn-click="this.$store.dispatch('toggleEditTeacherForm', [item])">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
                                     </template>
@@ -115,12 +115,11 @@
 <style scoped>
     .p-table-container{
         width: 100%;
-        height: 88vh;
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         row-gap: 20px;
-        padding-top: 20px;
     }
 
     .search {

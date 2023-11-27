@@ -35,7 +35,7 @@
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT" @btn-click="this.$store.commit('toggleCreateAssignment')"/>
+        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT" @btn-click="this.$store.dispatch('toggleCreateAssignment')"/>
         <div v-if="assignments.length > 0">
             <v-table
                 fixed-header
@@ -92,7 +92,6 @@
         flex-direction: column;
         align-items: center;
         row-gap: 20px;
-        padding-top: 20px;
     }
     .btn-group{
         margin-left:20px;

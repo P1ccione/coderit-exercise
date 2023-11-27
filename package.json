@@ -1,5 +1,5 @@
 {
-  "name": "vue-auth0",
+  "name": "auth0-vue",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,12 +10,11 @@
   "dependencies": {
     "@auth0/auth0-vue": "^2.3.2",
     "@mdi/font": "5.9.55",
-    "auth0-js": "^9.23.3",
+    "axios": "^1.6.2",
     "core-js": "^3.8.3",
-    "js-cookie": "^3.0.5",
     "json-server": "^0.17.4",
     "roboto-fontface": "*",
-    "vee-validate": "^4.11.8",
+    "vee-validate": "^4.12.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuetify": "^3.0.0-beta.0",

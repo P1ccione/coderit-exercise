@@ -50,7 +50,7 @@
                     if (res.status === 200) {
                         this.assignments = this.assignments.filter((assignment) => assignment.id !== id);
                     } else {
-                        this.$store.commit('showAlert' , ["ERROR", "Error deleting assignment", 5000])
+                        this.$store.dispatch('showAlert' , ["ERROR", "Error deleting assignment", 5000])
                     }
                 }
             },
@@ -67,7 +67,7 @@
                 console.log(assignment);
                 const isAssignmentExisting = await this.isAssignmentExists(assignment);
                 if (isAssignmentExisting) {
-                    this.$store.commit('showAlert' , ["ERROR", "There is already a assignment with this course and this teacher", 5000])
+                    this.$store.dispatch('showAlert' , ["ERROR", "There is already a assignment with this course and this teacher", 5000])
                     return;
                 }
 
@@ -80,7 +80,7 @@
                 const data = await res.json();
 
                 this.assignments = await this.fetchaAssignments();
-                this.$store.commit('toggleCreateAssignment')
+                this.$store.dispatch('toggleCreateAssignment')
             },
         },
     }
