@@ -88,7 +88,7 @@
 
 <template>
     <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
-    <div v-show="this.$store.state.showAddAssignmentForm" class="form-container">
+    <div v-show="this.$store.state.assignments.showAddAssignmentForm" class="form-container">
         <AddAssignmentForm :teachers="teachers" :courses="courses" @create-assignment="createAssignment"/>
     </div>
 </template>

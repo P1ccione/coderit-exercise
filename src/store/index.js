@@ -1,15 +1,8 @@
 import { createStore } from "vuex";
 
-export default createStore({
+const globalModule = {
   state: {
     showAlertState: false,
-    showAddCourseForm: false,
-    showEditCourseForm: false,
-    showAddTeacherForm: false,
-    showEditTeacherForm: false,
-    showAddAssignmentForm: false,
-    editingCourse: {},
-    editingTeacher: {},
     alertTitle: "",
     alertText: "",
     admin: false,
@@ -23,33 +16,8 @@ export default createStore({
       state.alertTitle = alertArray[0];
       state.showAlertState = !state.showAlertState;
     },
-
-    toggleAddCourseForm(state) {
-      state.showAddCourseForm = !state.showAddCourseForm;
-    },
-
-    toggleEditCourseForm(state) {
-      state.showEditCourseForm = !state.showEditCourseForm;
-    },
-
-    toggleAddTeacherForm(state) {
-      state.showAddTeacherForm = !state.showAddTeacherForm;
-    },
-
-    toggleEditTeacherForm(state) {
-      state.showEditTeacherForm = !state.showEditTeacherForm;
-    },
-
-    toggleCreateAssignment(state) {
-      state.showAddAssignmentForm = !state.showAddAssignmentForm;
-    },
-
-    changeEditingTeacher(state, teacher) {
-      state.editingTeacher = teacher[0];
-    },
-
-    changeEditingCourse(state, course) {
-      state.editingCourse = course[0];
+    changeAdmin(state) {
+      state.admin = !state.admin;
     },
   },
   actions: {
@@ -60,28 +28,98 @@ export default createStore({
         commit("showAlert", alertArray);
       }, alertArray[2]);
     },
-
-    toggleAddCourseForm({ commit }) {
-      commit("toggleAddCourseForm");
+    changeAdmin({ commit }) {
+      commit("changeAdmin");
     },
+  },
+  getters: {},
+};
 
-    toggleEditCourseForm({ commit }, course = [{}]) {
-      commit("changeEditingCourse", course);
-      commit("toggleEditCourseForm");
+const teachersModule = {
+  state: {
+    showAddTeacherForm: false,
+    showEditTeacherForm: false,
+    editingTeacher: {},
+  },
+  mutations: {
+    toggleAddTeacherForm(state) {
+      state.showAddTeacherForm = !state.showAddTeacherForm;
     },
-
+    toggleEditTeacherForm(state) {
+      state.showEditTeacherForm = !state.showEditTeacherForm;
+    },
+    changeEditingTeacher(state, teacher) {
+      state.editingTeacher = teacher[0];
+    },
+  },
+  actions: {
     toggleAddTeacherForm({ commit }) {
       commit("toggleAddTeacherForm");
     },
-
     toggleEditTeacherForm({ commit }, teacher = [{}]) {
       commit("changeEditingTeacher", teacher);
       commit("toggleEditTeacherForm");
     },
+    changeEditingTeacher({ commit }, teacher) {
+      commit("changeEditingTeacher", teacher);
+    },
+  },
+};
 
+const coursesModule = {
+  state: {
+    showAddCourseForm: false,
+    showEditCourseForm: false,
+    editingCourse: {},
+  },
+  mutations: {
+    toggleAddCourseForm(state) {
+      state.showAddCourseForm = !state.showAddCourseForm;
+    },
+    toggleEditCourseForm(state) {
+      state.showEditCourseForm = !state.showEditCourseForm;
+    },
+    changeEditingCourse(state, course) {
+      state.editingCourse = course[0];
+    },
+  },
+  actions: {
+    toggleAddCourseForm({ commit }) {
+      commit("toggleAddCourseForm");
+    },
+    toggleEditCourseForm({ commit }, course = [{}]) {
+      commit("changeEditingCourse", course);
+      commit("toggleEditCourseForm");
+    },
+    changeEditingCourse({ commit }, course) {
+      commit("changeEditingCourse", course);
+    },
+  },
+};
+
+const assignmentsModule = {
+  state: {
+    showAddAssignmentForm: false,
+  },
+  mutations: {
+    toggleCreateAssignment(state) {
+      state.showAddAssignmentForm = !state.showAddAssignmentForm;
+    },
+  },
+  actions: {
     toggleCreateAssignment({ commit }) {
       commit("toggleCreateAssignment");
     },
   },
-  getters: {},
+};
+
+const store = createStore({
+  modules: {
+    global: globalModule,
+    teachers: teachersModule,
+    courses: coursesModule,
+    assignments: assignmentsModule,
+  },
 });
+
+export default store;

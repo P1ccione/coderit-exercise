@@ -9,13 +9,13 @@ import { createAuth0 } from "@auth0/auth0-vue";
 loadFonts();
 
 const auth0 = createAuth0({
-  domain: "dev-zw7nvrerdklscuqe.us.auth0.com",
-  clientId: "zlYtZTtIyP6U6rMITDOE0pNZEOO6souf",
+  domain: `${process.env.VUE_APP_AUTH0_CONFIG_DOMAIN}`,
+  clientId: `${process.env.VUE_APP_AUTH0_CONFIG_CLIENTID}`,
   authorizationParams: {
     redirect_uri: window.location.origin,
   },
   scope: "openid profile email",
-  audience: "{http://localhost:5000}",
+  audience: `{${process.env.VUE_APP_AUTH0_CONFIG_AUDIENCE}}`,
 });
 
 createApp(App).use(router).use(store).use(auth0).use(vuetify).mount("#app");

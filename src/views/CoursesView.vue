@@ -132,11 +132,11 @@
 
 <template>
     <CoursesTable :courses="courses" @toggle-add-course-form="this.$store.dispatch('toggleAddCourseForm')" @delete-course="deleteCourse"/>
-    <div v-show="this.$store.state.showAddCourseForm" class="form-container">
+    <div v-show="this.$store.state.courses.showAddCourseForm" class="form-container">
         <AddCourseForm @create-course="createCourse"/>
     </div>
-    <div v-show="this.$store.state.showEditCourseForm" class="form-container">
-        <EditCourseForm @edit-course="editCourse" :editingCourse="this.$store.state.editingCourse"/>
+    <div v-show="this.$store.state.courses.showEditCourseForm" class="form-container">
+        <EditCourseForm @edit-course="editCourse" :editingCourse="this.$store.state.courses.editingCourse"/>
     </div>
 </template>
 

@@ -1,6 +1,8 @@
 <template>
     <div>
-       
+        <pre>
+            {{ this.user["http://localhost:5000/roles"] }}
+        </pre>
     </div>
 </template>
 <script>

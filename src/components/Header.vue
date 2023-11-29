@@ -28,9 +28,9 @@
                 <div class="links">
                     <v-btn variant="outlined" to="/" >HOME</v-btn>
 
-                    <v-btn variant="outlined" to="/teachers" v-if="this.$store.state.admin">TAECHERS</v-btn>
-                    <v-btn variant="outlined" to="/courses" v-if="this.$store.state.admin">COURSES</v-btn>
-                    <v-btn variant="outlined" to="/assignments" v-if="this.$store.state.admin">ASSIGNMENTS</v-btn>
+                    <v-btn variant="outlined" to="/teachers" v-if="this.$store.state.global.admin">TAECHERS</v-btn>
+                    <v-btn variant="outlined" to="/courses" v-if="this.$store.state.global.admin">COURSES</v-btn>
+                    <v-btn variant="outlined" to="/assignments" v-if="this.$store.state.global.admin">ASSIGNMENTS</v-btn>
 
                     <v-btn variant="outlined" to="/profile" >PROFILE</v-btn>
                 

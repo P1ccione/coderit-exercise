@@ -28,7 +28,7 @@ const routes = [
       // Verifica l'autenticazione con authGuard
       if (authGuard) {
         console.log("authgurad", authGuard);
-        if (Store.state.admin) {
+        if (Store.state.global.admin) {
           next();
         } else {
           router.replace("/");
@@ -47,7 +47,7 @@ const routes = [
       // Verifica l'autenticazione con authGuard
       if (authGuard) {
         console.log("authgurad", authGuard);
-        if (Store.state.admin) {
+        if (Store.state.global.admin) {
           next();
         } else {
           router.replace("/");
@@ -66,7 +66,7 @@ const routes = [
       // Verifica l'autenticazione con authGuard
       if (authGuard) {
         console.log("authgurad", authGuard);
-        if (Store.state.admin) {
+        if (Store.state.global.admin) {
           next();
         } else {
           router.replace("/");

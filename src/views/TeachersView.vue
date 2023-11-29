@@ -154,11 +154,11 @@
 
 <template>
     <TeachersTable :teachers="teachers" @delete-teacher="deleteTeacher"/>
-    <div v-show="this.$store.state.showAddTeacherForm" class="form-container">
+    <div v-show="this.$store.state.teachers.showAddTeacherForm" class="form-container">
         <AddTeacherForm @create-teacher="createTeacher"/>
     </div>
-    <div v-show="this.$store.state.showEditTeacherForm" class="form-container">
-        <EditTeacherForm @edit-teacher="editTeacher" :editingTeacher="this.$store.state.editingTeacher"/>
+    <div v-show="this.$store.state.teachers.showEditTeacherForm" class="form-container">
+        <EditTeacherForm @edit-teacher="editTeacher" :editingTeacher="this.$store.state.teachers.editingTeacher"/>
     </div>
 </template>
 
