@@ -1,0 +1,24 @@
+# for local development
+version: '3.7'
+services:
+  frontend:
+    container_name: vue-app-container
+    build:
+      context: .
+      target: 'develop-stage'
+    ports:
+      - '8080:8080'
+    volumes:
+      - '.:/app'
+    command: /bin/sh -c "npm run serve"
+
+  backend:
+    container_name: json-server-container
+    build:
+      context: .
+      target: 'develop-stage'
+    ports:
+      - '5000:5000'
+    volumes:
+      - '.:/app'
+    command: /bin/sh -c "npm run backend"

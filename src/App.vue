@@ -23,7 +23,9 @@ export default {
     const { user, isAuthenticated, idTokenClaims } = useAuth0();
     watchEffect(() => {
       if (isAuthenticated.value && user.value) {
-        const userRoles = user.value[`${process.env.VUE_APP_AUTH0_CONFIG_AUDIENCE}`];
+        const userRoles = user.value[`${process.env.VUE_APP_AUTH0_CONFIG_AUDIENCE}/roles`];
+        console.log(user.value);
+          console.log("User roles", userRoles);
         if (userRoles) {
           console.log("User roles", userRoles);
           console.log(userRoles.length);

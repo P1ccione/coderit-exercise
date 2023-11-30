@@ -3,6 +3,7 @@
         <pre>
             {{ this.user["http://localhost:5000/roles"] }}
         </pre>
+        <v-btn @click="stampaUser()">USER</v-btn>
     </div>
 </template>
 <script>
@@ -18,6 +19,10 @@
             }
         },
         methods: {
+            stampaUser() {
+                console.log(this.user);
+                console.log(this.$store.state.global.admin);
+            }
         },
     }
 </script>
