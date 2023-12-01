@@ -202,13 +202,6 @@
       "lastname": "Viola",
       "email": "riccardo@hotmail.com",
       "phonenumber": "3345678901"
-    },
-    {
-      "id": 35,
-      "firstname": "Gaia",
-      "lastname": "Bellini",
-      "email": "bellini@gmail.com",
-      "phonenumber": "2514257841"
     }
   ],
   "courses": [

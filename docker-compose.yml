@@ -14,11 +14,9 @@ services:
 
   backend:
     container_name: json-server-container
-    build:
-      context: .
-      target: 'develop-stage'
+    build: ./db
     ports:
       - '5000:5000'
     volumes:
-      - '.:/app'
-    command: /bin/sh -c "npm run backend"
+      - './db/db.json:/data/db.json'
+    command: "json-server --watch /data/db.json --port 5000"
