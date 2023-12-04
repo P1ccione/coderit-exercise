@@ -9,6 +9,7 @@ COPY . .
 # build stage
 FROM develop-stage as build-stage
 RUN npm run build
+RUN npm install -g json-server  # Installa json-server globalmente
 
 # production stage
 FROM nginx:1.15.7-alpine as production-stage

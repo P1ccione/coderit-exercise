@@ -1,4 +1,3 @@
-# for local development
 version: '3.7'
 services:
   frontend:
@@ -14,9 +13,11 @@ services:
 
   backend:
     container_name: json-server-container
-    build: ./db
+    build:
+      context: .
+      target: 'build-stage'
     ports:
       - '5000:5000'
     volumes:
-      - './db/db.json:/data/db.json'
-    command: "json-server --watch /data/db.json --port 5000"
+      - './db:/app/db'
+    command: /bin/sh -c "npm run backend"
