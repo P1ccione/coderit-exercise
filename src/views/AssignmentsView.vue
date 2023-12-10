@@ -1,6 +1,7 @@
 <script>
     import AssignmentsTable from '../components/AssignmentsTable.vue';
     import AddAssignmentForm from '../components/AddAssignmentForm.vue';
+    import { useStore } from 'vuex';
     export default {
         name: "AssignmentsView",
         components: {
@@ -12,7 +13,8 @@
                 assignments: [],
                 teachers: [],
                 courses: [],
-                showAddAssignmentForm: false
+                showAddAssignmentForm: false,
+                store: useStore()
             }
         },
         async created() {
@@ -50,7 +52,7 @@
                     if (res.status === 200) {
                         this.assignments = this.assignments.filter((assignment) => assignment.id !== id);
                     } else {
-                        this.$store.dispatch('showAlert' , ["ERROR", "Error deleting assignment", 5000])
+                        this.store.dispatch('showAlert' , ["ERROR", "Error deleting assignment", 5000])
                     }
                 }
             },
@@ -67,7 +69,7 @@
                 console.log(assignment);
                 const isAssignmentExisting = await this.isAssignmentExists(assignment);
                 if (isAssignmentExisting) {
-                    this.$store.dispatch('showAlert' , ["ERROR", "There is already a assignment with this course and this teacher", 5000])
+                    this.store.dispatch('showAlert' , ["ERROR", "There is already a assignment with this course and this teacher", 5000])
                     return;
                 }
 
@@ -80,7 +82,7 @@
                 const data = await res.json();
 
                 this.assignments = await this.fetchaAssignments();
-                this.$store.dispatch('toggleCreateAssignment')
+                this.store.dispatch('toggleCreateAssignment')
             },
         },
     }
@@ -88,7 +90,7 @@
 
 <template>
     <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
-    <div v-show="this.$store.state.assignments.showAddAssignmentForm" class="form-container">
+    <div v-show="this.store.state.assignments.showAddAssignmentForm" class="form-container">
         <AddAssignmentForm :teachers="teachers" :courses="courses" @create-assignment="createAssignment"/>
     </div>
 </template>

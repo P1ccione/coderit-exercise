@@ -1,6 +1,7 @@
 <script>
     import { Icon } from '@iconify/vue';
     import Button from './Button.vue';
+    import { useStore } from 'vuex';
     export default {
         name: "AssignmentsTable",
         components: {
@@ -9,6 +10,7 @@
         },
         data() {
             return {
+                store: useStore()
             }
         },
         props: {
@@ -35,7 +37,7 @@
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT" @btn-click="this.$store.dispatch('toggleCreateAssignment')"/>
+        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
         <div v-if="assignments.length > 0">
             <v-table
                 fixed-header

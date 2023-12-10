@@ -386,6 +386,11 @@
       "idcourse": 8,
       "idteacher": 4,
       "id": 10
+    },
+    {
+      "idcourse": 21,
+      "idteacher": 3,
+      "id": 11
     }
   ]
 }

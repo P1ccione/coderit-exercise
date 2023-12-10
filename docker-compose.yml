@@ -2,22 +2,12 @@ version: '3.7'
 services:
   frontend:
     container_name: vue-app-container
-    build:
-      context: .
-      target: 'develop-stage'
+    build: .
     ports:
-      - '8080:8080'
-    volumes:
-      - '.:/app'
-    command: /bin/sh -c "npm run serve"
+      - '8080:80'
 
   backend:
     container_name: json-server-container
-    build:
-      context: .
-      target: 'build-stage'
+    build: ./db
     ports:
       - '5000:5000'
-    volumes:
-      - './db:/app/db'
-    command: /bin/sh -c "npm run backend"

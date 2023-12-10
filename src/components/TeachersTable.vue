@@ -1,6 +1,7 @@
 <script>
     import { Icon } from '@iconify/vue';
     import Button from './Button.vue';
+    import { useStore } from 'vuex';
     export default {
         name: "TeachersTable",
         components: {
@@ -12,7 +13,8 @@
                 searchteacher: {
                     filter: ""
                 },
-                filteredTeachers: []
+                filteredTeachers: [],
+                store: useStore()
             }
         },
         props: {
@@ -53,7 +55,7 @@
 <template>
     <div class="p-table-container">
         <div class="p-top-container">
-            <Button buttoncolor="black" buttontext="ADD TEACHER"  @btn-click="this.$store.dispatch('toggleAddTeacherForm')" />
+            <Button buttoncolor="black" buttontext="ADD TEACHER"  @btn-click="this.store.dispatch('toggleAddTeacherForm')" />
             <input class="search" @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher.filter">
         </div>
        <div v-if="filteredTeachers.length > 0">
@@ -95,7 +97,7 @@
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
                                 </Button>
-                                <Button buttoncolor="grey" @btn-click="this.$store.dispatch('toggleEditTeacherForm', [item])">
+                                <Button buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditTeacherForm', [item])">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
                                     </template>
