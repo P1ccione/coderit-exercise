@@ -20,9 +20,11 @@ import Header from './components/Header.vue';
 import Alert from './components/Alert.vue';
 export default {
   setup() {
-    const { user, isAuthenticated, idTokenClaims } = useAuth0();
+    const { user, isAuthenticated, idTokenClaims, checkSession } = useAuth0();
     const store = useStore();
-    watchEffect(() => {
+    watchEffect(async () => {
+      console.log("watcheffect", isAuthenticated.value, user.value)
+      await checkSession();
       if (isAuthenticated.value && user.value) {
         const userRoles = user.value[`${process.env.VUE_APP_AUTH0_CONFIG_AUDIENCE}/roles`];
         console.log(user.value);

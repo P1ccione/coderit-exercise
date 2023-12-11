@@ -17,6 +17,9 @@ const teacherSchema = new mongoose.Schema({
 const courseSchema = new mongoose.Schema({
   name: String,
 });
+const assignmentsSchema = new mongoose.Schema({
+  name: String,
+});
 
 const Teacher = mongoose.model("teacher", teacherSchema);
 
@@ -39,6 +42,18 @@ app.get("/api/courses", async (req, res) => {
   } catch (error) {
     console.error("Errore nella richiesta di corsi:", error);
     res.status(500).json({ error: "Errore nella richiesta di corsi" });
+  }
+});
+
+const Assignment = mongoose.model("assignment", assignmentsSchema);
+
+app.get("/api/assignments", async (req, res) => {
+  try {
+    const assignments = await Assignment.find();
+    res.json(assignments);
+  } catch (error) {
+    console.error("Errore nella richiesta di assegnamenti:", error);
+    res.status(500).json({ error: "Errore nella richiesta di assegnamenti" });
   }
 });
 

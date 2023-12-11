@@ -4,7 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import CoursesView from "../views/CoursesView.vue";
 import AssignmentsView from "../views/AssignmentsView.vue";
 import ProfileView from "../views/ProfileView.vue";
-import { authGuard } from "@auth0/auth0-vue";
+import { authGuard, useAuth0 } from "@auth0/auth0-vue";
 import Store from "../store/index.js";
 
 const routes = [
@@ -28,6 +28,7 @@ const routes = [
       // Verifica l'autenticazione con authGuard
       if (authGuard) {
         console.log("authgurad", authGuard);
+        console.log(Store.state.global.admin);
         if (Store.state.global.admin) {
           next();
         } else {
