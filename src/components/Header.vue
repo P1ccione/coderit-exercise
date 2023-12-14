@@ -34,7 +34,7 @@
                     <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">COURSES</v-btn>
                     <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">ASSIGNMENTS</v-btn>
                 
-                    <v-btn variant="outlined" v-if="this.$keycloak.token" @click="logout" >LOGOUT</v-btn>
+                    <v-btn variant="outlined" @click="logout" >LOGOUT</v-btn>
                 </div>
             </template>
         </v-app-bar>
