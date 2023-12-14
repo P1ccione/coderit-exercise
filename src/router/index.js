@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AdminView from "../views/AdminView.vue";
 import ForbiddenView from "../views/ForbiddenView.vue";
-
-const auth = true;
+import store from "../store";
 
 const routes = [
   {
@@ -15,18 +14,18 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: AdminView,
-  },
-  {
-    path: "/forbidden",
-    name: "forbidden",
-    component: ForbiddenView,
     beforeEnter: (to, from, next) => {
-      if (auth) {
+      if (store.state.userData.roles.includes("ROLE_ADMIN")) {
         next();
       } else {
         next("/forbidden");
       }
     },
+  },
+  {
+    path: "/forbidden",
+    name: "forbidden",
+    component: ForbiddenView,
   },
 ];
 
