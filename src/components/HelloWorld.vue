@@ -1,5 +1,5 @@
 <template>
-  Wellcome {{ this.store.state.userData.lastname }} {{ this.store.state.userData.firstname }}
+  Wellcome {{ this.store.state.global.userData.lastname }} {{ this.store.state.global.userData.firstname }}
 </template>
 
 <script>

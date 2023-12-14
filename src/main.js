@@ -42,10 +42,10 @@ keycloak
     store.dispatch("store_email", token_decoded.email);
     store.dispatch("store_roles", token_decoded.realm_access.roles);
 
-    console.log("firstname: " + store.state.userData.firstname);
-    console.log("lastname: " + store.state.userData.lastname);
-    console.log("email: " + store.state.userData.email);
-    console.log("roles: " + store.state.userData.roles);
+    console.log("firstname: " + store.state.global.userData.firstname);
+    console.log("lastname: " + store.state.global.userData.lastname);
+    console.log("email: " + store.state.global.userData.email);
+    console.log("roles: " + store.state.global.userData.roles);
 
     setInterval(() => {
       keycloak
