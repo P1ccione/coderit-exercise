@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  frontend:
+    container_name: vue-app-container
+    build: .
+    ports:
+      - '3000:80'  # Map container port 80 to host port 3000
+
+  backend:
+    container_name: json-server-container
+    build: ./db
+    ports:
+      - '5000:5000'
