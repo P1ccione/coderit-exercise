@@ -155,7 +155,9 @@
 </script>
 
 <template>
-    <TeachersTable :teachers="teachers" @delete-teacher="deleteTeacher"/>
+    <div>
+        <TeachersTable :teachers="teachers" @delete-teacher="deleteTeacher"/>
+    </div>
     <div v-show="this.store.state.teachers.showAddTeacherForm" class="form-container">
         <AddTeacherForm @create-teacher="createTeacher"/>
     </div>

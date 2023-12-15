@@ -133,7 +133,9 @@
 </script>
 
 <template>
-    <CoursesTable :courses="courses" @toggle-add-course-form="this.store.dispatch('toggleAddCourseForm')" @delete-course="deleteCourse"/>
+    <div>
+        <CoursesTable :courses="courses" @toggle-add-course-form="this.store.dispatch('toggleAddCourseForm')" @delete-course="deleteCourse"/>
+    </div>
     <div v-show="this.store.state.courses.showAddCourseForm" class="form-container">
         <AddCourseForm @create-course="createCourse"/>
     </div>

@@ -1,15 +1,18 @@
 <template>
-    <div>
-        Forbidden
-    </div>
+    <h1>YOU ARE NOT ALLOWED TO ACCESS THAT PAGE</h1>
+    <Button buttoncolor="black" buttontext="GO BACK HOME" style="margin-top: 45px;" to="/"/>
 </template>
 
 <script>
+    import Button from '../components//Button.vue';
     export default {
-        name: "Forbidden"
+        name: "Forbidden",
+        components: {
+            Button
+        }
     }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

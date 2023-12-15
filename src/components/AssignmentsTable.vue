@@ -89,7 +89,7 @@
 <style scoped>
     .p-table-container{
         width: 100%;
-        height: 88vh;
+        max-height: 88vh;
         display: flex;
         flex-direction: column;
         align-items: center;

@@ -89,7 +89,9 @@
 </script>
 
 <template>
-    <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
+    <div style="width: fit-content;">
+        <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
+    </div>
     <div v-show="this.store.state.assignments.showAddAssignmentForm" class="form-container">
         <AddAssignmentForm :teachers="teachers" :courses="courses" @create-assignment="createAssignment"/>
     </div>
