@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Header/>
-    <div class="alert-container" v-show="this.store.state.showAlertState">
+    <div class="alert-container" v-show="this.store.state.global.showAlertState">
       <Alert :title="this.store.state.global.alertTitle" :text="this.store.state.global.alertText" />
     </div>
       <div class="container">
@@ -40,5 +40,13 @@ export default {
     justify-content: center;
     align-items: center;
     padding-top: 32px;
+}
+
+.alert-container {
+    position: absolute;
+    top: 30px;
+    z-index: 9999;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>

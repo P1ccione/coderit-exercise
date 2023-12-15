@@ -6,37 +6,31 @@
   const emit = defineEmits(['create-teacher'])
   const { handleSubmit, handleReset } = useForm({
     validationSchema: {
-        firstname(value) {
+      name(value) {
             if (value?.length >= 2) return true
             return 'First Name needs to be at least 2 characters.'
         },
-        lastname(value) {
+        surname(value) {
             if (value?.length >= 2) return true
             return 'Last Name needs to be at least 2 characters.'
         },
-        phonenumber(value) {
-            if (value?.length > 9 && /^[0-9-]+$/.test(value)) return true
-            return 'Phone Number needs to be at least 9 digits.'
-        },
-        email(value) {
+        userEmail(value) {
             if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
             return 'Must be a valid e-mail.'
         },
     },
   })
-  const lastname = useField('lastname')
-  const firstname = useField('firstname')
-  const phonenumber = useField('phonenumber')
-  const email = useField('email')
+  const surname = useField('surname')
+  const name = useField('name')
+  const userEmail = useField('userEmail')
 
   const submit = handleSubmit(values => {
     const teacher = {
-      firstname: values.firstname,
-      lastname: values.lastname,
-      phonenumber: values.phonenumber,
-      email: values.email,
+      name: values.name,
+      surname: values.surname,
+      userEmail: values.userEmail,
     }
-    // console.log(teacher);
+    console.log(teacher);
     emit("create-teacher", teacher)
   })
 </script>
@@ -60,29 +54,22 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
     <form @submit.prevent="submit">
       <v-text-field
         variant="outlined"
-        v-model="firstname.value.value"
-        :error-messages="firstname.errorMessage.value"
+        v-model="name.value.value"
+        :error-messages="name.errorMessage.value"
         label="First Name"
       ></v-text-field>
 
       <v-text-field
         variant="outlined"
-        v-model="lastname.value.value"
-        :error-messages="lastname.errorMessage.value"
+        v-model="surname.value.value"
+        :error-messages="surname.errorMessage.value"
         label="Last Name"
-      ></v-text-field>
-
-      <v-text-field
-        variant="outlined"
-        v-model="phonenumber.value.value"
-        :error-messages="phonenumber.errorMessage.value"
-        label="Phone Number"
       ></v-text-field>
   
       <v-text-field
         variant="outlined"
-        v-model="email.value.value"
-        :error-messages="email.errorMessage.value"
+        v-model="userEmail.value.value"
+        :error-messages="userEmail.errorMessage.value"
         label="Email"
       ></v-text-field>
       <div class="big-btn-group">

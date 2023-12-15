@@ -75,9 +75,6 @@
                             Email
                         </th>
                         <th class="text-left">
-                            Phone Number
-                        </th> 
-                        <th class="text-left">
                         </th> 
                     </tr>
                 </thead>
@@ -86,13 +83,12 @@
                         v-for="item in filteredTeachers"
                         :key="item.id"
                     >
-                        <td>{{ item.firstname }}</td>
-                        <td>{{ item.lastname }}</td>
-                        <td>{{ item.email }}</td>
-                        <td>{{ item.phonenumber }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.surname }}</td>
+                        <td>{{ item.userEmail }}</td>
                         <td>
                             <div class="btn-group">
-                                <Button buttoncolor="#d11b0f" @btn-click="$emit('delete-teacher', item.id)">
+                                <Button buttoncolor="#d11b0f" @btn-click="$emit('delete-teacher', item.userId)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>

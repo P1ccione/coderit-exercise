@@ -2,6 +2,7 @@
     import TeachersTable from '../components/TeachersTable.vue';
     import AddTeacherForm from '../components/AddTeacherForm.vue';
     import EditTeacherForm from '../components/EditTeacherForm.vue';
+    const axios = require('axios');
     import { useStore } from 'vuex';
     export default {
         name: "TeachersView",
@@ -17,137 +18,168 @@
             }
         },
         async created() {
-            this.teachers = await this.fetchTeachers();
+            try {
+                this.teachers = await this.fetchTeachers();
+            } catch (error) {
+                // Handle the error if needed
+                console.error('Error in created hook:', error.message);
+            }
         },
         methods: {
             // fetch dei dati nel file db.json dell'array teachers
             async fetchTeachers() {
-                const res = await fetch("http://localhost:5000/teachers");
-                const data = await res.json();
+                const apiUrl = 'https://here-i-am.apps.coderit.it/api/professor';
+                const bearerToken = this.$keycloak.token;
 
-                // Inverti l'array utilizzando il metodo reverse
-                const reversedData = data.reverse();
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
 
-                return reversedData;
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    const reversed = response.data.reverse();
+                    return reversed;
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
             },
             // funzione di fetch per prendere i teachers dal db
             async fetchTeacher(id) {
-                const res = await fetch(`http://localhost:5000/teachers/${id}`)
+                const apiUrl = `https://here-i-am.apps.coderit.it/api/professor/${id}`;
+                const bearerToken = this.$keycloak.token;
 
-                const data = await res.json()
-
-                return data
-            },
-            async fetchaAssignmentsTeacher(teacherId) {
-                const res = await fetch(`http://localhost:5000/assignments?idteacher=${teacherId}`)
-
-                const data = await res.json()
-
-                return data.length > 0;
-            },
-            async isEmailExists(email) {
-                // Effettua una chiamata API per verificare se esiste già un insegnante con la stessa email
-                const res = await fetch(`http://localhost:5000/teachers?email=${email}`);
-                const data = await res.json();
-
-                return data.length > 0; // Restituisce true se esiste già un insegnante con la stessa email, altrimenti false
-            },
-
-            async isPhoneExists(phonenumber) {
-                // Effettua una chiamata API per verificare se esiste già un insegnante con lo stesso numero di telefono
-                const res = await fetch(`http://localhost:5000/teachers?phonenumber=${phonenumber}`);
-                const data = await res.json();
-
-                return data.length > 0; // Restituisce true se esiste già un insegnante con lo stesso numero di telefono, altrimenti false
-            },
-            async createTeacher(teacher) {
-
-                const isEmailExisting = await this.isEmailExists(teacher.email);
-                if (isEmailExisting) {
-                    this.store.dispatch('showAlert' , ["ERROR", "There is already a teacher with the same email", 5000])
-                    return;
-                }
-
-                // Verifica se esiste già un insegnante con lo stesso numero di telefono
-                const isPhoneExisting = await this.isPhoneExists(teacher.phonenumber);
-                if (isPhoneExisting) {
-                    this.store.dispatch('showAlert' , ["ERROR", "There is already a teacher with the same phone number", 5000])
-                    return;
-                }
-
-                const res = await fetch("http://localhost:5000/teachers", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(teacher),
-                });
-
-                const data = await res.json();
-
-                this.teachers = await this.fetchTeachers();
-                this.store.dispatch('toggleAddTeacherForm');
-            },
-            async editTeacher(newTeacher) {
-                const teacherToEdit = await this.fetchTeacher(newTeacher.id);;
-
-                // Verifica se esiste già un insegnante con la stessa email
-                if (newTeacher.email !== teacherToEdit.email) {
-                    const isEmailExisting = await this.isEmailExists(newTeacher.email);
-                    if (isEmailExisting && newTeacher.email !== teacherToEdit.email) {
-                        this.store.dispatch('showAlert' , ["ERROR", "There is already a teacher with the same email", 5000])
-                        return;
-                    }
-                }
-
-                // Verifica se esiste già un insegnante con lo stesso numero di telefono
-                if (newTeacher.phonenumber !== teacherToEdit.phonenumber) {
-                    const isPhoneExisting = await this.isPhoneExists(newTeacher.phonenumber);
-                    if (isPhoneExisting && newTeacher.phonenumber !== teacherToEdit.phonenumber) {
-                        this.store.dispatch('showAlert' , ["ERROR", "There is already a teacher with the same phone number", 5000])
-                        return;
-                    }
-                }
-
-                const upTeacher = {
-                    ...newTeacher,
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
                 };
 
-                const res = await fetch(`http://localhost:5000/teachers/${newTeacher.id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(upTeacher),
-                });
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    return response.data;
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
+            },
 
-                const data = await res.json();
+            async fetchAssignmentsTeacher(id) {
+                const apiUrl = `https://here-i-am.apps.coderit.it/api/docenza/professore/${id}`;
+                const bearerToken = this.$keycloak.token;
 
-                // Aggiorna la lista degli insegnanti con il nuovo dato ricevuto dal server
-                this.teachers = await this.fetchTeachers();
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
 
-                this.store.dispatch('toggleEditTeacherForm')
-                // console.log("after toggleTeacherForm function");
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    const data = response.data;
+                    return data.length > 0;
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
+            },
+            
+            async createTeacher(teacher) {
+                // Verifica se esiste già un insegnante con la stessa userEmail
+                const teacherExists = this.teachers.some(existingTeacher => existingTeacher.userEmail === teacher.userEmail);
+                
+                if (teacherExists) {
+                    this.store.dispatch('showAlert' , ["ERROR", "There is already a teacher with the same email", 5000])
+                    return; // Non creare un nuovo insegnante se ne esiste già uno con la stessa userEmail
+                }
+
+                const apiUrl = 'https://here-i-am.apps.coderit.it/api/professor';
+                const bearerToken = this.$keycloak.token;
+
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
+
+                try {
+                    const response = await axios.post(apiUrl, teacher, config);
+                    console.log('Teacher created:', response.data);
+                    this.teachers = await this.fetchTeachers();
+                    this.store.dispatch('toggleAddTeacherForm')
+                } catch (error) {
+                    this.store.dispatch('showAlert' , ["ERROR", `Error creating teacher: ${error.message}`, 5000])
+                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                }
+            },
+            async editTeacher(newTeacher) {
+                // Estrai le informazioni necessarie da newTeacher
+                const [updatedTeacher, userId] = newTeacher;
+
+                // Verifica se esiste già un insegnante con la stessa userEmail (escludendo il teacher corrente)
+                const teacherExists = this.teachers.some(existingTeacher => 
+                    existingTeacher.userEmail === updatedTeacher.userEmail && existingTeacher.userId !== userId
+                );
+
+                if (teacherExists) {
+                    this.store.dispatch('showAlert' , ["ERROR", "There is already a teacher with the same email", 5000])
+                    return; // Non modificare l'insegnante se ne esiste già uno con la stessa userEmail
+                }
+
+                const apiUrl = `https://here-i-am.apps.coderit.it/api/professor/${userId}`;
+                const bearerToken = this.$keycloak.token;
+
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
+
+                try {
+                    const response = await axios.put(apiUrl, updatedTeacher, config);
+                    console.log('Teacher updated:', response.data);
+
+                    this.teachers = await this.fetchTeachers();
+                    this.store.dispatch('toggleEditTeacherForm')
+                } catch (error) {
+                    this.store.dispatch('showAlert' , ["ERROR", `Error editing teacher ${error.message}`, 5000])
+                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                }
             },
             async deleteTeacher(id) {
-                console.log(id, "id teacher to delete");
-                // controllo che l'insegnante non abbia collegamenti ai corsi
-                const hasAssignments = await this.fetchaAssignmentsTeacher(id);
-                console.log(hasAssignments);
+                // Controlla se il teacher ha docenze
+                const hasAssignments = await this.fetchAssignmentsTeacher(id);
 
                 if (hasAssignments) {
-                    // se vero blocco il delete dell'insegnante
-                    this.store.dispatch('showAlert' , ["ERROR", "Cannot delete teacher. There are assignments associated with this teacher", 5000])
-                } else if(confirm('Are you sure?')) {
-                    // altrimenti continua con il delete
-                    const res = await fetch(`http://localhost:5000/teachers/${id}`, {
-                    method: "DELETE",
-                    })  
+                    this.store.dispatch('showAlert' , ["ERROR", 'Teacher has assignments and cannot be deleted', 5000])
+                    return; // Non eliminare l'insegnante se ha docenze
+                }
 
-                    if (res.status === 200) {
+                if(confirm("Are you sure you want to delete this teacher?")){
+                    const apiUrl = `https://here-i-am.apps.coderit.it/api/professor/${id}`;
+                    const bearerToken = this.$keycloak.token;
+
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${bearerToken}`,
+                        },
+                    };
+
+                    try {
+                        // Effettua la richiesta DELETE
+                        const response = await axios.delete(apiUrl, config);
+                        console.log('Teacher deleted:', response.data);
+
                         this.teachers = await this.fetchTeachers();
-                    } else {
-                        this.store.dispatch('showAlert' , ["ERROR", "Error deleting teacher", 5000])
+                    } catch (error) {
+                        this.store.dispatch('showAlert' , ["ERROR", `Error deleting teacher ${error.message}`, 5000])
+                        throw error; // Rilancia l'errore per gestirlo altrove, se necessario
                     }
-
                 }
             },
         },

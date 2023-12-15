@@ -20,6 +20,7 @@ const globalModule = {
       state.alertText = alertArray[1];
       state.alertTitle = alertArray[0];
       state.showAlertState = !state.showAlertState;
+      console.log(state.showAlertState);
     },
     store_firstname(state, data) {
       state.userData.firstname = data;
