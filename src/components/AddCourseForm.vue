@@ -9,25 +9,15 @@
             if (value?.length >= 2) return true
             return 'Course Name needs to be at least 2 characters.'
         },
-        courseduration(value) {
-            if (value?.length >= 2) return true
-            return 'Duration needs to be at least 2 characters.'
-        },
-        coursepartecipants(value) {
-            if (value?.length > 1 && /^[0-9-]+$/.test(value)) return true
-            return 'Partecipants needs to be at least 1 digits.'
-        },
     },
   })
-  const courseduration = useField('courseduration')
+
   const coursename = useField('coursename')
-  const coursepartecipants = useField('coursepartecipants')
 
   const submit = handleSubmit(values => {
     const course = {
-      coursename: values.coursename,
-      courseduration: values.courseduration,
-      coursepartecipants: values.coursepartecipants,
+      nome: values.coursename,
+      registraEmail: true
     }
     console.log(course);
     emit("create-course", course)
@@ -58,23 +48,10 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
         label="Course Name"
       ></v-text-field>
 
-      <v-text-field
-        variant="outlined"
-        v-model="courseduration.value.value"
-        :error-messages="courseduration.errorMessage.value"
-        label="Duration"
-      ></v-text-field>
-
-      <v-text-field
-        variant="outlined"
-        v-model="coursepartecipants.value.value"
-        :error-messages="coursepartecipants.errorMessage.value"
-        label="Partecipants"
-      ></v-text-field>
       <div class="big-btn-group">
         <div class="btn-group">
           <v-btn color="#04c717" class="me-4" type="submit"> submit </v-btn>
-          <v-btn color="#d11b0f" @click="handleReset"> clear </v-btn>
+          <v-btn color="#fe2315" @click="handleReset"> clear </v-btn>
         </div>
         <Button buttoncolor="black" buttontext="CLOSE" @btn-click="store.dispatch('toggleAddCourseForm')" />
       </div>

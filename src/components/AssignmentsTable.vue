@@ -69,7 +69,7 @@
                         <td>{{ getCourse(item.idcourse).coursename }}</td>
                         <td>
                             <div class="btn-group">
-                                <Button buttoncolor="#d11b0f" @btn-click="$emit('delete-assignment', item.id)">
+                                <Button buttoncolor="#fe2315" @btn-click="$emit('delete-assignment', item.id)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>

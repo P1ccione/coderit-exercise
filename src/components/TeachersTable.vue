@@ -37,11 +37,10 @@
                 const searchTerm = this.searchteacher.filter.trim().toLowerCase();
                 if (searchTerm) {
                     this.filteredTeachers = this.teachers.filter((teacher) => {
-                        const fullName = `${teacher.firstname} ${teacher.lastname}`.toLowerCase();
+                        const fullName = `${teacher.name} ${teacher.surname}`.toLowerCase();
                         return (
                             fullName.includes(searchTerm) ||
-                            teacher.email.toLowerCase().includes(searchTerm) ||
-                            teacher.phonenumber.includes(searchTerm)
+                            teacher.userEmail.toLowerCase().includes(searchTerm)
                         );
                     });
                 } else {
@@ -88,7 +87,7 @@
                         <td>{{ item.userEmail }}</td>
                         <td>
                             <div class="btn-group">
-                                <Button buttoncolor="#d11b0f" @btn-click="$emit('delete-teacher', item.userId)">
+                                <Button buttoncolor="#fe2315" @btn-click="$emit('delete-teacher', item.userId)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>

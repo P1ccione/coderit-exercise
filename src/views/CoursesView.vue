@@ -75,84 +75,94 @@
 
               return data.length > 0;
             },
+            //https://here-i-am.apps.coderit.it/api/module/54
             async deleteCourse(id) {
-                const hasAssignments = await this.fetchaAssignmentsCourse(id);
+                if(confirm("Are you sure you want to delete this course?")){
+                    const apiUrl = `https://here-i-am.apps.coderit.it/api/module/${id}`;
+                    const bearerToken = this.$keycloak.token;
 
-                if (hasAssignments) {
-                    this.store.dispatch('showAlert' , ["ERROR", "Cannot delete course. There are assignments associated with this course", 5000])
-                } else if (confirm("Are you sure you want to delete this course?")) {
-                    const res = await fetch(`http://localhost:5000/courses/${id}`, {
-                    method: "DELETE",
-                    });
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${bearerToken}`,
+                        },
+                    };
 
-                    if (res.status === 200) {
+                    try {
+                        // Effettua la richiesta DELETE
+                        const response = await axios.delete(apiUrl, config);
+                        console.log('Course deleted:', response.data);
+
                         this.courses = await this.fetchCourses();
-                    } else {
-                        this.store.dispatch('showAlert' , ["ERROR", "Error deleting course", 5000])
+                    } catch (error) {
+                        if(error.response.status === 404){
+                            this.store.dispatch('showAlert' , ["ERROR", "Cannot delete course. There are assignments associated with this course", 5000])
+                            throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                        } else {
+                            this.store.dispatch('showAlert' , ["ERROR", `Error deleting course ${error.message}`, 5000])
+                            throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                        }
                     }
                 }
             },
             async createCourse(course) {
-              // Verifica se esiste già un corso con lo stesso nome
-              const isCourseExisting = await this.isCourseExisting(course.coursename);
-              console.log(isCourseExisting, "isCourseExisting")
-              console.log(course.coursename, "course.coursename")
-              if (isCourseExisting) {
+                // Verifica se esiste già un insegnante con la stessa userEmail
+                const courseExists = this.courses.some(existingCourse => existingCourse.nome === course.nome);
+                
+                if (courseExists) {
                     this.store.dispatch('showAlert' , ["ERROR", "There is already a course with the same name", 5000])
-                    return;
-              }
-
-              const res = await fetch("http://localhost:5000/courses", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(course),
-              });
-
-              const data = await res.json();
-
-              this.courses =  await this.fetchCourses();
-              this.store.dispatch('toggleAddCourseForm')
-            },
-            async editCourse(newCourse) {
-                const hasAssignments = await this.fetchaAssignmentsCourse(newCourse.id);
-
-                if (hasAssignments && !confirm("This course has assignments. Are you sure to edit this course?")) {
-                    return;
+                    return; // Non creare un nuovo insegnante se ne esiste già uno con la stessa userEmail
                 }
 
-                const courseToEdit = await this.fetchCourse(newCourse.id);
+                const apiUrl = 'https://here-i-am.apps.coderit.it/api/module';
+                const bearerToken = this.$keycloak.token;
 
-                // Se il nome del corso è cambiato, verifica se esiste già un corso con lo stesso nome
-                if (newCourse.coursename !== courseToEdit.coursename) {
-                const isCourseExisting = await this.isCourseExisting(newCourse.coursename);
-                if (isCourseExisting) {
-                    this.store.dispatch('showAlert' , ["ERROR", "There is already a course with the same name", 5000])
-                    return;
-                }
-                }
-
-                const upCourse = {
-                ...newCourse,
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
                 };
 
-                console.log(upCourse, "upCourse");
-                console.log(newCourse, "newCourse");
-
-                const res = await fetch(`http://localhost:5000/courses/${newCourse.id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(upCourse),
-                });
-
-                const data = await res.json();
-
-                // Aggiorna la lista dei corsi con il nuovo dato ricevuto dal server
-                this.courses =  await this.fetchCourses();
-
-                this.store.dispatch('toggleEditCourseForm')
+                try {
+                    console.log(course);
+                    const response = await axios.post(apiUrl, course, config);
+                    console.log('Course created:', response.data);
+                    this.courses = await this.fetchCourses();
+                    this.store.dispatch('toggleAddCourseForm')
+                } catch (error) {
+                    this.store.dispatch('showAlert' , ["ERROR", `Error creating course: ${error.message}`, 5000])
+                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                }
             },
+            async editCourse(newCourse) {
+                const [updatedCourse, id] = newCourse;
+
+                const courseExists = this.courses.some(existingCourse => existingCourse.nome === updatedCourse.nome && existingCourse.id !== id);
+                
+                if (courseExists) {
+                    this.store.dispatch('showAlert' , ["ERROR", "There is already a course with the same name", 5000])
+                    return;
+                }
+
+                const apiUrl = `https://here-i-am.apps.coderit.it/api/module/${id}`;
+                const bearerToken = this.$keycloak.token;
+
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
+
+                try {
+                    const response = await axios.put(apiUrl, updatedCourse, config);
+                    console.log('Course updated:', response.data);
+
+                    this.courses = await this.fetchCourses();
+                    this.store.dispatch('toggleEditCourseForm')
+                } catch (error) {
+                    this.store.dispatch('showAlert' , ["ERROR", `Error editing course ${error.message}`, 5000])
+                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                }
+            }
         },
     }
 </script>

@@ -73,7 +73,7 @@
                         <td>{{ item.nome }}</td>
                         <td>
                             <div class="btn-group">
-                                <Button buttoncolor="#d11b0f" @btn-click="$emit('delete-course', item.id)">
+                                <Button buttoncolor="#fe2315" @btn-click="$emit('delete-course', item.id)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>

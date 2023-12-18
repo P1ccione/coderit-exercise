@@ -21,12 +21,13 @@
   const coursename = useField('coursename')
 
   const submit = handleSubmit(values => {
+    const id = props.editingCourse.id
     const course = {
       nome: values.coursename,
       registraEmail: true
     }
     console.log(course);
-    emit("edit-course", course)
+    emit("edit-course", [course, id])
   })
   watch(() => props.editingCourse, (newCourse) => {
     console.log(newCourse, "old course");
@@ -62,7 +63,7 @@
       <div class="big-btn-group">
         <div class="btn-group">
             <v-btn color="#04c717" class="me-4" type="submit"> submit </v-btn>
-            <v-btn color="#d11b0f" @click="handleReset"> clear </v-btn>
+            <v-btn color="#fe2315" @click="handleReset"> clear </v-btn>
         </div>
         <Button buttoncolor="black" buttontext="CLOSE"  @btn-click="store.dispatch('toggleEditCourseForm')" />
       </div>
