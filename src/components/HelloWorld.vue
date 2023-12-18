@@ -8,14 +8,11 @@ import { useI18n } from 'vue-i18n'
 export default {
   name: 'HelloWorld',
   setup() {
-    const { t } = useI18n() // use as global scope
+    const { t } = useI18n()
     return {
       store: useStore(),
       t
     }
-  },
-  data() {
-    
   }
 }
 </script>

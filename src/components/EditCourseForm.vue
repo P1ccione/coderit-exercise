@@ -72,7 +72,7 @@
             <v-btn color="#04c717" class="me-4" type="submit"> {{ $t('invio') }} </v-btn>
             <v-btn color="#fe2315" @click="handleReset"> {{ $t('cancella') }} </v-btn>
         </div>
-        <Button buttoncolor="black" :buttontext="$t('chiudi')"  @btn-click="store.dispatch('toggleAddCourseForm')" />
+        <Button buttoncolor="black" :buttontext="$t('chiudi')"  @btn-click="store.dispatch('toggleEditCourseForm')" />
       </div>
     </form>
   </template>

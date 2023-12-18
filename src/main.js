@@ -10,8 +10,12 @@ import { createI18n } from "vue-i18n";
 
 loadFonts();
 
+if (localStorage.getItem("lang") === null) {
+  localStorage.setItem("lang", "it");
+}
+
 const i18n = createI18n({
-  locale: "it",
+  locale: localStorage.getItem("lang"), // default locale
   allowComposition: true, // you need to specify that!
   messages: {
     it: {
@@ -30,6 +34,9 @@ const i18n = createI18n({
       seleziona_corso: "Seleziona Corso",
       no_professori: "NESSUN PROFESSORE TROVATO",
       no_corsi: "NESSUN CORSO TROVATO",
+      cerca_corso: "CERCA CORSO",
+      cerca_professore: "CERCA PROFESSORE",
+      seleziona_lingua: "SELEZIONA LINGUA",
       invio: "INVIO",
       cancella: "CANCELLA",
       chiudi: "CHIUDI",
@@ -37,7 +44,7 @@ const i18n = createI18n({
     en: {
       benvenuto: "Welcome",
       professori: "TEACHERS",
-      corsi: "CORSI",
+      corsi: "COURSES",
       docenze: "ASSIGNMENTS",
       agg_professore: "ADD TEACHER",
       agg_corso: "ADD COURSE",
@@ -50,6 +57,7 @@ const i18n = createI18n({
       seleziona_corso: "Select Course",
       no_professori: "NO TEACHERS FOUND",
       no_corsi: "NO COURSES FOUND",
+      seleziona_lingua: "SELECT LANGUAGE",
       invio: "SUBMIT",
       cancella: "CLEAR",
       chiudi: "CLOSE",

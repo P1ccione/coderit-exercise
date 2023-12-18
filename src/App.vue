@@ -37,9 +37,8 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding-top: 32px;
+    margin-top: 80px;
 }
 
 .alert-container {

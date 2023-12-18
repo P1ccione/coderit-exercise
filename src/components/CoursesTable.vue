@@ -58,7 +58,7 @@
     <div class="p-table-container">
         <div class="top-container">
             <Button buttoncolor="black" :buttontext="$t('agg_corso')" @btn-click="this.store.dispatch('toggleAddCourseForm')"/>
-            <input class="search" @input="searchChange" type="search" name="searchcourse" id="searchcourse" placeholder="SEARCH COURSE" v-model.trim="searchcourse.filter">
+            <input class="search" @input="searchChange" type="search" name="searchcourse" id="searchcourse" :placeholder="$t('cerca_corso')" v-model.trim="searchcourse.filter">
         </div>
         <div v-if="filteredCourses.length > 0">
             <v-table
@@ -70,6 +70,8 @@
                         <th class="text-left">
                             {{ $t('nome_corso') }}
                         </th>
+                        <th class="text-left">
+                        </th> 
                     </tr>
                 </thead>
                 <tbody>

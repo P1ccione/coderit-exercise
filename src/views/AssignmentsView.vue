@@ -87,16 +87,28 @@
                     throw error; // Re-throw the error to handle it elsewhere if needed
                 }
             },
-            async deleteAssignment(id) {
-                if (confirm("Are you sure you want to delete this assignment?")) {
-                    const res = await fetch(`http://localhost:5000/assignments/${id}`, {
-                        method: "DELETE",
-                    });
+            async deleteAssignment(assignment) {
+                
+                const [id, userId] = assignment;
+                if(confirm("Are you sure you want to delete this assignment?")){
+                    const apiUrl = `https://here-i-am.apps.coderit.it/api/docenza/${userId}/${id}`;
+                    const bearerToken = this.$keycloak.token;
 
-                    if (res.status === 200) {
-                        this.assignments = this.assignments.filter((assignment) => assignment.id !== id);
-                    } else {
-                        this.store.dispatch('showAlert' , ["ERROR", "Error deleting assignment", 5000])
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${bearerToken}`,
+                        },
+                    };
+
+                    try {
+                        // Effettua la richiesta DELETE
+                        const response = await axios.delete(apiUrl, config);
+                        console.log('Assignment deleted:', response.data);
+
+                        this.assignments = await this.fetchaAssignments();
+                    } catch (error) {
+                        this.store.dispatch('showAlert' , ["ERROR", `Error deleting assignment ${error.message}`, 5000])
+                        throw error; // Rilancia l'errore per gestirlo altrove, se necessario
                     }
                 }
             },
@@ -115,7 +127,7 @@
                     console.log('Response:', response.data);
                     const data = response.data;
                     console.log(data, "data");
-                    console.log(data.lenght, "data.lenght");
+                    console.log(data.length, "data.lenght");
                     if (data.length === 0) {
                         console.log("return on if (data.length === 0)");
                         return false;

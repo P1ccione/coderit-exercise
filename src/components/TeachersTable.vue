@@ -62,7 +62,7 @@
     <div class="p-table-container">
         <div class="p-top-container">
             <Button buttoncolor="black" :buttontext="$t('agg_professore')"  @btn-click="this.store.dispatch('toggleAddTeacherForm')" />
-            <input class="search" @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher.filter">
+            <input class="search" @input="searchChange" type="search" name="searchteacher" id="searchteacher" :placeholder="$t('cerca_professore')" v-model.trim="searchteacher.filter">
         </div>
        <div v-if="filteredTeachers.length > 0">
             <v-table

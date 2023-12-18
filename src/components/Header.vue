@@ -12,6 +12,11 @@
                 t
             };
         },
+        data() {
+            return {
+                language: null
+            }
+        },
         methods: {
             logout() {
                 console.log('Attempting to logout. this.$keycloak:', this.$keycloak);
@@ -22,6 +27,13 @@
                     // Handle the situation accordingly, e.g., redirect to a login page.
                 }
             },
+            changeLanguage() {
+                localStorage.setItem("lang", this.language)
+                window.location.reload()
+            }
+        },
+        created () {
+            this.language = localStorage.getItem("lang")
         },
     }
 </script>
@@ -30,14 +42,21 @@
     <v-container>
         <v-app-bar title="Here I Am">
             <template v-slot:append>
-                <div class="links">
-                    <v-btn variant="outlined" to="/" >HOME</v-btn>
+                <div class="links" role="navigation">
 
-                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">{{ $t('professori') }}</v-btn>
-                    <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">{{ $t('corsi') }}</v-btn>
-                    <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">{{ $t('docenze') }}</v-btn>
-                
-                    <v-btn variant="outlined" @click="logout" >LOGOUT</v-btn>
+                    <label for="lang-select" class="sr-only">{{ $t('seleziona_lingua') }}</label>
+                    <select id="lang-select" class="lang-select" v-model="language" @change="changeLanguage" :aria-label="$t('seleziona_lingua')">
+                        <option value="en">EN</option>
+                        <option value="it">IT</option>
+                    </select>
+
+                    <v-btn variant="outlined" to="/" aria-label="Home">HOME</v-btn>
+
+                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('professori')">{{ $t('professori') }}</v-btn>
+                    <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('corsi')">{{ $t('corsi') }}</v-btn>
+                    <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('docenze')">{{ $t('docenze') }}</v-btn>
+                    
+                    <v-btn variant="outlined" @click="logout" aria-label="Logout">LOGOUT</v-btn>
                 </div>
             </template>
         </v-app-bar>
@@ -51,5 +70,13 @@
         justify-content: center;
         align-items: center;
         column-gap: 20px;
+    }
+    .lang-select {
+        width: 30px;
+        height: fit-content;
+        outline: 1px solid #000;
+        border-radius: 2px;
+        text-align: center;
+        font-size: 12px;
     }
 </style>
