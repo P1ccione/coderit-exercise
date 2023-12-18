@@ -25,7 +25,7 @@
 
 <template>
     <v-container>
-        <v-app-bar title="TEACH-LINKER">
+        <v-app-bar title="Here I Am">
             <template v-slot:append>
                 <div class="links">
                     <v-btn variant="outlined" to="/" >HOME</v-btn>

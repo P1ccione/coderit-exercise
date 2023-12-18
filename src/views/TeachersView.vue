@@ -85,7 +85,8 @@
                     return data.length > 0;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
+                    throw error; // Re-throw the error to handle it elsewhere if needed 
+                    // error.response.status for errore code
                 }
             },
             

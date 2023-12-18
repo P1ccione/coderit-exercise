@@ -20,7 +20,7 @@
             return 'Last Name needs to be at least 2 characters.'
         },
         userEmail(value) {
-            if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+            if (/^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/.test(value)) return true
             return 'Must be a valid e-mail.'
         },
     },

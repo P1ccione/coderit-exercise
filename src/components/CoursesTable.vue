@@ -36,7 +36,7 @@
                 if (searchTerm) {
                     this.filteredCourses = this.courses.filter((course) => {
                         return (
-                            course.coursename.toLowerCase().includes(searchTerm)
+                            course.nome.toLowerCase().includes(searchTerm)
                         );
                     });
                 } else {
@@ -63,14 +63,6 @@
                         <th class="text-left">
                             Course Name
                         </th>
-                        <th class="text-left">
-                            Course Duration
-                        </th>
-                        <th class="text-left">
-                            Course Partecipants
-                        </th>
-                        <th class="text-left">
-                        </th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -78,9 +70,7 @@
                         v-for="item in filteredCourses"
                         :key="item.id"
                     >
-                        <td>{{ item.coursename }}</td>
-                        <td>{{ item.courseduration }}</td>
-                        <td>{{ item.coursepartecipants }}</td>
+                        <td>{{ item.nome }}</td>
                         <td>
                             <div class="btn-group">
                                 <Button buttoncolor="#d11b0f" @btn-click="$emit('delete-course', item.id)">

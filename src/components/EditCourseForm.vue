@@ -15,26 +15,15 @@
             if (value?.length >= 2) return true
             return 'Course Name needs to be at least 2 characters.'
         },
-        courseduration(value) {
-            if (value?.length >= 2) return true
-            return 'Duration needs to be at least 2 characters.'
-        },
-        coursepartecipants(value) {
-            if (value?.length > 1 && /^[0-9-]+$/.test(value)) return true
-            return 'Partecipants needs to be at least 1 digits.'
-        },
     },
   })
-  const courseduration = useField('courseduration')
+
   const coursename = useField('coursename')
-  const coursepartecipants = useField('coursepartecipants')
 
   const submit = handleSubmit(values => {
     const course = {
-      id: props.editingCourse.id,
-      coursename: values.coursename,
-      courseduration: values.courseduration,
-      coursepartecipants: values.coursepartecipants,
+      nome: values.coursename,
+      registraEmail: true
     }
     console.log(course);
     emit("edit-course", course)
@@ -42,9 +31,7 @@
   watch(() => props.editingCourse, (newCourse) => {
     console.log(newCourse, "old course");
     if (newCourse) {
-      coursename.value.value = newCourse.coursename || '';
-      courseduration.value.value = newCourse.courseduration || '';
-      coursepartecipants.value.value = newCourse.coursepartecipants || '';
+      coursename.value.value = newCourse.nome || '';
     }
   }, { immediate: true });
 </script>
@@ -71,20 +58,6 @@
         v-model="coursename.value.value"
         :error-messages="coursename.errorMessage.value"
         label="Course Name"
-      ></v-text-field>
-
-      <v-text-field
-        variant="outlined"
-        v-model="courseduration.value.value"
-        :error-messages="courseduration.errorMessage.value"
-        label="Duration"
-      ></v-text-field>
-
-      <v-text-field
-        variant="outlined"
-        v-model="coursepartecipants.value.value"
-        :error-messages="coursepartecipants.errorMessage.value"
-        label="Partecipants"
       ></v-text-field>
       <div class="big-btn-group">
         <div class="btn-group">

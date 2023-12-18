@@ -2,6 +2,7 @@
     import CoursesTable from '../components/CoursesTable.vue';
     import AddCourseForm from '../components/AddCourseForm.vue';
     import EditCourseForm from '../components/EditCourseForm.vue';
+    const axios = require('axios');
     import { useStore } from 'vuex';
     export default {
         name: "CoursesView",
@@ -22,19 +23,43 @@
         methods: {
             // fetch dei dati nel file db.json dell'array courses
             async fetchCourses() {
-                const res = await fetch("http://localhost:5000/courses")
-                const data = await res.json()
-                // Inverti l'array utilizzando il metodo reverse
-                const reversedData = data.reverse();
+                const apiUrl = 'https://here-i-am.apps.coderit.it/api/module';
+                const bearerToken = this.$keycloak.token;
 
-                return reversedData;
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
+
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    const reversed = response.data.reverse();
+                    return reversed;
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
             },
             async fetchCourse(id) {
-                const res = await fetch(`http://localhost:5000/courses/${id}`)
+                const apiUrl = `https://here-i-am.apps.coderit.it/api/module/${id}`;
+                const bearerToken = this.$keycloak.token;
 
-                const data = await res.json()
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
 
-                return data
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    return response.data;
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
             },
             async isCourseExisting(coursename) {
               // Effettua una chiamata API per verificare se esiste già un corso con lo stesso nome
