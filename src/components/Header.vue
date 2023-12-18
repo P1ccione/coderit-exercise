@@ -30,7 +30,7 @@
                 <div class="links">
                     <v-btn variant="outlined" to="/" >HOME</v-btn>
 
-                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">TAECHERS</v-btn>
+                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">TEACHERS</v-btn>
                     <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">COURSES</v-btn>
                     <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">ASSIGNMENTS</v-btn>
                 
