@@ -2,11 +2,18 @@
     import { Icon } from '@iconify/vue';
     import Button from './Button.vue';
     import { useStore } from 'vuex';
+    import { useI18n } from 'vue-i18n'
     export default {
         name: "TeachersTable",
         components: {
             Icon,
             Button,
+        },
+        setup() {
+            const { t } = useI18n() // use as global scope
+            return {
+                t
+            }
         },
         data() {
             return {
@@ -14,7 +21,7 @@
                     filter: ""
                 },
                 filteredTeachers: [],
-                store: useStore()
+                store: useStore(),
             }
         },
         props: {
@@ -54,7 +61,7 @@
 <template>
     <div class="p-table-container">
         <div class="p-top-container">
-            <Button buttoncolor="black" buttontext="ADD TEACHER"  @btn-click="this.store.dispatch('toggleAddTeacherForm')" />
+            <Button buttoncolor="black" :buttontext="$t('agg_professore')"  @btn-click="this.store.dispatch('toggleAddTeacherForm')" />
             <input class="search" @input="searchChange" type="search" name="searchteacher" id="searchteacher" placeholder="SEARCH TEACHER" v-model.trim="searchteacher.filter">
         </div>
        <div v-if="filteredTeachers.length > 0">
@@ -65,13 +72,13 @@
                 <thead>
                     <tr>
                         <th class="text-left">
-                        First Name
+                            {{ $t('nome_professore') }}
                         </th>
                         <th class="text-left">
-                        Last Name
+                            {{ $t('cognome_professore') }}
                         </th>
                         <th class="text-left">
-                            Email
+                            {{ $t('email_professore') }}
                         </th>
                         <th class="text-left">
                         </th> 
@@ -104,7 +111,7 @@
             </v-table>
         </div>
         <div v-else>
-            <p class="table-msg">NO TEACHERS FOUND</p>
+            <p class="table-msg">{{ $t('no_professori') }}</p>
         </div>
     </div>
 </template>

@@ -26,10 +26,17 @@
 
 <script>
 import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
+  import { useI18n } from 'vue-i18n'
   export default {
     name: "AddCourseForm",
     components: {
         Button,
+    },
+    setup() {
+      const { t } = useI18n() // use as global scope
+      return {
+          t
+      }
     },
     data() {
       return {
@@ -45,15 +52,15 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
         variant="outlined"
         v-model="coursename.value.value"
         :error-messages="coursename.errorMessage.value"
-        label="Course Name"
+        :label="$t('nome_corso')"
       ></v-text-field>
 
       <div class="big-btn-group">
         <div class="btn-group">
-          <v-btn color="#04c717" class="me-4" type="submit"> submit </v-btn>
-          <v-btn color="#fe2315" @click="handleReset"> clear </v-btn>
+            <v-btn color="#04c717" class="me-4" type="submit"> {{ $t('invio') }} </v-btn>
+            <v-btn color="#fe2315" @click="handleReset"> {{ $t('cancella') }} </v-btn>
         </div>
-        <Button buttoncolor="black" buttontext="CLOSE" @btn-click="store.dispatch('toggleAddCourseForm')" />
+        <Button buttoncolor="black" :buttontext="$t('chiudi')"  @btn-click="store.dispatch('toggleAddCourseForm')" />
       </div>
     </form>
   </template>

@@ -2,11 +2,18 @@
     import { Icon } from '@iconify/vue';
     import Button from './Button.vue';
     import { useStore } from 'vuex';
+    import { useI18n } from 'vue-i18n'
     export default {
         name: "AssignmentsTable",
         components: {
             Icon,
             Button,
+        },
+        setup() {
+            const { t } = useI18n() // use as global scope
+            return {
+                t
+            }
         },
         data() {
             return {
@@ -37,7 +44,7 @@
 
 <template>
     <div class="p-table-container">
-        <Button buttoncolor="black" buttontext="ADD ASSIGNMENT" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
+        <Button buttoncolor="black" :buttontext="$t('agg_docenza')" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
         <div v-if="assignments.length > 0">
             <v-table
                 fixed-header
@@ -47,13 +54,13 @@
                 <thead>
                     <tr>
                         <th class="text-left">
-                            Teacher Name
+                            {{ $t('nome_professore') }}
                         </th>
                         <th class="text-left">
-                            Teacher Email
+                            {{ $t('email_professore') }}
                         </th>
                         <th class="text-left">
-                            Course Name
+                            {{ $t('nome_corso') }}
                         </th>
                         <th class="text-left">
                         </th> 
@@ -64,12 +71,12 @@
                         v-for="item in assignments"
                         :key="item.id"
                     >
-                        <td>{{ getTeacher(item.idteacher).firstname }} {{ getTeacher(item.idteacher).lastname }}</td>
-                        <td>{{ getTeacher(item.idteacher).email }}</td>
-                        <td>{{ getCourse(item.idcourse).coursename }}</td>
+                        <td>{{ item.professore.name }} {{ item.professore.surname }}</td>
+                        <td>{{ item.professore.userEmail }}</td>
+                        <td>{{ item.nome }}</td>
                         <td>
                             <div class="btn-group">
-                                <Button buttoncolor="#fe2315" @btn-click="$emit('delete-assignment', item.id)">
+                                <Button buttoncolor="#fe2315" @btn-click="$emit('delete-assignment', [item.id, item.professore.userId])">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>

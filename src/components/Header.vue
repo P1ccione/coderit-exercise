@@ -1,12 +1,15 @@
 <script>
     import { useStore } from 'vuex';
+    import { useI18n } from 'vue-i18n'
     export default {
         // eslint-disable-next-line vue/multi-word-component-names
         name: "Header",
         setup() {
             const store = useStore();
+            const { t } = useI18n() // use as global scope
             return {
-                store
+                store,
+                t
             };
         },
         methods: {
@@ -30,9 +33,9 @@
                 <div class="links">
                     <v-btn variant="outlined" to="/" >HOME</v-btn>
 
-                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">TEACHERS</v-btn>
-                    <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">COURSES</v-btn>
-                    <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">ASSIGNMENTS</v-btn>
+                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">{{ $t('professori') }}</v-btn>
+                    <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">{{ $t('corsi') }}</v-btn>
+                    <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">{{ $t('docenze') }}</v-btn>
                 
                     <v-btn variant="outlined" @click="logout" >LOGOUT</v-btn>
                 </div>

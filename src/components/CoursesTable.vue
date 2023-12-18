@@ -2,11 +2,18 @@
     import { Icon } from '@iconify/vue';
     import Button from './Button.vue';
     import { useStore } from 'vuex';
+    import { useI18n } from 'vue-i18n'
     export default {
         name: "CoursesTable",
         components: {
             Icon,
             Button,
+        },
+        setup() {
+            const { t } = useI18n() // use as global scope
+            return {
+                t
+            }
         },
         data() {
             return {
@@ -50,7 +57,7 @@
 <template>
     <div class="p-table-container">
         <div class="top-container">
-            <Button buttoncolor="black" buttontext="ADD COURSE" @btn-click="this.store.dispatch('toggleAddCourseForm')"/>
+            <Button buttoncolor="black" :buttontext="$t('agg_corso')" @btn-click="this.store.dispatch('toggleAddCourseForm')"/>
             <input class="search" @input="searchChange" type="search" name="searchcourse" id="searchcourse" placeholder="SEARCH COURSE" v-model.trim="searchcourse.filter">
         </div>
         <div v-if="filteredCourses.length > 0">
@@ -61,7 +68,7 @@
                 <thead>
                     <tr>
                         <th class="text-left">
-                            Course Name
+                            {{ $t('nome_corso') }}
                         </th>
                     </tr>
                 </thead>

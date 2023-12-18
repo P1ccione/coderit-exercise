@@ -2,6 +2,7 @@
     import AssignmentsTable from '../components/AssignmentsTable.vue';
     import AddAssignmentForm from '../components/AddAssignmentForm.vue';
     import { useStore } from 'vuex';
+    const axios = require('axios');
     export default {
         name: "AssignmentsView",
         components: {
@@ -27,21 +28,64 @@
         },
         methods: {
             async fetchaAssignments() {
-                const res = await fetch("http://localhost:5000/assignments")
-                const data = await res.json()
-                // Inverti l'array utilizzando il metodo reverse
-                const reversedData = data.reverse();
-                return reversedData;
+                const apiUrl = 'https://here-i-am.apps.coderit.it/api/docenza';
+                const bearerToken = this.$keycloak.token;
+
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
+
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    const reversed = response.data.reverse();
+                    return reversed;
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
             },
             async fetchCourses() {
-                const res = await fetch("http://localhost:5000/courses")
-                const data = await res.json()
-                return data;
+                const apiUrl = 'https://here-i-am.apps.coderit.it/api/module';
+                const bearerToken = this.$keycloak.token;
+
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
+
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    const reversed = response.data.reverse();
+                    return reversed;
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
             },
             async fetchTeachers() {
-                const res = await fetch("http://localhost:5000/teachers")
-                const data = await res.json()
-                return data;
+                const apiUrl = 'https://here-i-am.apps.coderit.it/api/professor';
+                const bearerToken = this.$keycloak.token;
+
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
+
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    const reversed = response.data.reverse();
+                    return reversed;
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
             },
             async deleteAssignment(id) {
                 if (confirm("Are you sure you want to delete this assignment?")) {
@@ -56,33 +100,71 @@
                     }
                 }
             },
-            async isAssignmentExists(assignment) {
-                // Effettua una chiamata API per verificare se esiste già un collegamento tra insegnante e corso
-                const res = await fetch(`http://localhost:5000/assignments?idcourse=${assignment.idcourse}&idteacher=${assignment.idteacher}`);
-                const data = await res.json();
+            async isAssignmentExists(userId, id) {
+                const apiUrl = `https://here-i-am.apps.coderit.it/api/docenza/professore/${userId}`;
+                const bearerToken = this.$keycloak.token;
 
-                return data.length > 0; // Restituisce true se esiste già un collegamento tra insegnante e corso, altrimenti false
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
+
+                try {
+                    const response = await axios.get(apiUrl, config);
+                    console.log('Response:', response.data);
+                    const data = response.data;
+                    console.log(data, "data");
+                    console.log(data.lenght, "data.lenght");
+                    if (data.length === 0) {
+                        console.log("return on if (data.length === 0)");
+                        return false;
+                    } else {
+                        data.forEach(element => {
+                            console.log("element", element);
+                            console.log("element.id", element.id);
+                            console.log("id", id);
+                            if(element.id === id) {
+                                console.log("return on if(element.id === id)");
+                                return true
+                            }
+                        });
+                        console.log("return on end");
+                        return false
+                    }
+                } catch (error) {
+                    console.error('Error:', error.message);
+                    throw error; // Re-throw the error to handle it elsewhere if needed
+                }
             },
 
             async createAssignment(assignment) {
                 // Verifica se esiste già un collegamento tra insegnante e corso
                 console.log(assignment);
-                const isAssignmentExisting = await this.isAssignmentExists(assignment);
+                const isAssignmentExisting = await this.isAssignmentExists(assignment.professorId, assignment.moduleId);
                 if (isAssignmentExisting) {
                     this.store.dispatch('showAlert' , ["ERROR", "There is already a assignment with this course and this teacher", 5000])
                     return;
                 }
 
-                const res = await fetch("http://localhost:5000/assignments", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(assignment),
-                });
+                const apiUrl = 'https://here-i-am.apps.coderit.it/api/docenza';
+                const bearerToken = this.$keycloak.token;
 
-                const data = await res.json();
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${bearerToken}`,
+                    },
+                };
 
-                this.assignments = await this.fetchaAssignments();
-                this.store.dispatch('toggleCreateAssignment')
+                try {
+                    const response = await axios.post(apiUrl, assignment, config);
+                    console.log('Assignment created:', response.data);
+                    this.assignments = await this.fetchaAssignments();
+                    this.store.dispatch('toggleCreateAssignment')
+                } catch (error) {
+                    this.store.dispatch('showAlert' , ["ERROR", `Error creating assignment: ${error.message}`, 5000])
+                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                }
             },
         },
     }

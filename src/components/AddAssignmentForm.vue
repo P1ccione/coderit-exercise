@@ -20,16 +20,16 @@
     try {
 
       // Trova gli oggetti selezionati
-      const selectedTeacher = props.teachers.find(teacher => teacher.email === values.selectTeacher);
-      const selectedCourse = props.courses.find(course => course.coursename === values.selectCourse);
+      const selectedTeacher = props.teachers.find(teacher => teacher.userEmail === values.selectTeacher);
+      const selectedCourse = props.courses.find(course => course.nome === values.selectCourse);
 
       // Estrai gli ID dagli oggetti selezionati
-      const teacherId = selectedTeacher ? selectedTeacher.id : null;
+      const teacherId = selectedTeacher ? selectedTeacher.userId : null;
       const courseId = selectedCourse ? selectedCourse.id : null;
 
       const assignment = {
-        idcourse: courseId,
-        idteacher: teacherId,
+        moduleId: courseId,
+        professorId: teacherId,
       };
 
       console.log(assignment, "assignment");
@@ -61,17 +61,17 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
     <v-select
       v-if="props.teachers"
       v-model="selectTeacher.value.value"
-      :items="props.teachers.map(teacher => teacher.email)"
+      :items="props.teachers.map(teacher => teacher.userEmail)"
       :error-messages="selectTeacher.errorMessage.value"
-      label="Select Teacher"
+        :label="$t('seleziona_professore')"
       ></v-select>
 
     <v-select
       v-if="props.courses"
       v-model="selectCourse.value.value"
-      :items="props.courses.map(course => course.coursename)"
+      :items="props.courses.map(course => course.nome)"
       :error-messages="selectCourse.errorMessage.value"
-      label="Select Course"
+        :label="$t('seleziona_corso')"
     ></v-select>
     <div class="big-btn-group">
       <div class="btn-group">

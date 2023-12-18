@@ -1,15 +1,21 @@
 <template>
-  Wellcome {{ this.store.state.global.userData.lastname }} {{ this.store.state.global.userData.firstname }}
+  {{ $t('benvenuto') }} {{ this.store.state.global.userData.lastname }} {{ this.store.state.global.userData.firstname }}
 </template>
 
 <script>
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n'
 export default {
   name: 'HelloWorld',
-  data() {
+  setup() {
+    const { t } = useI18n() // use as global scope
     return {
-      store: useStore()
+      store: useStore(),
+      t
     }
+  },
+  data() {
+    
   }
 }
 </script>

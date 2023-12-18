@@ -6,8 +6,56 @@ import vuetify from "./plugins/vuetify";
 import { loadFonts } from "./plugins/webfontloader";
 import Keycloak from "keycloak-js";
 import VueJwtDecode from "vue-jwt-decode";
+import { createI18n } from "vue-i18n";
 
 loadFonts();
+
+const i18n = createI18n({
+  locale: "it",
+  allowComposition: true, // you need to specify that!
+  messages: {
+    it: {
+      benvenuto: "Benvenuto",
+      professori: "PROFESSORI",
+      corsi: "CORSI",
+      docenze: "DOCENZE",
+      agg_professore: "AGGIUNGI PROFESSORE",
+      agg_corso: "AGGIUNGI CORSO",
+      agg_docenza: "AGGIUNGI DOCENZA",
+      nome_professore: "Nome Professore",
+      cognome_professore: "Cognome Professore",
+      email_professore: "Email Professore",
+      nome_corso: "Nome Corso",
+      seleziona_professore: "Seleziona Professore",
+      seleziona_corso: "Seleziona Corso",
+      no_professori: "NESSUN PROFESSORE TROVATO",
+      no_corsi: "NESSUN CORSO TROVATO",
+      invio: "INVIO",
+      cancella: "CANCELLA",
+      chiudi: "CHIUDI",
+    },
+    en: {
+      benvenuto: "Welcome",
+      professori: "TEACHERS",
+      corsi: "CORSI",
+      docenze: "ASSIGNMENTS",
+      agg_professore: "ADD TEACHER",
+      agg_corso: "ADD COURSE",
+      agg_docenza: "ADD ASSIGNMENT",
+      nome_professore: "Teacher First Name",
+      cognome_professore: "Teacher Last Name",
+      email_professore: "Teacher Email",
+      nome_corso: "Course Name",
+      seleziona_professore: "Select Teacher",
+      seleziona_corso: "Select Course",
+      no_professori: "NO TEACHERS FOUND",
+      no_corsi: "NO COURSES FOUND",
+      invio: "SUBMIT",
+      cancella: "CLEAR",
+      chiudi: "CLOSE",
+    },
+  },
+});
 
 let initOptions = {
   url: "https://sso.here-i-am.apps.coderit.it/",
@@ -27,7 +75,7 @@ keycloak
       console.info("Authenticated");
     }
 
-    const app = createApp(App).use(router).use(store).use(vuetify);
+    const app = createApp(App).use(router).use(store).use(vuetify).use(i18n);
     app.config.globalProperties.$keycloak = keycloak;
     app.mount("#app");
 
