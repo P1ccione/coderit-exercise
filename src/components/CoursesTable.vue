@@ -86,10 +86,20 @@
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
+                                    <template #tooltip>
+                                        <v-tooltip activator="parent" location="bottom">
+                                            {{ $t('elimina') }}
+                                        </v-tooltip>
+                                    </template>
                                 </Button>
                                 <Button buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditCourseForm', [item])">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
+                                    </template>
+                                    <template #tooltip>
+                                        <v-tooltip activator="parent" location="bottom">
+                                            {{ $t('modifica') }}
+                                        </v-tooltip>
                                     </template>
                                 </Button>
                             </div>

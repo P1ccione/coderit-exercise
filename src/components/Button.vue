@@ -28,7 +28,7 @@
 </script>
 
 <template>
-    <v-btn :color="buttoncolor" @click="onClick()"><slot name="icon"></slot>{{ buttontext }}</v-btn>
+    <v-btn :color="buttoncolor" @click="onClick()"><slot name="icon"></slot>{{ buttontext }}<slot name="tooltip"></slot></v-btn>
 </template>
 
 <style scoped>

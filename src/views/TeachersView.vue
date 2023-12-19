@@ -3,6 +3,7 @@
     import AddTeacherForm from '../components/AddTeacherForm.vue';
     import EditTeacherForm from '../components/EditTeacherForm.vue';
     const axios = require('axios');
+    import { useI18n } from 'vue-i18n'
     import { useStore } from 'vuex';
     export default {
         name: "TeachersView",
@@ -15,6 +16,12 @@
             return {
                 teachers: [],
                 store: useStore()
+            }
+        },
+        setup() {
+            const { t } = useI18n() // use as global scope
+            return {
+                t
             }
         },
         async created() {
@@ -44,7 +51,6 @@
                     return reversed;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
                 }
             },
             // funzione di fetch per prendere i teachers dal db
@@ -64,7 +70,6 @@
                     return response.data;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
                 }
             },
 
@@ -85,8 +90,6 @@
                     return data.length > 0;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed 
-                    // error.response.status for errore code
                 }
             },
             
@@ -95,7 +98,7 @@
                 const teacherExists = this.teachers.some(existingTeacher => existingTeacher.userEmail === teacher.userEmail);
                 
                 if (teacherExists) {
-                    this.store.dispatch('showAlert' , ["ERROR", "There is already a teacher with the same email", 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_professore_esistente'), 5000])
                     return; // Non creare un nuovo insegnante se ne esiste già uno con la stessa userEmail
                 }
 
@@ -114,8 +117,7 @@
                     this.teachers = await this.fetchTeachers();
                     this.store.dispatch('toggleAddTeacherForm')
                 } catch (error) {
-                    this.store.dispatch('showAlert' , ["ERROR", `Error creating teacher: ${error.message}`, 5000])
-                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_professore')} ${error.message}`, 5000])
                 }
             },
             async editTeacher(newTeacher) {
@@ -128,7 +130,7 @@
                 );
 
                 if (teacherExists) {
-                    this.store.dispatch('showAlert' , ["ERROR", "There is already a teacher with the same email", 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_professore_esistente'), 5000])
                     return; // Non modificare l'insegnante se ne esiste già uno con la stessa userEmail
                 }
 
@@ -148,8 +150,7 @@
                     this.teachers = await this.fetchTeachers();
                     this.store.dispatch('toggleEditTeacherForm')
                 } catch (error) {
-                    this.store.dispatch('showAlert' , ["ERROR", `Error editing teacher ${error.message}`, 5000])
-                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_modifica_professore')} ${error.message}`, 5000])
                 }
             },
             async deleteTeacher(id) {
@@ -157,11 +158,11 @@
                 const hasAssignments = await this.fetchAssignmentsTeacher(id);
 
                 if (hasAssignments) {
-                    this.store.dispatch('showAlert' , ["ERROR", 'Teacher has assignments and cannot be deleted', 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenze_professore'), 5000])
                     return; // Non eliminare l'insegnante se ha docenze
                 }
 
-                if(confirm("Are you sure you want to delete this teacher?")){
+                if(confirm(this.$t('conferma_eliminazione_professore'))){
                     const apiUrl = `https://here-i-am.apps.coderit.it/api/professor/${id}`;
                     const bearerToken = this.$keycloak.token;
 
@@ -178,8 +179,7 @@
 
                         this.teachers = await this.fetchTeachers();
                     } catch (error) {
-                        this.store.dispatch('showAlert' , ["ERROR", `Error deleting teacher ${error.message}`, 5000])
-                        throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                        this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_professore')} ${error.message}`, 5000])
                     }
                 }
             },

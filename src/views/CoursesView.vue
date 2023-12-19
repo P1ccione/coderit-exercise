@@ -39,7 +39,6 @@
                     return reversed;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
                 }
             },
             async fetchCourse(id) {
@@ -58,15 +57,7 @@
                     return response.data;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
                 }
-            },
-            async isCourseExisting(coursename) {
-              // Effettua una chiamata API per verificare se esiste già un corso con lo stesso nome
-              const res = await fetch(`http://localhost:5000/courses?coursename=${coursename}`);
-              const data = await res.json();
-
-              return data.length > 0; // Restituisce true se esiste già un corso con lo stesso nome, altrimenti false
             },
             async fetchaAssignmentsCourse(idcourse) {
               const res = await fetch(`http://localhost:5000/assignments?idcourse=${idcourse}`)
@@ -75,9 +66,8 @@
 
               return data.length > 0;
             },
-            //https://here-i-am.apps.coderit.it/api/module/54
             async deleteCourse(id) {
-                if(confirm("Are you sure you want to delete this course?")){
+                if(confirm(this.$t('conferma_eliminazione_corso'))){
                     const apiUrl = `https://here-i-am.apps.coderit.it/api/module/${id}`;
                     const bearerToken = this.$keycloak.token;
 
@@ -95,11 +85,9 @@
                         this.courses = await this.fetchCourses();
                     } catch (error) {
                         if(error.response.status === 404){
-                            this.store.dispatch('showAlert' , ["ERROR", "Cannot delete course. There are assignments associated with this course", 5000])
-                            throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                            this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenze_corso'), 5000])
                         } else {
-                            this.store.dispatch('showAlert' , ["ERROR", `Error deleting course ${error.message}`, 5000])
-                            throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                            this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_corso')}  ${error.message}`, 5000])
                         }
                     }
                 }
@@ -109,7 +97,7 @@
                 const courseExists = this.courses.some(existingCourse => existingCourse.nome === course.nome);
                 
                 if (courseExists) {
-                    this.store.dispatch('showAlert' , ["ERROR", "There is already a course with the same name", 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_corso_esistente'), 5000])
                     return; // Non creare un nuovo insegnante se ne esiste già uno con la stessa userEmail
                 }
 
@@ -129,8 +117,7 @@
                     this.courses = await this.fetchCourses();
                     this.store.dispatch('toggleAddCourseForm')
                 } catch (error) {
-                    this.store.dispatch('showAlert' , ["ERROR", `Error creating course: ${error.message}`, 5000])
-                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_corso')}  ${error.message}`, 5000])
                 }
             },
             async editCourse(newCourse) {
@@ -139,7 +126,7 @@
                 const courseExists = this.courses.some(existingCourse => existingCourse.nome === updatedCourse.nome && existingCourse.id !== id);
                 
                 if (courseExists) {
-                    this.store.dispatch('showAlert' , ["ERROR", "There is already a course with the same name", 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_esistenza_corso'), 5000])
                     return;
                 }
 
@@ -159,8 +146,7 @@
                     this.courses = await this.fetchCourses();
                     this.store.dispatch('toggleEditCourseForm')
                 } catch (error) {
-                    this.store.dispatch('showAlert' , ["ERROR", `Error editing course ${error.message}`, 5000])
-                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_modifica_corso')}  ${error.message}`, 5000])
                 }
             }
         },

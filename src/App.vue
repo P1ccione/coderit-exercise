@@ -4,7 +4,7 @@
     <div class="alert-container" v-show="this.store.state.global.showAlertState">
       <Alert :title="this.store.state.global.alertTitle" :text="this.store.state.global.alertText" />
     </div>
-      <div class="container">
+      <div class="container" role="main">
         <router-view/>
       </div>
   </v-app>

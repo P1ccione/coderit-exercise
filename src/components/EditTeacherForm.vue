@@ -72,8 +72,9 @@
 </script>
 
 <template>
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" :role="$t('form_modifica_professori')">
       <v-text-field
+      :aria-label="$t('nome_professore')"
         variant="outlined"
         v-model="name.value.value"
         :error-messages="name.errorMessage.value"
@@ -81,6 +82,7 @@
       ></v-text-field>
 
       <v-text-field
+      :aria-label="$t('cognome_professore')"
         variant="outlined"
         v-model="surname.value.value"
         :error-messages="surname.errorMessage.value"
@@ -88,6 +90,7 @@
       ></v-text-field>
 
       <v-text-field
+        :aria-label="$t('email_professore')"
         variant="outlined"
         v-model="userEmail.value.value"
         :error-messages="userEmail.errorMessage.value"

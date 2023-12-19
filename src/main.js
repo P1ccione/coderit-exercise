@@ -10,7 +10,7 @@ import { createI18n } from "vue-i18n";
 
 loadFonts();
 
-const languages = ["it", "IT", "en", "EN"];
+const languages = ["it", "en"];
 
 if (
   localStorage.getItem("lang") === null ||
@@ -43,6 +43,10 @@ const i18n = createI18n({
       cerca_professore: "CERCA PROFESSORE",
       seleziona_lingua: "SELEZIONA LINGUA",
       tabella_professori: "TABELLA PROFESSORI",
+      tabella_corsi: "TABELLA CORSI",
+      tabella_docenze: "TABELLA DOCENZE",
+      form_modifica_professori: "MODULO DI MODIFICA PROFESSORE",
+      form_modifica_corsi: "MODULO DI MODIFICA CORSO",
       invio: "INVIO",
       cancella: "CANCELLA",
       chiudi: "CHIUDI",
@@ -50,6 +54,30 @@ const i18n = createI18n({
       modifica: "MODIFICA",
       colonna: "COLONNA",
       riga: "RIGA",
+      errore: "ERRORE",
+      errore_professore_esistente:
+        "C'è già un professore con lo stesso indirizzo e-mail",
+      errore_creazione_professore: "Errore nella creazione del professore:",
+      errore_modifica_professore: "Errore nella modifica del professore:",
+      errore_docenze_professore:
+        "Il professore ha delle docenze e non può essere cancellato",
+      errore_eliminazione_professore:
+        "Errore nell'eliminazione del professore:",
+      errore_corso_esistente: "C'è già un corso con lo stesso nome",
+      errore_creazione_corso: "Errore nella creazione del corso:",
+      errore_modifica_corso: "Errore nella modifica del corso:",
+      errore_docenze_corso:
+        "Il corso ha delle docenze e non può essere cancellato",
+      errore_eliminazione_corso: "Errore nell'eliminazione del corso:",
+      errore_docenza_esistente:
+        "C'è già una docenza con lo stesso professore e lo stesso corso",
+      errore_eliminazione_docenza: "Errore nell'eliminazione della docenza:",
+      errore_creazione_docenza: "Errore nella creazione della docenza:",
+      conferma_eliminazione_corso: "È sicuro di voler cancellare questo corso?",
+      conferma_eliminazione_professore:
+        "È sicuro di voler cancellare questo professore?",
+      conferma_eliminazione_docenza:
+        "È sicuro di voler cancellare questa docenza?",
     },
     en: {
       benvenuto: "Welcome",
@@ -69,6 +97,10 @@ const i18n = createI18n({
       no_corsi: "NO COURSES FOUND",
       seleziona_lingua: "SELECT LANGUAGE",
       tabella_professori: "TEACHERS TABLE",
+      tabella_corsi: "COURSES TABLE",
+      tabella_docenze: "ASSIGNEMNTS TABLE",
+      form_modifica_professori: "TEACHER EDIT FORM",
+      form_modifica_corsi: "COURSE EDIT FORM",
       invio: "SUBMIT",
       cancella: "CLEAR",
       chiudi: "CLOSE",
@@ -76,6 +108,29 @@ const i18n = createI18n({
       modifica: "EDIT",
       colonna: "COLUMN",
       riga: "ROW",
+      errore: "ERROR",
+      errore_professore_esistente:
+        "There is already a teacher with the same email",
+      errore_creazione_professore: "Error creating teacher:",
+      errore_modifica_professore: "Error editing teacher:",
+      errore_docenze_professore:
+        "Professor has assignments and cannot be deleted",
+      errore_eliminazione_professore: "Error deleting teacher:",
+      errore_corso_esistente: "There is already a course with the same name",
+      errore_creazione_corso: "Error creating course:",
+      errore_modifica_corso: "Error editing course:",
+      errore_docenze_corso: "Course has assignments and cannot be deleted",
+      errore_eliminazione_corso: "Error deleting course:",
+      errore_docenza_esistente:
+        "There is already a assignment with this course and this teacher",
+      errore_eliminazione_docenza: "Error deleting assignment:",
+      errore_creazione_docenza: "Error creating assignment:",
+      conferma_eliminazione_corso:
+        "Are you sure you want to delete this course?",
+      conferma_eliminazione_professore:
+        "Are you sure you want to delete this teacher?",
+      conferma_eliminazione_docenza:
+        "Are you sure you want to delete this assignment?",
     },
   },
 });

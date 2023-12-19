@@ -60,8 +60,9 @@
 </script>
 
 <template>
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" :role="$t('form_modifica_corsi')">
       <v-text-field
+      :aria-label="$t('nome_corso')"
         variant="outlined"
         v-model="coursename.value.value"
         :error-messages="coursename.errorMessage.value"

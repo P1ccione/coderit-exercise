@@ -80,6 +80,11 @@
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
+                                    <template #tooltip>
+                                        <v-tooltip activator="parent" location="bottom">
+                                            {{ $t('elimina') }}
+                                        </v-tooltip>
+                                    </template>
                                 </Button>
                             </div>
                         </td>

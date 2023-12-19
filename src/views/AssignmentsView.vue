@@ -44,7 +44,6 @@
                     return reversed;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
                 }
             },
             async fetchCourses() {
@@ -64,7 +63,6 @@
                     return reversed;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
                 }
             },
             async fetchTeachers() {
@@ -84,13 +82,12 @@
                     return reversed;
                 } catch (error) {
                     console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
                 }
             },
             async deleteAssignment(assignment) {
                 
                 const [id, userId] = assignment;
-                if(confirm("Are you sure you want to delete this assignment?")){
+                if(confirm(this.$t('conferma_eliminazione_docenza'))){
                     const apiUrl = `https://here-i-am.apps.coderit.it/api/docenza/${userId}/${id}`;
                     const bearerToken = this.$keycloak.token;
 
@@ -107,8 +104,7 @@
 
                         this.assignments = await this.fetchaAssignments();
                     } catch (error) {
-                        this.store.dispatch('showAlert' , ["ERROR", `Error deleting assignment ${error.message}`, 5000])
-                        throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                        this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_docenza')} ${error.message}`, 5000])
                     }
                 }
             },
@@ -129,7 +125,7 @@
                 console.log(assignment);
                 const isAssignmentExisting = this.isAssignmentExists(assignment.professorId, assignment.moduleId);
                 if (isAssignmentExisting) {
-                    this.store.dispatch('showAlert' , ["ERROR", "There is already a assignment with this course and this teacher", 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenza_esistente'), 5000])
                     return;
                 }
 
@@ -148,8 +144,7 @@
                     this.assignments = await this.fetchaAssignments();
                     this.store.dispatch('toggleCreateAssignment')
                 } catch (error) {
-                    this.store.dispatch('showAlert' , ["ERROR", `Error creating assignment: ${error.message}`, 5000])
-                    throw error; // Rilancia l'errore per gestirlo altrove, se necessario
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_docenza')} ${error.message}`, 5000])
                 }
             },
         },

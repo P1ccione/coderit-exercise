@@ -68,6 +68,7 @@
             <v-table
                 fixed-header
                 style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
+                :role="$t('tabella_professori')"
             >
                 <thead>
                     <tr>
@@ -89,19 +90,29 @@
                         v-for="item in filteredTeachers"
                         :key="item.id"
                     >
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.surname }}</td>
-                        <td>{{ item.userEmail }}</td>
+                        <td :aria-label="$t('nome_professore')">{{ item.name }}</td>
+                        <td :aria-label="$t('cognome_professore')">{{ item.surname }}</td>
+                        <td :aria-label="$t('email_professore')">{{ item.userEmail }}</td>
                         <td>
                             <div class="btn-group">
-                                <Button buttoncolor="#fe2315" @btn-click="$emit('delete-teacher', item.userId)">
+                                <Button :aria-label="$t('elimina')" buttoncolor="#fe2315" @btn-click="$emit('delete-teacher', item.userId)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
+                                    <template #tooltip>
+                                        <v-tooltip activator="parent" location="bottom">
+                                            {{ $t('elimina') }}
+                                        </v-tooltip>
+                                    </template>
                                 </Button>
-                                <Button buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditTeacherForm', [item])">
+                                <Button :aria-label="$t('modifica')" buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditTeacherForm', [item])">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
+                                    </template>
+                                    <template #tooltip>
+                                        <v-tooltip activator="parent" location="bottom">
+                                            {{ $t('modifica') }}
+                                        </v-tooltip>
                                     </template>
                                 </Button>
                             </div>
