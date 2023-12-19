@@ -55,64 +55,96 @@
 </script>
 
 <template>
-    <div class="p-table-container">
-        <div class="top-container">
-            <Button buttoncolor="black" :buttontext="$t('agg_corso')" @btn-click="this.store.dispatch('toggleAddCourseForm')"/>
-            <input class="search" @input="searchChange" type="search" name="searchcourse" id="searchcourse" :placeholder="$t('cerca_corso')" v-model.trim="searchcourse.filter">
-        </div>
-        <div v-if="filteredCourses.length > 0">
-            <v-table
-                fixed-header
-                style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
+    <div class="p-table-container" role="table">
+      <!-- Parte iniziale -->
+      <div class="top-container">
+        <Button
+          buttoncolor="black"
+          :buttontext="$t('agg_corso')"
+          @btn-click="this.store.dispatch('toggleAddCourseForm')"
+          :aria-label="$t('agg_corso')"
+          role="button"
+        />
+        <input
+          class="search"
+          @input="searchChange"
+          type="search"
+          name="searchcourse"
+          id="searchcourse"
+          :placeholder="$t('cerca_corso')"
+          v-model.trim="searchcourse.filter"
+          aria-label="Cerca corso"
+          role="search"
+        />
+      </div>
+  
+      <!-- Tabella -->
+      <div v-if="filteredCourses.length > 0">
+        <v-table
+          fixed-header
+          style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
+          role="grid"
+        >
+          <thead>
+            <tr role="row">
+              <th class="text-left" role="columnheader">
+                {{ $t('nome_corso') }}
+              </th>
+              <th class="text-left" role="columnheader"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="item in filteredCourses"
+              :key="item.id"
+              role="row"
             >
-                <thead>
-                    <tr>
-                        <th class="text-left">
-                            {{ $t('nome_corso') }}
-                        </th>
-                        <th class="text-left">
-                        </th> 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr
-                        v-for="item in filteredCourses"
-                        :key="item.id"
-                    >
-                        <td>{{ item.nome }}</td>
-                        <td>
-                            <div class="btn-group">
-                                <Button buttoncolor="#fe2315" @btn-click="$emit('delete-course', item.id)">
-                                    <template #icon>
-                                        <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
-                                    </template>
-                                    <template #tooltip>
-                                        <v-tooltip activator="parent" location="bottom">
-                                            {{ $t('elimina') }}
-                                        </v-tooltip>
-                                    </template>
-                                </Button>
-                                <Button buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditCourseForm', [item])">
-                                    <template #icon>
-                                        <Icon color="black" icon="tabler:edit" width="30" height="30" />
-                                    </template>
-                                    <template #tooltip>
-                                        <v-tooltip activator="parent" location="bottom">
-                                            {{ $t('modifica') }}
-                                        </v-tooltip>
-                                    </template>
-                                </Button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </v-table>
-        </div>
-        <div v-else>
-            <p class="table-msg">NO COURSES FOUND</p>
-        </div>
+              <td role="gridcell">{{ item.nome }}</td>
+              <td role="gridcell">
+                <div class="btn-group">
+                  <Button
+                    buttoncolor="#fe2315"
+                    @btn-click="$emit('delete-course', item.id)"
+                    aria-label="Elimina corso"
+                    role="button"
+                  >
+                    <template #icon>
+                      <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
+                    </template>
+                    <template #tooltip>
+                      <v-tooltip activator="parent" location="bottom">
+                        {{ $t('elimina') }}
+                      </v-tooltip>
+                    </template>
+                  </Button>
+                  <Button
+                    buttoncolor="grey"
+                    @btn-click="this.store.dispatch('toggleEditCourseForm', [item])"
+                    aria-label="Modifica corso"
+                    role="button"
+                  >
+                    <template #icon>
+                      <Icon color="black" icon="tabler:edit" width="30" height="30" />
+                    </template>
+                    <template #tooltip>
+                      <v-tooltip activator="parent" location="bottom">
+                        {{ $t('modifica') }}
+                      </v-tooltip>
+                    </template>
+                  </Button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
+      </div>
+      <div v-else>
+        <p class="table-msg" role="status">
+          NO COURSES FOUND
+        </p>
+      </div>
     </div>
-</template>
+  </template>
 
 <style scoped>
     .p-table-container{

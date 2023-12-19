@@ -72,36 +72,43 @@
 </script>
 
 <template>
-    <form @submit.prevent="submit" :role="$t('form_modifica_professori')">
+    <form @submit.prevent="submit" role="form">
       <v-text-field
-      :aria-label="$t('nome_professore')"
         variant="outlined"
         v-model="name.value.value"
         :error-messages="name.errorMessage.value"
         :label="$t('nome_professore')"
+        aria-label="Nome del professore"
+        required
+        role="textbox"
       ></v-text-field>
 
       <v-text-field
-      :aria-label="$t('cognome_professore')"
         variant="outlined"
         v-model="surname.value.value"
         :error-messages="surname.errorMessage.value"
         :label="$t('cognome_professore')"
+        aria-label="Cognome del professore"
+        required
+        role="textbox"
       ></v-text-field>
 
       <v-text-field
-        :aria-label="$t('email_professore')"
         variant="outlined"
         v-model="userEmail.value.value"
         :error-messages="userEmail.errorMessage.value"
         :label="$t('email_professore')"
+        aria-label="Email del professore"
+        required
+        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+        role="textbox"
       ></v-text-field>
-      <div class="big-btn-group">
+      <div class="big-btn-group" role="group" aria-label="Azioni del form">
         <div class="btn-group">
-            <v-btn color="#04c717" class="me-4" type="submit"> {{ $t('invio') }} </v-btn>
-            <v-btn color="#fe2315" @click="handleReset"> {{ $t('cancella') }} </v-btn>
+            <v-btn color="#04c717" class="me-4" type="submit" role="button"> {{ $t('invio') }} </v-btn>
+            <v-btn color="#fe2315" @click="handleReset" role="button"> {{ $t('cancella') }} </v-btn>
         </div>
-        <Button buttoncolor="black" :buttontext="$t('chiudi')"  @btn-click="store.dispatch('toggleEditTeacherForm')" />
+        <Button buttoncolor="black" :buttontext="$t('chiudi')"  @btn-click="store.dispatch('toggleEditTeacherForm')" role="button"/>
       </div>
     </form>
   </template>

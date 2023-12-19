@@ -59,43 +59,54 @@
 </script>
 
 <template>
-    <div class="p-table-container">
+    <div class="p-table-container" role="table">
         <div class="p-top-container">
-            <Button buttoncolor="black" :buttontext="$t('agg_professore')"  @btn-click="this.store.dispatch('toggleAddTeacherForm')" />
-            <input class="search" @input="searchChange" type="search" name="searchteacher" id="searchteacher" :placeholder="$t('cerca_professore')" v-model.trim="searchteacher.filter">
+            <Button :aria-label="$t('agg_professore')" buttoncolor="black" :buttontext="$t('agg_professore')"  @btn-click="this.store.dispatch('toggleAddTeacherForm')" />
+            <input
+                class="search"
+                @input="searchChange"
+                type="search"
+                name="searchteacher"
+                id="searchteacher"
+                :placeholder="$t('cerca_professore')"
+                v-model.trim="searchteacher.filter"
+                :aria-label="$t('cerca_professore')"
+                role="search"
+            />
         </div>
        <div v-if="filteredTeachers.length > 0">
             <v-table
                 fixed-header
                 style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
-                :role="$t('tabella_professori')"
+                role="grid"
             >
                 <thead>
-                    <tr>
-                        <th class="text-left">
+                    <tr role="row">
+                        <th class="text-left" role="columnheader">
                             {{ $t('nome_professore') }}
                         </th>
-                        <th class="text-left">
+                        <th class="text-left" role="columnheader">
                             {{ $t('cognome_professore') }}
                         </th>
-                        <th class="text-left">
+                        <th class="text-left" role="columnheader">
                             {{ $t('email_professore') }}
                         </th>
-                        <th class="text-left">
+                        <th class="text-left" role="columnheader">
                         </th> 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody role="rowgroup">
                     <tr
                         v-for="item in filteredTeachers"
                         :key="item.id"
+                        role="row"
                     >
-                        <td :aria-label="$t('nome_professore')">{{ item.name }}</td>
-                        <td :aria-label="$t('cognome_professore')">{{ item.surname }}</td>
-                        <td :aria-label="$t('email_professore')">{{ item.userEmail }}</td>
-                        <td>
+                        <td role="gridcell">{{ item.name }}</td>
+                        <td role="gridcell">{{ item.surname }}</td>
+                        <td role="gridcell">{{ item.userEmail }}</td>
+                        <td role="gridcell">
                             <div class="btn-group">
-                                <Button :aria-label="$t('elimina')" buttoncolor="#fe2315" @btn-click="$emit('delete-teacher', item.userId)">
+                                <Button role="button" aria-label="Elimina professore" buttoncolor="#fe2315" @btn-click="$emit('delete-teacher', item.userId)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
@@ -105,7 +116,7 @@
                                         </v-tooltip>
                                     </template>
                                 </Button>
-                                <Button :aria-label="$t('modifica')" buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditTeacherForm', [item])">
+                                <Button role="button" aria-label="Modifica professore" buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditTeacherForm', [item])">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
                                     </template>
@@ -122,7 +133,7 @@
             </v-table>
         </div>
         <div v-else>
-            <p class="table-msg">{{ $t('no_professori') }}</p>
+            <p class="table-msg" role="status">{{ $t('no_professori') }}</p>
         </div>
     </div>
 </template>

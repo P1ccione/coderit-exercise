@@ -22,6 +22,7 @@
         color="#c42116"
         :title="title"
         :text="text"
+        role="alert"
     >
         <Icon icon="ri:alert-fill" width="30" height="30" class="alert-icon" />
     </v-alert>

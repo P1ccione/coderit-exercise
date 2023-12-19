@@ -43,26 +43,27 @@
 </script>
 
 <template>
-    <div class="p-table-container">
-        <Button buttoncolor="black" :buttontext="$t('agg_docenza')" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
+    <div class="p-table-container" role="table">
+        <Button role="button" :aria-label="$t('agg_docenza')" buttoncolor="black" :buttontext="$t('agg_docenza')" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
         <div v-if="assignments.length > 0">
             <v-table
                 fixed-header
                 max-height="500px"
                 style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
+                role="grid"
             >
                 <thead>
-                    <tr>
-                        <th class="text-left">
+                    <tr role="row">
+                        <th class="text-left" role="columnheader">
                             {{ $t('nome_professore') }}
                         </th>
-                        <th class="text-left">
+                        <th class="text-left" role="columnheader">
                             {{ $t('email_professore') }}
                         </th>
-                        <th class="text-left">
+                        <th class="text-left" role="columnheader">
                             {{ $t('nome_corso') }}
                         </th>
-                        <th class="text-left">
+                        <th class="text-left" role="columnheader">
                         </th> 
                     </tr>
                 </thead>
@@ -70,13 +71,14 @@
                     <tr
                         v-for="item in assignments"
                         :key="item.id"
+                        role="row"
                     >
-                        <td>{{ item.professore.name }} {{ item.professore.surname }}</td>
-                        <td>{{ item.professore.userEmail }}</td>
-                        <td>{{ item.nome }}</td>
-                        <td>
+                        <td role="gridcell">{{ item.professore.name }} {{ item.professore.surname }}</td>
+                        <td role="gridcell">{{ item.professore.userEmail }}</td>
+                        <td role="gridcell">{{ item.nome }}</td>
+                        <td role="gridcell">
                             <div class="btn-group">
-                                <Button buttoncolor="#fe2315" @btn-click="$emit('delete-assignment', [item.id, item.professore.userId])">
+                                <Button role="button" aria-label="Elimina docenza" buttoncolor="#fe2315" @btn-click="$emit('delete-assignment', [item.id, item.professore.userId])">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
@@ -93,7 +95,7 @@
             </v-table>
         </div>
         <div v-else>
-            <p class="table-msg">NO ASSIGNMENTS FOUND</p>
+            <p class="table-msg" role="status">NO ASSIGNMENTS FOUND</p>
         </div>
     </div>
 </template>
