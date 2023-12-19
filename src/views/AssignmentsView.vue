@@ -112,48 +112,22 @@
                     }
                 }
             },
-            async isAssignmentExists(userId, id) {
-                const apiUrl = `https://here-i-am.apps.coderit.it/api/docenza/professore/${userId}`;
-                const bearerToken = this.$keycloak.token;
-
-                const config = {
-                    headers: {
-                        'Authorization': `Bearer ${bearerToken}`,
-                    },
-                };
-
-                try {
-                    const response = await axios.get(apiUrl, config);
-                    console.log('Response:', response.data);
-                    const data = response.data;
-                    console.log(data, "data");
-                    console.log(data.length, "data.lenght");
-                    if (data.length === 0) {
-                        console.log("return on if (data.length === 0)");
-                        return false;
-                    } else {
-                        data.forEach(element => {
-                            console.log("element", element);
-                            console.log("element.id", element.id);
-                            console.log("id", id);
-                            if(element.id === id) {
-                                console.log("return on if(element.id === id)");
-                                return true
-                            }
-                        });
-                        console.log("return on end");
-                        return false
+            isAssignmentExists(userId, id) {
+                let check = false;
+                this.assignments.forEach(element => {
+                    if(element.id === id && element.professore.userId === userId) {
+                        console.log(element.id + " element.id - " + id + " id | " + element.professore.userId + " element.professore.userId - " + userId + " userId");
+                        check = true
                     }
-                } catch (error) {
-                    console.error('Error:', error.message);
-                    throw error; // Re-throw the error to handle it elsewhere if needed
-                }
+                });
+                console.log(check + " check");
+                return check
             },
 
             async createAssignment(assignment) {
                 // Verifica se esiste già un collegamento tra insegnante e corso
                 console.log(assignment);
-                const isAssignmentExisting = await this.isAssignmentExists(assignment.professorId, assignment.moduleId);
+                const isAssignmentExisting = this.isAssignmentExists(assignment.professorId, assignment.moduleId);
                 if (isAssignmentExisting) {
                     this.store.dispatch('showAlert' , ["ERROR", "There is already a assignment with this course and this teacher", 5000])
                     return;

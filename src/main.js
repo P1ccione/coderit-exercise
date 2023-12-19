@@ -10,7 +10,12 @@ import { createI18n } from "vue-i18n";
 
 loadFonts();
 
-if (localStorage.getItem("lang") === null) {
+const languages = ["it", "IT", "en", "EN"];
+
+if (
+  localStorage.getItem("lang") === null ||
+  !languages.includes(localStorage.getItem("lang"))
+) {
   localStorage.setItem("lang", "it");
 }
 
