@@ -14,6 +14,7 @@
         },
         data() {
             return {
+                loading: true,
                 teachers: [],
                 store: useStore()
             }
@@ -27,6 +28,9 @@
         async created() {
             try {
                 this.teachers = await this.fetchTeachers();
+                setInterval(() => {
+                    this.loading = false
+                }, 200);
             } catch (error) {
                 // Handle the error if needed
                 console.error('Error in created hook:', error.message);
@@ -189,7 +193,13 @@
 
 <template>
     <div>
-        <TeachersTable :teachers="teachers" @delete-teacher="deleteTeacher"/>
+        <v-skeleton-loader 
+            :loading="this.loading"
+            max-width="800px"
+            type="heading, table-tfoot, table-tfoot, table-tfoot"
+        >
+            <TeachersTable :teachers="teachers" @delete-teacher="deleteTeacher"/>
+        </v-skeleton-loader>
     </div>
     <div v-show="this.store.state.teachers.showAddTeacherForm" class="form-container">
         <AddTeacherForm @create-teacher="createTeacher"/>

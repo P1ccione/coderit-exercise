@@ -11,6 +11,7 @@
         },
         data() {
             return {
+                loading: true,
                 assignments: [],
                 teachers: [],
                 courses: [],
@@ -25,6 +26,9 @@
             console.log(this.assignments);
             this.courses = await this.fetchCourses();
             console.log(this.courses);
+            setInterval(() => {
+                this.loading = false
+            }, 200);
         },
         methods: {
             async fetchaAssignments() {
@@ -153,7 +157,13 @@
 
 <template>
     <div style="width: fit-content;">
-        <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
+        <v-skeleton-loader 
+            :loading="this.loading"
+            max-width="360px"
+            type="heading, table-tfoot, table-tfoot, table-tfoot"
+        >
+            <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
+        </v-skeleton-loader>
     </div>
     <div v-show="this.store.state.assignments.showAddAssignmentForm" class="form-container">
         <AddAssignmentForm :teachers="teachers" :courses="courses" @create-assignment="createAssignment"/>

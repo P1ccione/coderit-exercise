@@ -13,12 +13,17 @@
         },
         data() {
             return {
+                loading: true,
+                firstLoad: true,
                 courses: [],
                 store: useStore()
             }
         },
         async created() {
             this.courses = await this.fetchCourses();
+            setInterval(() => {
+                this.loading = false
+            }, 200);
         },
         methods: {
             // fetch dei dati nel file db.json dell'array courses
@@ -155,7 +160,13 @@
 
 <template>
     <div>
-        <CoursesTable :courses="courses" @toggle-add-course-form="this.store.dispatch('toggleAddCourseForm')" @delete-course="deleteCourse"/>
+        <v-skeleton-loader 
+            :loading="this.loading"
+            max-width="360"
+            type="heading, table-tfoot, table-tfoot, table-tfoot"
+        >
+            <CoursesTable :courses="courses" @toggle-add-course-form="this.store.dispatch('toggleAddCourseForm')" @delete-course="deleteCourse"/>
+        </v-skeleton-loader>
     </div>
     <div v-show="this.store.state.courses.showAddCourseForm" class="form-container">
         <AddCourseForm @create-course="createCourse"/>
