@@ -28,7 +28,7 @@
             console.log(this.courses);
             setInterval(() => {
                 this.loading = false
-            }, 200);
+            }, 300);
         },
         methods: {
             async fetchaAssignments() {
@@ -158,6 +158,7 @@
 <template>
     <div style="width: fit-content;">
         <v-skeleton-loader 
+            boilerplate
             :loading="this.loading"
             max-width="360px"
             type="heading, table-tfoot, table-tfoot, table-tfoot"

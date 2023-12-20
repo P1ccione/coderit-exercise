@@ -23,7 +23,7 @@
             this.courses = await this.fetchCourses();
             setInterval(() => {
                 this.loading = false
-            }, 200);
+            }, 300);
         },
         methods: {
             // fetch dei dati nel file db.json dell'array courses
@@ -161,6 +161,7 @@
 <template>
     <div>
         <v-skeleton-loader 
+            boilerplate
             :loading="this.loading"
             max-width="360"
             type="heading, table-tfoot, table-tfoot, table-tfoot"

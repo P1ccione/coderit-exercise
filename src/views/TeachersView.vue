@@ -30,7 +30,7 @@
                 this.teachers = await this.fetchTeachers();
                 setInterval(() => {
                     this.loading = false
-                }, 200);
+                }, 300);
             } catch (error) {
                 // Handle the error if needed
                 console.error('Error in created hook:', error.message);
@@ -194,6 +194,7 @@
 <template>
     <div>
         <v-skeleton-loader 
+            boilerplate
             :loading="this.loading"
             max-width="800px"
             type="heading, table-tfoot, table-tfoot, table-tfoot"
