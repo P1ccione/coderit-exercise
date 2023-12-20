@@ -56,7 +56,7 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
 </script>
 
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" role="form">
     
     <v-select
       v-if="props.teachers"
@@ -64,6 +64,9 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
       :items="props.teachers.map(teacher => teacher.userEmail)"
       :error-messages="selectTeacher.errorMessage.value"
         :label="$t('seleziona_professore')"
+        aria-label="Seleziona email del professore"
+        required
+        role="listbox"
       ></v-select>
 
     <v-select
@@ -72,13 +75,16 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
       :items="props.courses.map(course => course.nome)"
       :error-messages="selectCourse.errorMessage.value"
         :label="$t('seleziona_corso')"
+        aria-label="Seleziona nome del corso"
+        required
+        role="listbox"
     ></v-select>
-    <div class="big-btn-group">
+    <div class="big-btn-group" role="group" aria-label="Azioni del form">
       <div class="btn-group">
-          <v-btn color="#04c717" class="me-4" type="submit"> submit </v-btn>
-          <v-btn color="#fe2315" @click="handleReset"> clear </v-btn>
+          <v-btn color="#04c717" class="me-4" type="submit" role="button"> {{ $t('invio') }} </v-btn>
+          <v-btn color="#fe2315" @click="handleReset" role="button"> {{ $t('cancella') }} </v-btn>
       </div>
-      <Button buttoncolor="black" buttontext="CLOSE"  @btn-click="store.dispatch('toggleCreateAssignment')" />
+      <Button buttoncolor="black" :buttontext="$t('chiudi')"  @btn-click="store.dispatch('toggleCreateAssignment')" role="button"/>
     </div>
   </form>
 </template>

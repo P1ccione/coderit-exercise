@@ -48,13 +48,16 @@
                     <select id="lang-select" class="lang-select" v-model="language" @change="changeLanguage" :aria-label="$t('seleziona_lingua')">
                         <option value="en">EN</option>
                         <option value="it">IT</option>
+                        <option value="es">ES</option>
+                        <option value="de">DE</option>
+                        <option value="fr">FR</option>
                     </select>
 
-                    <v-btn variant="outlined" to="/" aria-label="Home">HOME</v-btn>
+                    <v-btn variant="outlined" to="/" :aria-label="$t('link_pagina_home')">HOME</v-btn>
 
-                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('professori')">{{ $t('professori') }}</v-btn>
-                    <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('corsi')">{{ $t('corsi') }}</v-btn>
-                    <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('docenze')">{{ $t('docenze') }}</v-btn>
+                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('link_pagina_professori')">{{ $t('professori') }}</v-btn>
+                    <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('link_pagina_corsi')">{{ $t('corsi') }}</v-btn>
+                    <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('link_pagina_docenze')">{{ $t('docenze') }}</v-btn>
                     
                     <v-btn variant="outlined" @click="logout" aria-label="Logout">LOGOUT</v-btn>
                 </div>

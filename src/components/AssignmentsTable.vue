@@ -95,7 +95,7 @@
             </v-table>
         </div>
         <div v-else>
-            <p class="table-msg" role="status">NO ASSIGNMENTS FOUND</p>
+            <p class="table-msg" role="status">{{ $t('no_docenze') }}</p>
         </div>
     </div>
 </template>
