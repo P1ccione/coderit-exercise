@@ -55,7 +55,7 @@
 </script>
 
 <template>
-    <div class="p-table-container" role="table">
+    <div class="p-table-container" role="table" aria-colcount="1">
       <!-- Parte iniziale -->
       <div class="top-container">
         <Button
@@ -75,6 +75,7 @@
           v-model.trim="searchcourse.filter"
           aria-label="Cerca corso"
           role="search"
+          style="height: 50px;"
         />
       </div>
   

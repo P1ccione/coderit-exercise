@@ -59,7 +59,7 @@
 </script>
 
 <template>
-    <div class="p-table-container" role="table">
+    <div class="p-table-container" role="table" aria-colcount="3">
         <div class="p-top-container">
             <Button :aria-label="$t('agg_professore')" buttoncolor="black" :buttontext="$t('agg_professore')"  @btn-click="this.store.dispatch('toggleAddTeacherForm')" />
             <input
@@ -72,6 +72,7 @@
                 v-model.trim="searchteacher.filter"
                 :aria-label="$t('cerca_professore')"
                 role="search"
+                style="height: 50px;"
             />
         </div>
        <div v-if="filteredTeachers.length > 0">

@@ -43,7 +43,7 @@
 </script>
 
 <template>
-    <div class="p-table-container" role="table">
+    <div class="p-table-container" role="table" aria-colcount="3">
         <Button role="button" :aria-label="$t('agg_docenza')" buttoncolor="black" :buttontext="$t('agg_docenza')" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
         <div v-if="assignments.length > 0">
             <v-table

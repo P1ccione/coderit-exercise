@@ -46,11 +46,8 @@
 
                     <label for="lang-select" class="sr-only">{{ $t('seleziona_lingua') }}</label>
                     <select id="lang-select" class="lang-select" v-model="language" @change="changeLanguage" :aria-label="$t('seleziona_lingua')">
-                        <option value="en">EN</option>
                         <option value="it">IT</option>
-                        <option value="es">ES</option>
-                        <option value="de">DE</option>
-                        <option value="fr">FR</option>
+                        <option value="en">EN</option>
                     </select>
 
                     <v-btn variant="outlined" to="/" :aria-label="$t('link_pagina_home')">HOME</v-btn>
