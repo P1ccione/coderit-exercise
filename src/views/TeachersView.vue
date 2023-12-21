@@ -192,7 +192,7 @@
 </script>
 
 <template>
-    <div>
+    <div :aria-hidden="store.state.teachers.ariaHiddenTeacher">
         <v-skeleton-loader 
             boilerplate
             :loading="this.loading"

@@ -72,7 +72,7 @@
 </script>
 
 <template>
-    <form @submit.prevent="submit" role="form">
+    <form @submit.prevent="submit" role="form" :aria-label="$t(form_modifica_professori)">
       <v-text-field
         variant="outlined"
         v-model="name.value.value"

@@ -64,13 +64,16 @@ const teachersModule = {
     showAddTeacherForm: false,
     showEditTeacherForm: false,
     editingTeacher: {},
+    ariaHiddenTeacher: false,
   },
   mutations: {
     toggleAddTeacherForm(state) {
       state.showAddTeacherForm = !state.showAddTeacherForm;
+      state.ariaHiddenTeacher = !state.ariaHiddenTeacher;
     },
     toggleEditTeacherForm(state) {
       state.showEditTeacherForm = !state.showEditTeacherForm;
+      state.ariaHiddenTeacher = !state.ariaHiddenTeacher;
     },
     changeEditingTeacher(state, teacher) {
       state.editingTeacher = teacher[0];
@@ -95,13 +98,16 @@ const coursesModule = {
     showAddCourseForm: false,
     showEditCourseForm: false,
     editingCourse: {},
+    ariaHiddenCourse: false,
   },
   mutations: {
     toggleAddCourseForm(state) {
       state.showAddCourseForm = !state.showAddCourseForm;
+      state.ariaHiddenCourse = !state.ariaHiddenCourse;
     },
     toggleEditCourseForm(state) {
       state.showEditCourseForm = !state.showEditCourseForm;
+      state.ariaHiddenCourse = !state.ariaHiddenCourse;
     },
     changeEditingCourse(state, course) {
       state.editingCourse = course[0];
@@ -124,10 +130,12 @@ const coursesModule = {
 const assignmentsModule = {
   state: {
     showAddAssignmentForm: false,
+    ariaHiddenAssignment: false,
   },
   mutations: {
     toggleCreateAssignment(state) {
       state.showAddAssignmentForm = !state.showAddAssignmentForm;
+      state.ariaHiddenAssignment = !state.ariaHiddenAssignment;
     },
   },
   actions: {
