@@ -159,7 +159,7 @@
 </script>
 
 <template>
-    <div>
+    <div v-show="this.store.state.courses.ariaShowCourse">
         <v-skeleton-loader 
             boilerplate
             :loading="this.loading"
