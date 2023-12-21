@@ -16,7 +16,7 @@
                 loading: true,
                 firstLoad: true,
                 courses: [],
-                store: useStore(),
+                store: useStore()
             }
         },
         async created() {
@@ -159,7 +159,7 @@
 </script>
 
 <template>
-    <div :aria-hidden="store.state.courses.ariaHiddenCourse">
+    <div>
         <v-skeleton-loader 
             boilerplate
             :loading="this.loading"

@@ -56,7 +56,7 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
 </script>
 
 <template>
-  <form @submit.prevent="submit" role="form" :aria-label="$t(form_aggiunta_docenze)">
+  <form @submit.prevent="submit" role="form">
     
     <v-select
       v-if="props.teachers"
