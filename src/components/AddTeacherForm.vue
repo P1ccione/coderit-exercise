@@ -60,44 +60,49 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
 <template>
   <form @submit.prevent="submit" role="form" :aria-label="$t('form_aggiunta_professori')">
     <!-- Sezione dei campi -->
+    <label for="name" class="sr-only">{{ $t('nome_professore') }}</label>
     <v-text-field
       variant="outlined"
       v-model="name.value.value"
       :error-messages="name.errorMessage.value"
       :label="$t('nome_professore')"
-      aria-label="Nome del professore"
-      required
+      :aria-label="$t('nome_professore')"
       role="textbox"
+      aria-required="true"
+      :aria-invalid="name.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
 
+    <label for="surname" class="sr-only">{{ $t('cognome_professore') }}</label>
     <v-text-field
       variant="outlined"
       v-model="surname.value.value"
       :error-messages="surname.errorMessage.value"
       :label="$t('cognome_professore')"
-      aria-label="Cognome del professore"
-      required
+      :aria-label="$t('cognome_professore')"
       role="textbox"
+      aria-required="true"
+      :aria-invalid="surname.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
 
+    <label for="userEmail" class="sr-only">{{ $t('email_professore') }}</label>
     <v-text-field
       variant="outlined"
       v-model="userEmail.value.value"
       :error-messages="userEmail.errorMessage.value"
       :label="$t('email_professore')"
-      aria-label="Email del professore"
-      required
-      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+      :aria-label="$t('email_professore')"
       role="textbox"
+      aria-required="true"
+      :aria-invalid="userEmail.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
 
     <!-- Seconda sezione del form -->
-    <div class="big-btn-group" role="group" aria-label="Azioni del form">
+    <div class="big-btn-group" role="group" :aria-label="$t('azioni_form')">
       <div class="btn-group">
-        <v-btn color="#04c717" class="me-4" type="submit" role="button">
+        <v-btn color="#04c717" class="me-4" type="submit" role="button" :aria-label="$t('invio')">
           {{ $t('invio') }}
         </v-btn>
-        <v-btn color="#fe2315" @click="handleReset" role="button">
+        <v-btn color="#fe2315" @click="handleReset" role="button" :aria-label="$t('cancella')">
           {{ $t('cancella') }}
         </v-btn>
       </div>
@@ -106,34 +111,46 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
           :buttontext="$t('chiudi')"
           @btn-click="store.dispatch('toggleAddTeacherForm')"
           role="button"
+          :aria-label="$t('chiudi')"
         />
       </div>
     </form>
 </template>
 
 <style scoped>
-    form{
-        width: 400px;
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        row-gap: 10px;
-        padding: 20px;
-        border-radius: 20px;
-    }
-    .btn-group{
-      width: fit-content;
-      height: auto;
+  form{
+      width: 400px;
+      background-color: white;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+      flex-direction: column;
+      row-gap: 10px;
+      padding: 20px;
+      border-radius: 20px;
+  }
 
-    .big-btn-group{
-      width: 100%;
-      height: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  .btn-group{
+    width: fit-content;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .big-btn-group{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 </style>

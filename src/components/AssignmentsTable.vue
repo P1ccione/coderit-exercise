@@ -78,7 +78,7 @@
                         <td role="gridcell">{{ item.nome }}</td>
                         <td role="gridcell">
                             <div class="btn-group">
-                                <Button role="button" aria-label="Elimina docenza" buttoncolor="#fe2315" @btn-click="$emit('delete-assignment', [item.id, item.professore.userId])">
+                                <Button role="button" :aria-label="$t('elimina_docenza')" buttoncolor="#fe2315" @btn-click="$emit('delete-assignment', [item.id, item.professore.userId])">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>

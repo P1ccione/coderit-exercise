@@ -106,7 +106,7 @@
                   <Button
                     buttoncolor="#fe2315"
                     @btn-click="$emit('delete-course', item.id)"
-                    aria-label="Elimina corso"
+                    :aria-label="$t('elimina_corso')"
                     role="button"
                   >
                     <template #icon>
@@ -121,7 +121,7 @@
                   <Button
                     buttoncolor="grey"
                     @btn-click="this.store.dispatch('toggleEditCourseForm', [item])"
-                    aria-label="Modifica corso"
+                    :aria-label="$t('modifica_corso')"
                     role="button"
                   >
                     <template #icon>

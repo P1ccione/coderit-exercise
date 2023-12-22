@@ -107,7 +107,7 @@
                         <td role="gridcell">{{ item.userEmail }}</td>
                         <td role="gridcell">
                             <div class="btn-group">
-                                <Button role="button" aria-label="Elimina professore" buttoncolor="#fe2315" @btn-click="$emit('delete-teacher', item.userId)">
+                                <Button role="button" :aria-label="$t('elimina_professore')" buttoncolor="#fe2315" @btn-click="$emit('delete-teacher', item.userId)">
                                     <template #icon>
                                         <Icon color="black" icon="typcn:delete-outline" width="30" height="30" />
                                     </template>
@@ -117,7 +117,7 @@
                                         </v-tooltip>
                                     </template>
                                 </Button>
-                                <Button role="button" aria-label="Modifica professore" buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditTeacherForm', [item])">
+                                <Button role="button" :aria-label="$t('modifica_professore')" buttoncolor="grey" @btn-click="this.store.dispatch('toggleEditTeacherForm', [item])">
                                     <template #icon>
                                         <Icon color="black" icon="tabler:edit" width="30" height="30" />
                                     </template>
