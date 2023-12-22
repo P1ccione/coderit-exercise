@@ -125,6 +125,16 @@
         padding: 20px;
         border-radius: 20px;
     }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
 
     .btn-group{
       width: fit-content;

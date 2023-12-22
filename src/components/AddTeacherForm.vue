@@ -68,7 +68,6 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
       :label="$t('nome_professore')"
       :aria-label="$t('nome_professore')"
       role="textbox"
-      aria-required="true"
       :aria-invalid="name.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
 
@@ -80,7 +79,6 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
       :label="$t('cognome_professore')"
       :aria-label="$t('cognome_professore')"
       role="textbox"
-      aria-required="true"
       :aria-invalid="surname.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
 
@@ -92,7 +90,6 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
       :label="$t('email_professore')"
       :aria-label="$t('email_professore')"
       role="textbox"
-      aria-required="true"
       :aria-invalid="userEmail.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
 

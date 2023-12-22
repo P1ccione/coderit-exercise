@@ -59,7 +59,7 @@
 </script>
 
 <template>
-    <div class="p-table-container" role="table" aria-colcount="3">
+    <div class="p-table-container">
         <div class="p-top-container">
             <Button :aria-label="$t('agg_professore')" buttoncolor="black" :buttontext="$t('agg_professore')"  @btn-click="this.store.dispatch('toggleAddTeacherForm')" />
             <input
@@ -79,7 +79,9 @@
             <v-table
                 fixed-header
                 style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
-                role="grid"
+                role="table"
+                aria-colcount="3"
+                :aria-label="$t('tabella_professori')"
             >
                 <thead>
                     <tr role="row">

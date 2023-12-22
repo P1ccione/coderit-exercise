@@ -55,7 +55,7 @@
 </script>
 
 <template>
-    <div class="p-table-container" role="table" aria-colcount="1">
+    <div class="p-table-container" >
       <!-- Parte iniziale -->
       <div class="top-container">
         <Button
@@ -73,7 +73,7 @@
           id="searchcourse"
           :placeholder="$t('cerca_corso')"
           v-model.trim="searchcourse.filter"
-          aria-label="Cerca corso"
+          :aria-label="$t('cerca_corso')"
           role="search"
           style="height: 50px;"
         />
@@ -84,7 +84,9 @@
         <v-table
           fixed-header
           style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
-          role="grid"
+          role="table"
+          aria-colcount="1"
+          :aria-label="$t('tabella_corsi')"
         >
           <thead>
             <tr role="row">

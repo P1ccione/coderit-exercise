@@ -43,14 +43,16 @@
 </script>
 
 <template>
-    <div class="p-table-container" role="table" aria-colcount="3">
+    <div class="p-table-container">
         <Button role="button" :aria-label="$t('agg_docenza')" buttoncolor="black" :buttontext="$t('agg_docenza')" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
         <div v-if="assignments.length > 0">
             <v-table
                 fixed-header
                 max-height="500px"
                 style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px;"
-                role="grid"
+                role="table"
+                aria-colcount="3"
+                :aria-label="$t('tabella_docenze')"
             >
                 <thead>
                     <tr role="row">
