@@ -1,6 +1,7 @@
 <script>
     import { useStore } from 'vuex';
     import { useI18n } from 'vue-i18n'
+    import HereIamLogo from '@/assets/here-i-am-logo.svg';
     export default {
         // eslint-disable-next-line vue/multi-word-component-names
         name: "Header",
@@ -14,7 +15,8 @@
         },
         data() {
             return {
-                language: null
+                language: null,
+                HereIamLogo: HereIamLogo
             }
         },
         methods: {
@@ -34,14 +36,25 @@
         },
         created () {
             this.language = localStorage.getItem("lang")
-        },
+        }
     }
 </script>
 
 <template>
     <v-container>
-        <v-app-bar title="Here I Am">
-            <template v-slot:append>
+        <v-app-bar>
+            <v-img
+                class="mx-2"
+                :src="HereIamLogo"
+                max-height="40"
+                max-width="40"
+                contain
+            ></v-img>
+
+            <v-toolbar-title class="ml-2">
+                HERE I AM
+            </v-toolbar-title>
+                        <template v-slot:append>
                 <div class="links" role="navigation">
 
                     <label for="lang-select" class="sr-only">{{ $t('seleziona_lingua') }}</label>
@@ -61,6 +74,7 @@
             </template>
         </v-app-bar>
     </v-container>
+
 </template>
 
 <style scoped>
@@ -90,4 +104,10 @@
         clip: rect(0, 0, 0, 0);
         border: 0;
     }
+</style>
+
+<style>
+ * {
+    font-family: roboto;
+ }
 </style>

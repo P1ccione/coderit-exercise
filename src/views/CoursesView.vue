@@ -159,7 +159,7 @@
 </script>
 
 <template>
-    <div v-show="this.store.state.courses.ariaShowCourse">
+    <div v-show="this.store.state.courses.ariaShowCourse" style="margin-top: 47px; margin-bottom: 50px; min-height: 350px;">
         <v-skeleton-loader 
             boilerplate
             :loading="this.loading"

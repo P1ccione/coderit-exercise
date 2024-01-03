@@ -156,7 +156,7 @@
 </script>
 
 <template>
-    <div style="width: fit-content;" v-show="this.store.state.assignments.ariaShowAssignment">
+    <div style="width: fit-content; margin-top: 47px; margin-bottom: 50px; min-height: 350px;" v-show="this.store.state.assignments.ariaShowAssignment">
         <v-skeleton-loader 
             boilerplate
             :loading="this.loading"

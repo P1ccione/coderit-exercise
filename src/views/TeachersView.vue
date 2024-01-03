@@ -192,7 +192,7 @@
 </script>
 
 <template>
-    <div v-show="this.store.state.teachers.ariaShowTeacher">
+    <div v-show="this.store.state.teachers.ariaShowTeacher" style="margin-top: 47px; margin-bottom: 50px; min-height: 350px;">
         <v-skeleton-loader 
             boilerplate
             :loading="this.loading"

@@ -4,14 +4,16 @@
     <div class="alert-container" v-show="this.store.state.global.showAlertState">
       <Alert :title="this.store.state.global.alertTitle" :text="this.store.state.global.alertText" />
     </div>
-      <div class="container" role="main">
-        <router-view/>
-      </div>
+    <div class="container" role="main">
+      <router-view/>
+    </div>
+    <Footer></Footer>
   </v-app>
 </template>
 
 <script>
 import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 import Alert from './components/Alert.vue';
 import { useStore } from 'vuex';
 export default {
@@ -24,6 +26,7 @@ export default {
   name: 'App',
   components: {
     Header,
+    Footer,
     Alert,
   },
   methods: {
@@ -38,7 +41,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 80px;
+    margin-top: 33px;
+    padding: 0;
 }
 
 .alert-container {
