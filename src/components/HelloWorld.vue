@@ -1,9 +1,9 @@
 <template>
   <!-- {{ $t('benvenuto') }} {{ this.store.state.global.userData.lastname }} {{ this.store.state.global.userData.firstname }} -->
   <div class="header-img-container">
-    <h1 class="header-title">Verifica che gli studenti <br>stanno ascoltando</h1>
+    <h1 class="header-title">Verifica che gli studenti <br>stiano ascoltando</h1>
     <p class="header-text">"Here I Am" propone un sistema in grado di verificare che <br>uno studente che partecipa a una sessione di formazione online sia <br>effettivamente presente.</p>
-    <Button buttoncolor="white" buttontext="ACCEDI" style="margin-top: 10px;" to="/" class="header-button"/>
+    <Button buttoncolor="white" buttontext="INIZIA ➠" style="margin-top: 10px;" to="/" class="header-button"/>
   </div>
 
   <div class="marketing-row">
@@ -44,7 +44,7 @@
         "
       >
         <h2 style="color: white; font-size: 3rem;">Enti formativi</h2>
-        <p style="color: white">che desiderano e/o necessitano di verificare che il corsista sia effettivamente presente al corso on-line e che possono utilizzare HIA a tale scopo, indipendentemente dalla piattaforma di e-learning o teleconferenza utilizzata;</p>
+        <p style="color: white">che desiderano e/o necessitano di verificare che il corsista sia effettivamente presente al corso on-line e che possono utilizzare HIA a tale scopo, indipendentemente dalla piattaforma di <br>e-learning o teleconferenza utilizzata;</p>
       </div>
     </v-carousel-item>
     
@@ -135,7 +135,7 @@
     </div>
     <div class="featurette-col-text-container">
       <h2 class="featurette-col-title">Indagini</h2>
-      <p class="featurette-col-text">HIA può analizzare i dati raccolti dalle sfide per eseguire delle “indagini” e identificare situazioni dubbie di presenza. A puro titolo di esempio, supponiamo che un utente A sia sempre riuscito a superare le sfide proposte da HIA, ma sempre e solo dopo che c’è riuscito l’utente B. Questo potrebbe indicare che il corsista B stia cercando di impersonare l’utente A. Tale fase di indagine deve portare a degli indicatori che permettano di pianificare meglio le sfide a cui sottoporre gli scienti. Ad esempio, nel caso sopra descritto, si potrebbe pensare che alla prossima lezione, al corsista A sia sottoposta una sfida magari più invasiva ma con una confidenza maggiore. Oppure che il corsista A sia sfidato prima del corsista B.</p>        
+      <p class="featurette-col-text">HIA può analizzare i dati raccolti dalle sfide per eseguire delle “indagini” e identificare situazioni dubbie di presenza. A puro titolo di esempio, supponiamo che un utente A sia sempre riuscito a superare le sfide proposte da HIA, ma sempre e solo dopo che c’è riuscito l’utente B. Questo potrebbe indicare che il corsista B stia cercando di impersonare l’utente A. Tale fase di indagine deve portare a degli indicatori che permettano di pianificare meglio le sfide a cui sottoporre i corsisti. Ad esempio, nel caso sopra descritto, si potrebbe pensare che alla prossima lezione, al corsista A sia sottoposta una sfida magari più invasiva ma con una confidenza maggiore. Oppure che il corsista A sia sfidato prima del corsista B.</p>        
     </div>
   </div>
   
@@ -238,6 +238,9 @@ export default {
   .header-button:hover {
     background-color: dodgerblue !important;
   }
+  .header-button{
+    font-size: 1.3rem !important;
+  }
 
   .row-featurette {
     width: 90%;
@@ -247,6 +250,7 @@ export default {
 
 .featurette-col-image {
     width: 40%;
+    height: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -254,7 +258,7 @@ export default {
 
 .featurette-col-image img {
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 
 p.featurette-col-text {

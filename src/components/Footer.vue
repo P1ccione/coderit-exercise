@@ -6,7 +6,7 @@
             </div>
             <p class="footer-text">+39 393 8730542</p>
             <span class="footer-text">
-                <a href="info@coderit.it" class="footer-link">info@coderit.it</a>
+                <a href="mailto:info@coderit.it" class="footer-link">info@coderit.it</a>
             </span>
             <p class="footer-text">Via Aosta 4, Milano</p>
             <p class="footer-text">C.F. e P.IVA: 10941240961</p>

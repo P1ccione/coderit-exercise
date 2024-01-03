@@ -192,15 +192,17 @@
 </script>
 
 <template>
-    <div v-show="this.store.state.teachers.ariaShowTeacher" style="margin-top: 47px; margin-bottom: 50px; min-height: 350px;">
-        <v-skeleton-loader 
-            boilerplate
-            :loading="this.loading"
-            max-width="800px"
-            type="heading, table-tfoot, table-tfoot, table-tfoot"
-        >
-            <TeachersTable :teachers="teachers" @delete-teacher="deleteTeacher"/>
-        </v-skeleton-loader>
+    <div style="margin-top: 47px; margin-bottom: 50px; min-height: 400px;">
+        <div v-show="this.store.state.teachers.ariaShowTeacher">
+            <v-skeleton-loader 
+                boilerplate
+                :loading="this.loading"
+                max-width="800px"
+                type="heading, table-tfoot, table-tfoot, table-tfoot"
+            >
+                <TeachersTable :teachers="teachers" @delete-teacher="deleteTeacher"/>
+            </v-skeleton-loader>
+        </div>
     </div>
     <div v-show="this.store.state.teachers.showAddTeacherForm" class="form-container">
         <AddTeacherForm @create-teacher="createTeacher"/>

@@ -156,15 +156,17 @@
 </script>
 
 <template>
-    <div style="width: fit-content; margin-top: 47px; margin-bottom: 50px; min-height: 350px;" v-show="this.store.state.assignments.ariaShowAssignment">
-        <v-skeleton-loader 
-            boilerplate
-            :loading="this.loading"
-            max-width="360px"
-            type="heading, table-tfoot, table-tfoot, table-tfoot"
-        >
-            <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
-        </v-skeleton-loader>
+    <div style="width: fit-content; margin-top: 47px; margin-bottom: 50px; min-height: 400px;">
+        <div v-show="this.store.state.assignments.ariaShowAssignment">
+            <v-skeleton-loader 
+                boilerplate
+                :loading="this.loading"
+                max-width="360px"
+                type="heading, table-tfoot, table-tfoot, table-tfoot"
+            >
+                <AssignmentsTable :assignments="assignments" :teachers="teachers" :courses="courses" @delete-assignment="deleteAssignment"/>
+            </v-skeleton-loader>
+        </div>    
     </div>
     <div v-show="this.store.state.assignments.showAddAssignmentForm" class="form-container">
         <AddAssignmentForm :teachers="teachers" :courses="courses" @create-assignment="createAssignment"/>

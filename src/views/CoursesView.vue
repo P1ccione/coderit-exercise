@@ -159,15 +159,17 @@
 </script>
 
 <template>
-    <div v-show="this.store.state.courses.ariaShowCourse" style="margin-top: 47px; margin-bottom: 50px; min-height: 350px;">
-        <v-skeleton-loader 
-            boilerplate
-            :loading="this.loading"
-            max-width="360"
-            type="heading, table-tfoot, table-tfoot, table-tfoot"
-        >
-            <CoursesTable :courses="courses" @toggle-add-course-form="this.store.dispatch('toggleAddCourseForm')" @delete-course="deleteCourse"/>
-        </v-skeleton-loader>
+    <div style="margin-top: 47px; margin-bottom: 50px; min-height: 400px;">
+        <div v-show="this.store.state.courses.ariaShowCourse">
+            <v-skeleton-loader 
+                boilerplate
+                :loading="this.loading"
+                max-width="360"
+                type="heading, table-tfoot, table-tfoot, table-tfoot"
+            >
+                <CoursesTable :courses="courses" @toggle-add-course-form="this.store.dispatch('toggleAddCourseForm')" @delete-course="deleteCourse"/>
+            </v-skeleton-loader>
+        </div>    
     </div>
     <div v-show="this.store.state.courses.showAddCourseForm" class="form-container">
         <AddCourseForm @create-course="createCourse"/>
