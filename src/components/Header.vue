@@ -29,6 +29,14 @@
                     // Handle the situation accordingly, e.g., redirect to a login page.
                 }
             },
+            login () {
+                if (this.$keycloak) {
+                    this.$keycloak.login();
+                } else {
+                    console.error('Keycloak not initialized yet.');
+                    // Handle the situation accordingly, e.g., redirect to a login page.
+                }
+            },
             changeLanguage() {
                 localStorage.setItem("lang", this.language)
                 window.location.reload()
@@ -69,7 +77,8 @@
                     <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('link_pagina_corsi')">{{ $t('corsi') }}</v-btn>
                     <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('link_pagina_docenze')">{{ $t('docenze') }}</v-btn>
                     
-                    <v-btn variant="outlined" @click="logout" aria-label="Logout">LOGOUT</v-btn>
+                    <v-btn variant="outlined" v-if="!this.store.state.global.authorized" @click="login" aria-label="Login">LOGIN</v-btn>
+                    <v-btn variant="outlined" v-else @click="logout" aria-label="Logout">LOGOUT</v-btn>
                 </div>
             </template>
         </v-app-bar>

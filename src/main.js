@@ -168,7 +168,7 @@ let initOptions = {
   url: "https://sso.here-i-am.apps.coderit.it/",
   realm: "here-i-am",
   clientId: "backoffice-fe",
-  onLoad: "login-required",
+  onLoad: "check-sso",
 };
 
 let keycloak = new Keycloak(initOptions);
@@ -176,54 +176,54 @@ let keycloak = new Keycloak(initOptions);
 keycloak
   .init({ onLoad: initOptions.onLoad })
   .then((auth) => {
-    if (!auth) {
-      window.location.reload();
-    } else {
-      console.info("Authenticated");
-    }
-
     const app = createApp(App).use(router).use(store).use(vuetify).use(i18n);
     app.config.globalProperties.$keycloak = keycloak;
     app.mount("#app");
 
-    localStorage.setItem("vue-token", keycloak.token);
-    localStorage.setItem("vue-refresh-token", keycloak.refreshToken);
+    if (auth) {
+      console.log("Authenticated", auth);
+      localStorage.setItem("vue-token", keycloak.token);
+      localStorage.setItem("vue-refresh-token", keycloak.refreshToken);
 
-    const token_decoded = VueJwtDecode.decode(keycloak.token);
-    console.log(token_decoded);
+      const token_decoded = VueJwtDecode.decode(keycloak.token);
+      console.log(token_decoded);
 
-    store.dispatch("store_lastname", token_decoded.family_name);
-    store.dispatch("store_firstname", token_decoded.given_name);
-    store.dispatch("store_email", token_decoded.email);
-    store.dispatch("store_roles", token_decoded.realm_access.roles);
+      store.dispatch("store_lastname", token_decoded.family_name);
+      store.dispatch("store_firstname", token_decoded.given_name);
+      store.dispatch("store_email", token_decoded.email);
+      store.dispatch("store_roles", token_decoded.realm_access.roles);
+      store.dispatch("changeAuthorized", true);
 
-    console.log("firstname: " + store.state.global.userData.firstname);
-    console.log("lastname: " + store.state.global.userData.lastname);
-    console.log("email: " + store.state.global.userData.email);
-    console.log("roles: " + store.state.global.userData.roles);
+      console.log("firstname: " + store.state.global.userData.firstname);
+      console.log("lastname: " + store.state.global.userData.lastname);
+      console.log("email: " + store.state.global.userData.email);
+      console.log("roles: " + store.state.global.userData.roles);
 
-    setInterval(() => {
-      keycloak
-        .updateToken(70)
-        .then((refreshed) => {
-          if (refreshed) {
-            console.debug("Token refreshed" + refreshed);
-          } else {
-            console.warn(
-              "Token not refreshed, valid for " +
-                Math.round(
-                  keycloak.tokenParsed.exp +
-                    keycloak.timeSkew -
-                    new Date().getTime() / 1000
-                ) +
-                " seconds"
-            );
-          }
-        })
-        .catch(() => {
-          console.error("Failed to refresh token");
-        });
-    }, 60000);
+      setInterval(() => {
+        keycloak
+          .updateToken(70)
+          .then((refreshed) => {
+            if (refreshed) {
+              console.debug("Token refreshed" + refreshed);
+            } else {
+              console.warn(
+                "Token not refreshed, valid for " +
+                  Math.round(
+                    keycloak.tokenParsed.exp +
+                      keycloak.timeSkew -
+                      new Date().getTime() / 1000
+                  ) +
+                  " seconds"
+              );
+            }
+          })
+          .catch(() => {
+            console.error("Failed to refresh token");
+          });
+      }, 60000);
+    } else {
+      store.dispatch("changeAuthorized", false);
+    }
   })
   .catch(() => {
     console.error("Authenticated Failed");

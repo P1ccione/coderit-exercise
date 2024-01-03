@@ -11,6 +11,7 @@ const globalModule = {
       roles: [],
       email: "",
     },
+    authorized: false,
   },
   mutations: {
     showAlert(state, alertArray) {
@@ -34,6 +35,9 @@ const globalModule = {
     store_roles(state, data) {
       state.userData.roles = data;
     },
+    changeAuthorized(state, bool) {
+      state.authorized = bool;
+    },
   },
   actions: {
     showAlert({ commit }, alertArray) {
@@ -54,6 +58,9 @@ const globalModule = {
     },
     store_roles({ commit }, data) {
       commit("store_roles", data);
+    },
+    changeAuthorized({ commit }, bool) {
+      commit("changeAuthorized", bool);
     },
   },
   getters: {},
