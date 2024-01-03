@@ -15,7 +15,7 @@
             <p class="footer-text">© 2021 CODERIT s.r.l.</p>
             <dv class="footer-links-container">
                 <span class="footer-text"><a href="https://www.coderit.it/privacy-cookies" class="footer-link">Cookie & Privacy Policy</a></span>
-                <span class="footer-text"><a href="https://startup.registroimprese.it/isin/dettaglioStartup?0&id=KXU3bCJQBfS92AJOXqJVKg%2BWNunnCyIgxKwuUw/how%3D%3D" class="footer-link">Startup Innovative</a></span>
+                <span class="footer-text"><a href="https://startup.registroimprese.it/isin/dettaglioStartup?3&id=KXU3bCJQBfS92AJOXqJVKg%2BWNunnCyIgxKwuUw/how%3D%3D" class="footer-link">Startup Innovative</a></span>
             </dv>
         </div>
     </footer>
