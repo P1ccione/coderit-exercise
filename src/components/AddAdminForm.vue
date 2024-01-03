@@ -3,7 +3,7 @@
   import { defineEmits } from 'vue'
   import Button from './Button.vue';
     
-  const emit = defineEmits(['create-teacher'])
+  const emit = defineEmits(['create-admin'])
   const { handleSubmit, handleReset } = useForm({
     validationSchema: {
       name(value) {
@@ -25,13 +25,13 @@
   const userEmail = useField('userEmail')
 
   const submit = handleSubmit(values => {
-    const teacher = {
+    const admin = {
       name: values.name,
       surname: values.surname,
       userEmail: values.userEmail,
     }
-    console.log(teacher);
-    emit("create-teacher", teacher)
+    console.log(admin);
+    emit("create-admin", admin)
   })
 </script>
 
@@ -39,7 +39,7 @@
 import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
   import { useI18n } from 'vue-i18n'
   export default {
-    name: "AddTeacherForm",
+    name: "AddAdminForm",
     components: {
         Button,
     },
@@ -58,37 +58,37 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
 </script>
 
 <template>
-  <form @submit.prevent="submit" role="form" :aria-label="$t('form_aggiunta_professori')">
+  <form @submit.prevent="submit" role="form" :aria-label="$t('form_aggiunta_admin')">
     <!-- Sezione dei campi -->
-    <label for="name" class="sr-only">{{ $t('nome_professore') }}</label>
+    <label for="name" class="sr-only">{{ $t('nome_admin') }}</label>
     <v-text-field
       variant="outlined"
       v-model="name.value.value"
       :error-messages="name.errorMessage.value"
-      :label="$t('nome_professore')"
-      :aria-label="$t('nome_professore')"
+      :label="$t('nome_admin')"
+      :aria-label="$t('nome_admin')"
       role="textbox"
       :aria-invalid="name.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
 
-    <label for="surname" class="sr-only">{{ $t('cognome_professore') }}</label>
+    <label for="surname" class="sr-only">{{ $t('cognome_admin') }}</label>
     <v-text-field
       variant="outlined"
       v-model="surname.value.value"
       :error-messages="surname.errorMessage.value"
-      :label="$t('cognome_professore')"
-      :aria-label="$t('cognome_professore')"
+      :label="$t('cognome_admin')"
+      :aria-label="$t('cognome_admin')"
       role="textbox"
       :aria-invalid="surname.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
 
-    <label for="userEmail" class="sr-only">{{ $t('email_professore') }}</label>
+    <label for="userEmail" class="sr-only">{{ $t('email_admin') }}</label>
     <v-text-field
       variant="outlined"
       v-model="userEmail.value.value"
       :error-messages="userEmail.errorMessage.value"
-      :label="$t('email_professore')"
-      :aria-label="$t('email_professore')"
+      :label="$t('email_admin')"
+      :aria-label="$t('email_admin')"
       role="textbox"
       :aria-invalid="userEmail.errorMessage.value ? 'true' : 'false'"
     ></v-text-field>
@@ -106,7 +106,7 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
         <Button
           buttoncolor="black"
           :buttontext="$t('chiudi')"
-          @btn-click="store.dispatch('toggleAddTeacherForm')"
+          @btn-click="store.dispatch('toggleAddAdminForm')"
           role="button"
           :aria-label="$t('chiudi')"
         />

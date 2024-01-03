@@ -100,6 +100,31 @@ const teachersModule = {
   },
 };
 
+const adminsModule = {
+  state: {
+    showAddAdminForm: false,
+    editingAdmin: {},
+    ariaShowAdmin: true,
+  },
+  mutations: {
+    toggleAddAdminForm(state) {
+      state.showAddAdminForm = !state.showAddAdminForm;
+      state.ariaShowAdmin = !state.ariaShowAdmin;
+    },
+    changeEditingAdmin(state, admin) {
+      state.editingAdmin = admin[0];
+    },
+  },
+  actions: {
+    toggleAddAdminForm({ commit }) {
+      commit("toggleAddAdminForm");
+    },
+    changeEditingAdmin({ commit }, admin) {
+      commit("changeEditingAdmin", admin);
+    },
+  },
+};
+
 const coursesModule = {
   state: {
     showAddCourseForm: false,
@@ -156,6 +181,7 @@ const store = createStore({
   modules: {
     global: globalModule,
     teachers: teachersModule,
+    admins: adminsModule,
     courses: coursesModule,
     assignments: assignmentsModule,
   },

@@ -17,7 +17,8 @@
         },
         data() {
             return {
-                store: useStore()
+                store: useStore(),
+                filteredAssignments: []
             }
         },
         props: {
@@ -31,21 +32,32 @@
                 type: Array,
             },
         },
+        created() {
+            if(this.$route.query.teacher){
+                console.log(this.assignments, "assignments while filtering");
+                this.filteredAssignments = this.assignments.filter((assignment) =>
+                assignment.professore.userId == this.$route.query.teacher);
+                console.log(this.filteredAssignments, "filteredAssignments after filtering");
+            } else {
+                this.filteredAssignments = this.assignments
+            }
+        },
         methods: {
-            getTeacher(idteacher) {
-                return this.teachers.find((teacher) => teacher.id === idteacher) || {};
-            },
-            getCourse(idcourse) {
-                return this.courses.find((course) => course.id === idcourse) || {};
-            },
+            resetFilter() {
+                this.filteredAssignments = this.assignments;
+            }
         },
     }
 </script>
 
 <template>
     <div class="p-table-container">
-        <Button role="button" :aria-label="$t('agg_docenza')" buttoncolor="black" :buttontext="$t('agg_docenza')" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
-        <div v-if="assignments.length > 0">
+        
+        <div class="top-container">
+            <Button role="button" :aria-label="$t('agg_docenza')" buttoncolor="black" :buttontext="$t('agg_docenza')" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
+            <Button role="button" :aria-label="$t('reset_filtro_docenze')" buttoncolor="black" :buttontext="$t('reset_filtro_docenze')" @btn-click="resetFilter"/>
+        </div>
+        <div v-if="this.filteredAssignments.length > 0">
             <v-table
                 fixed-header
                 max-height="500px"
@@ -71,7 +83,7 @@
                 </thead>
                 <tbody>
                     <tr
-                        v-for="item in assignments"
+                        v-for="item in this.filteredAssignments"
                         :key="item.id"
                         role="row"
                     >
@@ -118,5 +130,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .top-container{
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 20px;
     }
 </style>

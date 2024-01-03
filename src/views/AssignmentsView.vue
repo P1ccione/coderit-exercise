@@ -126,7 +126,7 @@
 
             async createAssignment(assignment) {
                 // Verifica se esiste già un collegamento tra insegnante e corso
-                console.log(assignment);
+                // console.log(assignment);
                 const isAssignmentExisting = this.isAssignmentExists(assignment.professorId, assignment.moduleId);
                 if (isAssignmentExisting) {
                     this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenza_esistente'), 5000])

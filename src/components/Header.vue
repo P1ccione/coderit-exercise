@@ -16,7 +16,9 @@
         data() {
             return {
                 language: null,
-                HereIamLogo: HereIamLogo
+                HereIamLogo: HereIamLogo,
+                usersLinks: [this.$t('professori'),'ADMIN'],
+                coursesLinks: [this.$t('corsi'),this.$t('docenze')],
             }
         },
         methods: {
@@ -40,7 +42,21 @@
             changeLanguage() {
                 localStorage.setItem("lang", this.language)
                 window.location.reload()
-            }
+            },
+            getPageLink(item) {
+                // Aggiungi la logica per determinare il link della pagina in base all'elemento
+                // Puoi utilizzare un oggetto di mapping o altri criteri
+                if (item === this.$t('professori')) {
+                    return "/teachers";
+                } else if (item === 'ADMIN') {
+                    return "/admin";
+                } else if (item === this.$t("corsi")) {
+                    return "/courses";
+                } else if (item === this.$t("docenze")) {
+                    return "/assignments";
+                }
+                return "#"; // Link di fallback in caso di valore non riconosciuto
+            },
         },
         created () {
             this.language = localStorage.getItem("lang")
@@ -73,10 +89,48 @@
 
                     <v-btn variant="outlined" to="/" :aria-label="$t('link_pagina_home')">HOME</v-btn>
 
-                    <v-btn variant="outlined" to="/teachers" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('link_pagina_professori')">{{ $t('professori') }}</v-btn>
-                    <v-btn variant="outlined" to="/courses" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('link_pagina_corsi')">{{ $t('corsi') }}</v-btn>
-                    <v-btn variant="outlined" to="/assignments" v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')" :aria-label="$t('link_pagina_docenze')">{{ $t('docenze') }}</v-btn>
-                    
+                    <v-menu v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">
+                        <template v-slot:activator="{ props }">
+                            <v-btn
+                                variant="outlined"
+                                v-bind="props"
+                            >
+                                GESTIONE UTENZE
+                                <v-icon end> mdi-menu-down </v-icon>
+                            </v-btn>
+                        </template>
+
+                        <v-list class="bg-grey-lighten-3">
+                            <v-list-item
+                                v-for="item in usersLinks"
+                                :key="item"
+                                :to="getPageLink(item)"
+                            >
+                                {{ item }}
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+                    <v-menu v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">
+                        <template v-slot:activator="{ props }">
+                            <v-btn
+                                variant="outlined"
+                                v-bind="props"
+                            >
+                                GESTIONE CORSI
+                                <v-icon end> mdi-menu-down </v-icon>
+                            </v-btn>
+                        </template>
+
+                        <v-list class="bg-grey-lighten-3">
+                            <v-list-item
+                                v-for="item in coursesLinks"
+                                :key="item"
+                                :to="getPageLink(item)"
+                            >
+                                {{ item }}
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
                     <v-btn variant="outlined" v-if="!this.store.state.global.authorized" @click="login" aria-label="Login">LOGIN</v-btn>
                     <v-btn variant="outlined" v-else @click="logout" aria-label="Logout">LOGOUT</v-btn>
                 </div>
