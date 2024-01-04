@@ -80,8 +80,8 @@
                 const adminExists = this.admins.some(existingAdmin => existingAdmin.userEmail === admin.userEmail);
                 
                 if (adminExists) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_admin_esistente'), 5000])
-                    return; // Non creare un nuovo admin se ne esiste già uno con la stessa userEmail
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_admin_esistente'), 5000, "#c42116"])
+                    return; // Non creare un nuovo admin se ne esiste già uno con la stessa userEmail #c42116
                 }
 
                 const apiUrl = 'https://here-i-am.apps.coderit.it/api/admin';
@@ -99,7 +99,7 @@
                     this.admins = await this.fetchAdmins();
                     this.store.dispatch('toggleAddAdminForm')
                 } catch (error) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_admin')} ${error.message}`, 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_admin')} ${error.message}`, 5000, "#c42116"])
                 }
             },
             async deleteAdmin(id) {
@@ -121,7 +121,7 @@
 
                         this.admins = await this.fetchAdmins();
                     } catch (error) {
-                        this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_admin')} ${error.message}`, 5000])
+                        this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_admin')} ${error.message}`, 5000, "#c42116"])
                     }
                 }
             },

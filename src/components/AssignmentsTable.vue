@@ -38,6 +38,10 @@
                 this.filteredAssignments = this.assignments.filter((assignment) =>
                 assignment.professore.userId == this.$route.query.teacher);
                 console.log(this.filteredAssignments, "filteredAssignments after filtering");
+            } else if(this.$route.query.course){
+                this.filteredAssignments = this.assignments.filter((assignment) =>
+                assignment.id == this.$route.query.course);
+                console.log(this.filteredAssignments, "filteredAssignments after filtering");
             } else {
                 this.filteredAssignments = this.assignments
             }
@@ -125,7 +129,8 @@
     }
     .btn-group{
         margin-left:20px;
-        width: 75px;
+        width: fit-content;
+        column-gap: 10px;
         /* outline: black 1px solid; */
         display: flex;
         justify-content: space-between;

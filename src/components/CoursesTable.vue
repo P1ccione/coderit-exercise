@@ -135,6 +135,7 @@
                       </v-tooltip>
                     </template>
                   </Button>
+                  <Button buttontext="VEDI DOCENZE" role="button" buttoncolor="grey" :to="'/assignments?course='+item.id"/>
                 </div>
               </td>
             </tr>
@@ -172,7 +173,8 @@
     }
     .btn-group{
         margin-left:20px;
-        width: 150px;
+        width: fit-content;
+        column-gap: 10px;
         /* outline: black 1px solid; */
         display: flex;
         justify-content: space-between;

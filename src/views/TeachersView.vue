@@ -102,7 +102,7 @@
                 const teacherExists = this.teachers.some(existingTeacher => existingTeacher.userEmail === teacher.userEmail);
                 
                 if (teacherExists) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_professore_esistente'), 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_professore_esistente'), 5000, "#c42116"])
                     return; // Non creare un nuovo insegnante se ne esiste già uno con la stessa userEmail
                 }
 
@@ -120,8 +120,10 @@
                     console.log('Teacher created:', response.data);
                     this.teachers = await this.fetchTeachers();
                     this.store.dispatch('toggleAddTeacherForm')
+                    // modificare testi alert !!!!!!!!!!
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
                 } catch (error) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_professore')} ${error.message}`, 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_professore')} ${error.message}`, 5000, "#c42116"])
                 }
             },
             async editTeacher(newTeacher) {
@@ -134,7 +136,7 @@
                 );
 
                 if (teacherExists) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_professore_esistente'), 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_professore_esistente'), 5000, "#c42116"])
                     return; // Non modificare l'insegnante se ne esiste già uno con la stessa userEmail
                 }
 
@@ -153,8 +155,10 @@
 
                     this.teachers = await this.fetchTeachers();
                     this.store.dispatch('toggleEditTeacherForm')
+                    // modificare testi alert !!!!!!!!!!
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
                 } catch (error) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_modifica_professore')} ${error.message}`, 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_modifica_professore')} ${error.message}`, 5000, "#c42116"])
                 }
             },
             async deleteTeacher(id) {
@@ -162,7 +166,7 @@
                 const hasAssignments = await this.fetchAssignmentsTeacher(id);
 
                 if (hasAssignments) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenze_professore'), 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenze_professore'), 5000, "#c42116"])
                     return; // Non eliminare l'insegnante se ha docenze
                 }
 
@@ -182,8 +186,10 @@
                         console.log('Teacher deleted:', response.data);
 
                         this.teachers = await this.fetchTeachers();
+                        // modificare testi alert !!!!!!!!!!
+                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
                     } catch (error) {
-                        this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_professore')} ${error.message}`, 5000])
+                        this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_professore')} ${error.message}`, 5000, "#c42116"])
                     }
                 }
             },

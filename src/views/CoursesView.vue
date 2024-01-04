@@ -88,11 +88,13 @@
                         console.log('Course deleted:', response.data);
 
                         this.courses = await this.fetchCourses();
+                        // modificare testi alert !!!!!!!!!!
+                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
                     } catch (error) {
                         if(error.response.status === 404){
-                            this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenze_corso'), 5000])
+                            this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenze_corso'), 5000, "#c42116"])
                         } else {
-                            this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_corso')}  ${error.message}`, 5000])
+                            this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_corso')}  ${error.message}`, 5000, "#c42116"])
                         }
                     }
                 }
@@ -102,7 +104,7 @@
                 const courseExists = this.courses.some(existingCourse => existingCourse.nome === course.nome);
                 
                 if (courseExists) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_corso_esistente'), 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_corso_esistente'), 5000, "#c42116"])
                     return; // Non creare un nuovo insegnante se ne esiste già uno con la stessa userEmail
                 }
 
@@ -121,8 +123,9 @@
                     console.log('Course created:', response.data);
                     this.courses = await this.fetchCourses();
                     this.store.dispatch('toggleAddCourseForm')
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
                 } catch (error) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_corso')}  ${error.message}`, 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_corso')}  ${error.message}`, 5000, "#c42116"])
                 }
             },
             async editCourse(newCourse) {
@@ -131,7 +134,7 @@
                 const courseExists = this.courses.some(existingCourse => existingCourse.nome === updatedCourse.nome && existingCourse.id !== id);
                 
                 if (courseExists) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_esistenza_corso'), 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_esistenza_corso'), 5000, "#c42116"])
                     return;
                 }
 
@@ -150,8 +153,10 @@
 
                     this.courses = await this.fetchCourses();
                     this.store.dispatch('toggleEditCourseForm')
+                    // modificare testi alert !!!!!!!!!!
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
                 } catch (error) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_modifica_corso')}  ${error.message}`, 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_modifica_corso')}  ${error.message}`, 5000, "#c42116"])
                 }
             }
         },

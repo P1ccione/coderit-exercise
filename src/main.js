@@ -80,6 +80,7 @@ const i18n = createI18n({
       errore_eliminazione_admin: "Errore nell'eliminazione dell'admin:",
       errore_corso_esistente: "C'è già un corso con lo stesso nome",
       errore_creazione_corso: "Errore nella creazione del corso:",
+      successo_creazione_corso: "Successo nella creazione del corso",
       errore_modifica_corso: "Errore nella modifica del corso:",
       errore_docenze_corso:
         "Il corso ha delle docenze e non può essere cancellato",
@@ -106,6 +107,7 @@ const i18n = createI18n({
       modifica_corso: "Modifica corso",
       azioni_form: "Azioni del form",
       reset_filtro_docenze: "Togli filtro docenze",
+      successo: "SUCCESSO",
     },
     en: {
       benvenuto: "Welcome",
@@ -162,6 +164,7 @@ const i18n = createI18n({
       errore_eliminazione_admin: "Error deleting admin:",
       errore_corso_esistente: "There is already a course with the same name",
       errore_creazione_corso: "Error creating course:",
+      successo_creazione_corso: "Success creating course",
       errore_modifica_corso: "Error editing course:",
       errore_docenze_corso: "Course has lectures and cannot be deleted",
       errore_eliminazione_corso: "Error deleting course:",
@@ -189,6 +192,7 @@ const i18n = createI18n({
       modifica_corso: "Edit course",
       azioni_form: "Form actions",
       reset_filtro_docenze: "Reset lectures filter",
+      successo: "SUCCESS",
     },
   },
 });

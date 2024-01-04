@@ -3,6 +3,7 @@
     import Button from './Button.vue';
     import { useStore } from 'vuex';
     import { useI18n } from 'vue-i18n'
+    const moment = require('moment');
     export default {
         name: "PresencesTable",
         components: {
@@ -24,6 +25,11 @@
             presences: {
                 type: Array,
             }
+        },
+        methods: {
+            formatDateTime(dateTime) {
+                return moment(dateTime).format('YYYY-MM-DD HH:mm:ss');
+            },
         },
     }
 </script>
@@ -57,8 +63,8 @@
                         role="row"
                     >
                         <td role="gridcell">{{ item.studentName }}</td>
-                        <td role="gridcell">{{ item.orarioPresenza }}</td>
-                        <td role="gridcell">{{ item.orarioQr }}</td>
+                        <td role="gridcell">{{ formatDateTime(item.orarioPresenza) }}</td>
+                        <td role="gridcell">{{ formatDateTime(item.orarioQr) }}</td>
                     </tr>
                 </tbody>
             </v-table>

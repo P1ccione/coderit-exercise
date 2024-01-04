@@ -5,6 +5,7 @@ const globalModule = {
     showAlertState: false,
     alertTitle: "",
     alertText: "",
+    alertColor: "",
     userData: {
       firstname: "",
       lastname: "",
@@ -17,9 +18,10 @@ const globalModule = {
     showAlert(state, alertArray) {
       console.log("alertArray", alertArray);
       console.log("mutation showAlert");
-      console.log(alertArray[0], alertArray[1], alertArray[2]);
+      console.log(alertArray[0], alertArray[1], alertArray[2], alertArray[3]);
       state.alertText = alertArray[1];
       state.alertTitle = alertArray[0];
+      state.alertColor = alertArray[3];
       state.showAlertState = !state.showAlertState;
       console.log(state.showAlertState);
     },

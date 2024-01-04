@@ -2,7 +2,7 @@
   <v-app>
     <Header/>
     <div class="alert-container" v-show="this.store.state.global.showAlertState">
-      <Alert :title="this.store.state.global.alertTitle" :text="this.store.state.global.alertText" />
+      <Alert :title="this.store.state.global.alertTitle" :text="this.store.state.global.alertText"  :color="this.store.state.global.alertColor" />
     </div>
     <div class="container" role="main">
       <router-view/>

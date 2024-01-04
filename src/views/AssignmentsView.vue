@@ -107,8 +107,10 @@
                         console.log('Assignment deleted:', response.data);
 
                         this.assignments = await this.fetchaAssignments();
+                        // modificare testi alert !!!!!!!!!!
+                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
                     } catch (error) {
-                        this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_docenza')} ${error.message}`, 5000])
+                        this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_docenza')} ${error.message}`, 5000, "#c42116"])
                     }
                 }
             },
@@ -129,7 +131,7 @@
                 // console.log(assignment);
                 const isAssignmentExisting = this.isAssignmentExists(assignment.professorId, assignment.moduleId);
                 if (isAssignmentExisting) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenza_esistente'), 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenza_esistente'), 5000, "#c42116"])
                     return;
                 }
 
@@ -147,8 +149,10 @@
                     console.log('Assignment created:', response.data);
                     this.assignments = await this.fetchaAssignments();
                     this.store.dispatch('toggleCreateAssignment')
+                    // modificare testi alert !!!!!!!!!!
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
                 } catch (error) {
-                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_docenza')} ${error.message}`, 5000])
+                    this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_docenza')} ${error.message}`, 5000, "#c42116"])
                 }
             },
         },

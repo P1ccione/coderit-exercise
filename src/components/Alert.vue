@@ -12,6 +12,9 @@
             text: {
                 type: String
             },
+            color: {
+                type: String
+            },
         }
     }
 </script>
@@ -19,7 +22,7 @@
 <template>
     <v-alert class="alert"
         density="compact"
-        color="#c42116"
+        :color="color"
         :title="title"
         :text="text"
         role="alert"
