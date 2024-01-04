@@ -121,7 +121,7 @@
                     this.teachers = await this.fetchTeachers();
                     this.store.dispatch('toggleAddTeacherForm')
                     // modificare testi alert !!!!!!!!!!
-                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_professore')}`, 5000, "#04c717"])
                 } catch (error) {
                     this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_professore')} ${error.message}`, 5000, "#c42116"])
                 }
@@ -156,7 +156,7 @@
                     this.teachers = await this.fetchTeachers();
                     this.store.dispatch('toggleEditTeacherForm')
                     // modificare testi alert !!!!!!!!!!
-                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_modifica_professore')}`, 5000, "#04c717"])
                 } catch (error) {
                     this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_modifica_professore')} ${error.message}`, 5000, "#c42116"])
                 }
@@ -187,7 +187,7 @@
 
                         this.teachers = await this.fetchTeachers();
                         // modificare testi alert !!!!!!!!!!
-                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
+                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_eliminazione_professore')}`, 5000, "#04c717"])
                     } catch (error) {
                         this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_professore')} ${error.message}`, 5000, "#c42116"])
                     }

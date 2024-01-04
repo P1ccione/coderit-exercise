@@ -108,7 +108,7 @@
 
                         this.assignments = await this.fetchaAssignments();
                         // modificare testi alert !!!!!!!!!!
-                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
+                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_eliminazione_docenza')}`, 5000, "#04c717"])
                     } catch (error) {
                         this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_eliminazione_docenza')} ${error.message}`, 5000, "#c42116"])
                     }
@@ -150,7 +150,7 @@
                     this.assignments = await this.fetchaAssignments();
                     this.store.dispatch('toggleCreateAssignment')
                     // modificare testi alert !!!!!!!!!!
-                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_docenza')}`, 5000, "#04c717"])
                 } catch (error) {
                     this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_creazione_docenza')} ${error.message}`, 5000, "#c42116"])
                 }

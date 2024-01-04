@@ -89,7 +89,7 @@
 
                         this.courses = await this.fetchCourses();
                         // modificare testi alert !!!!!!!!!!
-                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
+                        this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_eliminazione_corso')}`, 5000, "#04c717"])
                     } catch (error) {
                         if(error.response.status === 404){
                             this.store.dispatch('showAlert' , [this.$t('errore'), this.$t('errore_docenze_corso'), 5000, "#c42116"])
@@ -154,7 +154,7 @@
                     this.courses = await this.fetchCourses();
                     this.store.dispatch('toggleEditCourseForm')
                     // modificare testi alert !!!!!!!!!!
-                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_creazione_corso')}`, 5000, "#04c717"])
+                    this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_modifica_corso')}`, 5000, "#04c717"])
                 } catch (error) {
                     this.store.dispatch('showAlert' , [this.$t('errore'), `${this.$t('errore_modifica_corso')}  ${error.message}`, 5000, "#c42116"])
                 }

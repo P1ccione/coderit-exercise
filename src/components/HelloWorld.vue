@@ -1,29 +1,29 @@
 <template>
   <!-- {{ $t('benvenuto') }} {{ this.store.state.global.userData.lastname }} {{ this.store.state.global.userData.firstname }} -->
   <div class="header-img-container">
-    <h1 class="header-title">Verifica che gli studenti <br>stiano ascoltando</h1>
-    <p class="header-text">"Here I Am" propone un sistema in grado di verificare che <br>uno studente che partecipa a una sessione di formazione online sia <br>effettivamente presente.</p>
-    <Button v-if="!this.store.state.global.authorized" buttoncolor="white" buttontext="INIZIA ➠" style="margin-top: 10px;" @click="login" class="header-button"/>
+    <h1 class="header-title">{{ $t('header_titolo') }}</h1>
+    <p class="header-text">{{ $t('header_testo') }}</p>
+    <Button v-if="!this.store.state.global.authorized" buttoncolor="white" :buttontext="$t('inizia') + ' ➠'" style="margin-top: 10px;" @click="login" class="header-button"/>
   </div>
 
   <div class="marketing-row">
     <div class="marketing-col">
-      <h2 class="marketing-col-title">Affidibilità</h2>
-      <p class="marketing-col-text">L'affidabilità è il nostro valore cardine. Siamo impegnati a fornire un servizio costantemente affidabile e di alta qualità ai nostri clienti. Ci sforziamo di mantenere le nostre promesse e di superare le aspettative, garantendo che ogni interazione con noi sia affidabile e soddisfacente.</p>
+      <h2 class="marketing-col-title">{{ $t('affidibilita_titolo') }}</h2>
+      <p class="marketing-col-text">{{ $t('affidibilita_testo') }}</p>
     </div>
     <div class="marketing-col">
-      <h2 class="marketing-col-title">Sicurezza</h2>
-      <p class="marketing-col-text">La sicurezza è la nostra massima priorità. Mettiamo al primo posto la protezione dei vostri dati e la vostra privacy. Abbiamo implementato rigorose misure di sicurezza per garantire che le vostre informazioni siano al sicuro da accessi non autorizzati o utilizzi impropri.</p>
+      <h2 class="marketing-col-title">{{ $t('sicurezza_titolo') }}</h2>
+      <p class="marketing-col-text">{{ $t('sicurezza_testo') }}</p>
     </div>
     <div class="marketing-col" style="justify-content: flex-start;">
-      <h2 class="marketing-col-title">Facilità</h2>
-      <p class="marketing-col-text">La facilità è il nostro obiettivo principale. Siamo dedicati a fornire un'esperienza semplice e intuitiva ai nostri clienti. Abbiamo progettato i nostri servizi per essere accessibili e facili da utilizzare, eliminando ogni ostacolo o complicazione.</p>
+      <h2 class="marketing-col-title">{{ $t('facilita_titolo') }}</h2>
+      <p class="marketing-col-text">{{ $t('facilita_testo') }}</p>
     </div>
   </div>
 
   <v-divider class="border-opacity-100" color="grey" style="margin: 50px; width: 90%;"></v-divider>
 
-  <h2 class="carousel-title">A chi è rivolto?</h2>
+  <h2 class="carousel-title">{{ $t('carousel_titolo') }}</h2>
 
   <v-carousel style="width: 90%;">
     <v-carousel-item
@@ -43,8 +43,8 @@
           row-gap: 15px;
         "
       >
-        <h2 style="color: white; font-size: 3rem;">Enti formativi</h2>
-        <p style="color: white">che desiderano e/o necessitano di verificare che il corsista sia effettivamente presente al corso on-line e che possono utilizzare HIA a tale scopo, indipendentemente dalla piattaforma di <br>e-learning o teleconferenza utilizzata;</p>
+        <h2 style="color: white; font-size: 3rem;">{{ $t('enti_formativi_titolo') }}</h2>
+        <p style="color: white">{{ $t('enti_formativi_testo') }}</p>
       </div>
     </v-carousel-item>
     
@@ -65,8 +65,8 @@
           row-gap: 15px;
         "
       >
-        <h2 style="color: white; font-size: 3rem;">Corsisti</h2>
-        <p style="color: white">che seguono un corso in FAD la cui presenza effettiva è verificata da HIA, che sottopone lo studente a delle challenge più o meno interattive ed esplicite allo scopo di verificarne la presenza e il grado di attenzione.o che seguono un corso in FAD la cui presenza effettiva è verificata da HIA, che sottopone lo studente a delle challenge più o meno interattive ed esplicite allo scopo di verificarne la presenza e il grado di attenzione.</p>
+        <h2 style="color: white; font-size: 3rem;">{{ $t('corsisti_titolo') }}</h2>
+        <p style="color: white">{{ $t('corsisti_testo') }}</p>
       </div>
     </v-carousel-item>
 
@@ -87,8 +87,8 @@
           row-gap: 15px;
         "
       >
-        <h2 style="color: white; font-size: 3rem;">Docenti</h2>
-        <p style="color: white">che erogano corsi in FAD che possono utilizzare HIA per eseguire una verifica di presenza esplicita, appelli automatizzati e avere indici di attenzione alla lezione in tempo reale.</p>
+        <h2 style="color: white; font-size: 3rem;">{{ $t('docenti_titolo') }}</h2>
+        <p style="color: white">{{ $t('docenti_testo') }}</p>
       </div>
     </v-carousel-item>
 
@@ -109,8 +109,8 @@
           row-gap: 15px;
         "
       >
-        <h2 style="color: white; font-size: 3rem;">Piattaforme di e-learning</h2>
-        <p style="color: white">che hanno la necessità di integrare le funzionalità offerte da HIA senza doverle implementare ex-novo.</p>
+        <h2 style="color: white; font-size: 3rem;">{{ $t('piattaforme_e_learning_titolo') }}</h2>
+        <p style="color: white">{{ $t('piattaforme_e_learning_testo') }}</p>
       </div>
     </v-carousel-item>
   </v-carousel>
@@ -206,11 +206,13 @@ export default {
   .header-title {
     font-size: 2.5rem;
     color: white;
+    width: 500px;
   }
 
   .header-text {
     font-size: 20px;
     color: white;
+    width: 520px;
   }
 
   .marketing-row {

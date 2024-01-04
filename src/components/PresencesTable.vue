@@ -46,13 +46,13 @@
                 <thead>
                     <tr role="row">
                         <th class="text-left" role="columnheader">
-                            nome corsista
+                            {{ $t('nome_corsista') }}
                         </th>
                         <th class="text-left" role="columnheader">
-                            orario presenza
+                            {{ $t('orario_presenza') }}
                         </th>
                         <th class="text-left" role="columnheader">
-                            orario qr
+                            {{ $t('orario_qrcode') }}
                         </th> 
                     </tr>
                 </thead>
@@ -70,7 +70,7 @@
             </v-table>
         </div>
         <div v-else>
-            <p class="table-msg" role="status">NO PRESENZE</p>
+            <p class="table-msg" role="status">{{ $t('no_presenze') }}</p>
             <!-- {{ $t('no_professori') }} -->
         </div>
     </div>

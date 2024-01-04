@@ -30,6 +30,7 @@
 
 <template>
     <div class="p-table-container">
+        <h2>{{ $t('mie_docenze') }}</h2>
         <div v-if="this.assignments.length > 0">
             <v-table
                 fixed-header
@@ -57,7 +58,7 @@
                         <td role="gridcell">{{ item.nome }}</td>
                         <td role="gridcell">
                             <div class="btn-group">
-                                <Button buttontext="AVVIA DOCENZA" role="button" buttoncolor="grey" :to="'/lecture-presences?lecture='+item.id"/>
+                                <Button :buttontext="$t('inizia_docenza')" role="button" buttoncolor="grey" :to="'/lecture-presences?lecture='+item.id"/>
                             </div>
                         </td>
                     </tr>
