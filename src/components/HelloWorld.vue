@@ -3,7 +3,7 @@
   <div class="header-img-container">
     <h1 class="header-title">Verifica che gli studenti <br>stiano ascoltando</h1>
     <p class="header-text">"Here I Am" propone un sistema in grado di verificare che <br>uno studente che partecipa a una sessione di formazione online sia <br>effettivamente presente.</p>
-    <Button v-if="!this.store.state.global.authorized" buttoncolor="white" buttontext="INIZIA ➠" style="margin-top: 10px;" to="/" class="header-button"/>
+    <Button v-if="!this.store.state.global.authorized" buttoncolor="white" buttontext="INIZIA ➠" style="margin-top: 10px;" @click="login" class="header-button"/>
   </div>
 
   <div class="marketing-row">
@@ -174,6 +174,16 @@ export default {
       EntiFormativiImage: EntiFormativiImage,
       ElearingImage: ElearingImage,
     }
+  },
+  methods: {
+    login () {
+      if (this.$keycloak) {
+          this.$keycloak.login();
+      } else {
+          console.error('Keycloak not initialized yet.');
+          // Handle the situation accordingly, e.g., redirect to a login page.
+      }
+    },
   },
 }
 </script>

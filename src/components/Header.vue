@@ -89,6 +89,8 @@
 
                     <v-btn variant="outlined" to="/" :aria-label="$t('link_pagina_home')">HOME</v-btn>
 
+                    <v-btn v-if="this.store.state.global.userData.roles.includes('ROLE_PROFESSOR')" variant="outlined" to="/teacher-assignments" :aria-label="$t('link_pagina_docenze')">DOCENZE</v-btn>
+
                     <v-menu v-if="this.store.state.global.userData.roles.includes('ROLE_ADMIN')">
                         <template v-slot:activator="{ props }">
                             <v-btn

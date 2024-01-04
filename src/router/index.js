@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import TeachersView from "../views/TeachersView.vue";
 import CoursesView from "../views/CoursesView.vue";
 import AssignmentsView from "../views/AssignmentsView.vue";
+import LecturePresencesView from "../views/LecturePresencesView.vue";
+import TeacherAssignmentsView from "../views/TeacherAssignmentsView.vue";
 import HomeView from "../views/HomeView.vue";
 import AdminView from "../views/AdminView.vue";
 import ForbiddenView from "../views/ForbiddenView.vue";
@@ -54,7 +56,34 @@ const routes = [
     name: "assignments",
     component: AssignmentsView,
     beforeEnter: (to, from, next) => {
-      if (store.state.global.userData.roles.includes("ROLE_ADMIN")) {
+      if (
+        store.state.global.userData.roles.includes("ROLE_ADMIN") ||
+        store.state.global.userData.roles.includes("ROLE_PROFESSOR")
+      ) {
+        next();
+      } else {
+        next("/forbidden");
+      }
+    },
+  },
+  {
+    path: "/teacher-assignments",
+    name: "teacher-assignments",
+    component: TeacherAssignmentsView,
+    beforeEnter: (to, from, next) => {
+      if (store.state.global.userData.roles.includes("ROLE_PROFESSOR")) {
+        next();
+      } else {
+        next("/forbidden");
+      }
+    },
+  },
+  {
+    path: "/lecture-presences",
+    name: "lecture-presences",
+    component: LecturePresencesView,
+    beforeEnter: (to, from, next) => {
+      if (store.state.global.userData.roles.includes("ROLE_PROFESSOR")) {
         next();
       } else {
         next("/forbidden");
