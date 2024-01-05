@@ -17,7 +17,7 @@
             return {
                 language: null,
                 HereIamLogo: HereIamLogo,
-                usersLinks: [this.$t('professori'),'ADMIN'],
+                usersLinks: [this.$t('professori'),'ADMIN', this.$t('presenze')],
                 coursesLinks: [this.$t('corsi'),this.$t('docenze')],
             }
         },
@@ -54,6 +54,8 @@
                     return "/courses";
                 } else if (item === this.$t("docenze")) {
                     return "/assignments";
+                } else if (item === this.$t("presenze")) {
+                    return "/presences";
                 }
                 return "#"; // Link di fallback in caso di valore non riconosciuto
             },

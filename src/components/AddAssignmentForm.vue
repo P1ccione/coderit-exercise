@@ -63,13 +63,13 @@ import { useStore } from 'vuex/dist/vuex.esm-bundler.js';
       v-model="selectTeacher.value.value"
       :items="props.teachers.map(teacher => teacher.userEmail)"
       :error-messages="selectTeacher.errorMessage.value"
-        :label="$t('seleziona_professore')"
-        :aria-label="$t('seleziona_professore')"
-        required
-        role="listbox"
-        aria-required="true"
-        :aria-invalid="selectTeacher.errorMessage.value ? 'true' : 'false'"
-      ></v-select>
+      :label="$t('seleziona_professore')"
+      :aria-label="$t('seleziona_professore')"
+      required
+      role="listbox"
+      aria-required="true"
+      :aria-invalid="selectTeacher.errorMessage.value ? 'true' : 'false'"
+    ></v-select>
 
     <label for="selectCourse" class="sr-only">{{ $t('seleziona_corso') }}</label>
     <v-select

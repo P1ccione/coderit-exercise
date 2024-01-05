@@ -3,6 +3,7 @@ import TeachersView from "../views/TeachersView.vue";
 import CoursesView from "../views/CoursesView.vue";
 import AssignmentsView from "../views/AssignmentsView.vue";
 import LecturePresencesView from "../views/LecturePresencesView.vue";
+import PresencesView from "../views/PresencesView.vue";
 import TeacherAssignmentsView from "../views/TeacherAssignmentsView.vue";
 import HomeView from "../views/HomeView.vue";
 import AdminView from "../views/AdminView.vue";
@@ -84,6 +85,18 @@ const routes = [
     component: LecturePresencesView,
     beforeEnter: (to, from, next) => {
       if (store.state.global.userData.roles.includes("ROLE_PROFESSOR")) {
+        next();
+      } else {
+        next("/forbidden");
+      }
+    },
+  },
+  {
+    path: "/presences",
+    name: "presences",
+    component: PresencesView,
+    beforeEnter: (to, from, next) => {
+      if (store.state.global.userData.roles.includes("ROLE_ADMIN")) {
         next();
       } else {
         next("/forbidden");

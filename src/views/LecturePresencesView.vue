@@ -8,14 +8,14 @@
             max-width="800px"
             type="heading, table-tfoot, table-tfoot, table-tfoot"
         >
-            <PresencesTable :presences="presences"/>
+            <LecturePresencesTable :presences="presences"/>
         </v-skeleton-loader>
     </div>
   </template>
   
   <script>
   const axios = require('axios');
-  import PresencesTable from '../components/PresencesTable.vue'
+  import LecturePresencesTable from '../components/LecturePresencesTable.vue'
   export default {
     data() {
       return {
@@ -25,7 +25,7 @@
       };
     },
     components: {
-        PresencesTable
+        LecturePresencesTable
     },
     methods: {
         async fetchQrCode(idLecture) {
