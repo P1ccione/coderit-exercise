@@ -28,6 +28,7 @@
                 newPresences: [],
                 store: useStore(),
                 selectedDate: null,
+                selectedCourse: null,
             }
         },
         props: {
@@ -47,67 +48,283 @@
                 return moment(dateTime).format('D/M/YYYY');
             },
             searchChange() {
-                // {
-                //     "id": 0,
-                //     "idCorso": 0,
-                //     "orarioQr": {
-                    //     "nanos": 0,
-                    //     "time": 0
-                //     },
-                //     "orarioPresenza": {
-                    //     "nanos": 0,
-                    //     "time": 0
-                //     },
-                //     "studentName": "string",
-                //     "studentSurname": "string",
-                //     "studentEmail": "string"
-                // }
+
+                console.log("---------------------------------------------------------------------------")
                 const searchTerm = this.searchpresence.filter.trim().toLowerCase();
-                if (searchTerm) {
-                    this.filteredPresences = this.newPresences.filter((presence) => {
-                        const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
-                        return (
-                            fullName.includes(searchTerm) ||
-                            presence.presence.studentEmail.toLowerCase().includes(searchTerm)
-                        );
-                    });
+                console.log("inizio searchChange():");
+                console.log(searchTerm, "searchTerm");
+
+
+                if(this.selectedDate === null) {
+                    
+                    console.log("this.selectedDate === null | true");
+                    console.log("nessuna data selezionata");
+
+                    if(searchTerm === "") {
+                        console.log("searchTerm === ''| true");
+                        console.log("campo search vuoto");
+                        if(this.selectedCourse === null) {
+                            console.log("this.selectedCourse === null | true");
+                            console.log("select course vuoto");
+                            console.log("this.filteredPresences prima", this.filteredPresences);
+                            this.filteredPresences = [...this.newPresences];
+                            console.log("this.filteredPresences dopo", this.filteredPresences);
+                        } else {
+                            console.log("this.selectedCourse === null | false");
+                            console.log("select course pieno");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                return (
+                                    presence.course.coursename.includes(this.selectedCourse)
+                                );
+                            });
+                        }
+                    } else {
+                        console.log("searchTerm === '' | false");
+                        console.log("campo search pieno");
+                        if(this.selectedCourse === null) {
+                            console.log("this.selectedCourse === null | true");
+                            console.log("select course vuoto");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
+                                return (
+                                    fullName.includes(searchTerm) ||
+                                    presence.presence.studentEmail.toLowerCase().includes(searchTerm)
+                                );
+                            });
+                        } else {
+                            console.log("this.selectedCourse === null | false");
+                            console.log("select course pieno");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
+                                return (
+                                    (fullName.includes(searchTerm) ||
+                                    presence.presence.studentEmail.toLowerCase().includes(searchTerm)) &&
+                                    presence.course.coursename.includes(this.selectedCourse)
+                                );
+                            });
+                        }
+                        
+                    }
+
                 } else {
-                    this.filteredPresences = [...this.newPresences];
+
+                    console.log("this.selectedDate === null | false");
+                    console.log("data selezionata");
+
+                    const selectedDateStr = this.selectedDate.toLocaleDateString();
+                    console.log("selectedDateStr", selectedDateStr);
+
+                    if(searchTerm === "") {
+                        console.log("searchTerm === '' | true");
+                        console.log("campo search vuoto");
+                        if(this.selectedCourse === null) {
+                            console.log("this.selectedCourse === null | true");
+                            console.log("select course vuoto");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                return (
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)
+                                );
+                            });
+                        } else {
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                return (
+                                    presence.course.coursename.includes(this.selectedCourse) &&
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)
+                                );
+                            });
+                        }
+
+                    } else {
+                        console.log("searchTerm === '' | false");
+                        console.log("campo search pieno");
+                        if(this.selectedCourse === null) {
+                            console.log("this.selectedCourse === null | true");
+                            console.log("select course vuoto");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
+                                return (
+                                    (fullName.includes(searchTerm) ||
+                                    presence.presence.studentEmail.toLowerCase().includes(searchTerm)) &&
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)
+                                );
+                            });
+                        } else {
+                            console.log("this.selectedCourse === null | false");
+                            console.log("select course pieno");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
+                                return (
+                                    ((fullName.includes(searchTerm) ||
+                                    presence.presence.studentEmail.toLowerCase().includes(searchTerm)) &&
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)) &&
+                                    presence.course.coursename.includes(this.selectedCourse)
+                                );
+                            });
+                        }
+
+                    }
+
                 }
-            },
-            handleDateSelection(selectedDate) {
-                // console.log("Data selezionata:", selectedDate);
+
             },
             checkDateInArray(selectedDate) {
-                if (selectedDate) {
+
+                if(selectedDate){
+
+                    console.log("---------------------------------------------------------------------------")
+                    const searchTerm = this.searchpresence.filter.trim().toLowerCase();
+                    console.log("inizio checkDateInArray():");
+                    console.log(searchTerm, "searchTerm");
                     const selectedDateStr = selectedDate.toLocaleDateString();
-                    this.filteredPresences = this.newPresences.filter((presence) => {
-                        const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
-                        return (
-                            this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)
-                        );
-                    });
+                    console.log("selectedDateStr", selectedDateStr);
+                        
+                    if(searchTerm === "") {
+                        console.log("searchTerm === '' | true");
+                        console.log("campo search vuoto");
+
+                        if(this.selectedCourse === null) {
+                            console.log("this.selectedCourse === null | true");
+                            console.log("select course vuoto");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                return (
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)
+                                );
+                            });
+                        } else {
+                            console.log("this.selectedCourse === null | false");
+                            console.log("select course pieno");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                return (
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr) &&
+                                    presence.course.coursename.includes(this.selectedCourse)
+                                );
+                            });
+                        }
+
+                    } else {
+                        console.log("searchTerm === '' | false");
+                        console.log("campo search pieno");
+
+                        if(this.selectedCourse === null) {
+                            console.log("this.selectedCourse === null | true");
+                            console.log("select course vuoto");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
+                                return (
+                                    (fullName.includes(searchTerm) ||
+                                    presence.presence.studentEmail.toLowerCase().includes(searchTerm)) &&
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)
+                                );
+                            });
+                        } else {
+                            console.log("this.selectedCourse === null | false");
+                            console.log("select course pieno");
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
+                                return (
+                                    ((fullName.includes(searchTerm) ||
+                                    presence.presence.studentEmail.toLowerCase().includes(searchTerm)) &&
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)) &&
+                                    presence.course.coursename.includes(this.selectedCourse)
+                                );
+                            });
+                        }
+                    }
+                }
+
+            },
+            selectChange(newCourse) {
+                if(newCourse) {
+                    
+                    console.log("---------------------------------------------------------------------------")
+                    console.log("inizio selectChange():");
+                    
+                    const searchTerm = this.searchpresence.filter.trim().toLowerCase();
+                    console.log(searchTerm, "searchTerm");
+
+                    if(this.selectedDate === null){
+                        
+                        console.log("this.selectedDate === null | true");
+                        console.log("data non selezionata");
+                            
+                        if(searchTerm === "") {
+                            console.log("searchTerm === '' | true");
+                            console.log("campo search vuoto");
+
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                return (
+                                    presence.course.coursename.includes(newCourse)
+                                );
+                            });
+
+                        } else {
+                            console.log("searchTerm === '' | false");
+                            console.log("campo search pieno");
+
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
+                                return (
+                                    (fullName.includes(searchTerm) ||
+                                    presence.presence.studentEmail.toLowerCase().includes(searchTerm)) &&
+                                    presence.course.coursename.includes(newCourse)
+                                );
+                            });
+                        }
+                    } else {
+                        console.log("this.selectedDate !== null | true");
+                        console.log("data selezionata");
+                        const selectedDateStr = this.selectedDate.toLocaleDateString();
+
+                        if(searchTerm === "") {
+                            console.log("searchTerm === '' | true");
+                            console.log("campo search vuoto");
+                            console.log("si sono qui dentro")
+
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                return (
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr) &&
+                                    presence.course.coursename.includes(newCourse)
+                                );
+                            });
+
+                        } else {
+                            console.log("searchTerm === '' | false");
+                            console.log("campo search pieno");
+
+                            this.filteredPresences = this.newPresences.filter((presence) => {
+                                const fullName = `${presence.presence.studentName} ${presence.presence.studentSurname}`.toLowerCase();
+                                return (
+                                    (fullName.includes(searchTerm) ||
+                                    (presence.presence.studentEmail.toLowerCase().includes(searchTerm)) &&
+                                    presence.course.coursename.includes(newCourse)) && 
+                                    this.formatDate(presence.presence.orarioPresenza).includes(selectedDateStr)
+                                );
+                            });
+                        }
+
+                    }
                 }
             },
             clearFilter() {
                 this.selectedDate = null;
+                this.selectedCourse = null;
                 this.searchpresence.filter = ""
                 this.filteredPresences = [...this.newPresences]
             },
         },
         mounted() {
+            console.log("---------------------------------------------------------------------------")
             this.presences.forEach((presence) => {
                  this.courses.forEach((course) => {
                     if(course.id === presence.idCorso){
                         // console.log(presence);
-                        this.newPresences.push({coursename: course.nome, presence: presence})
+                        this.newPresences.push({course:{courseId: course.id ,coursename: course.nome}, presence: presence})
                     }
                 })
             })
             // console.log(this.newPresences, "this.newPresences");
             this.filteredPresences = [...this.newPresences]
             // console.log(this.filteredPresences, "this.filteredPresences");
-            this.searchChange();
         },
         watch: {
             presences: function(newVal, oldVal) {
@@ -115,6 +332,9 @@
             },
             selectedDate(newDate) {
                 this.checkDateInArray(newDate);
+            },
+            selectedCourse: function(newValue) {
+                this.selectChange(newValue);
             },
         },
     }
@@ -132,24 +352,35 @@
             <div style="width: 60%;">
                 <div style="width: 100%; height: 100%; display: flex; flex-direction: column; row-gap: 10px;">
                     <div class="p-top-container">
-                        <input
-                            class="search"
-                            @input="searchChange"
-                            type="search"
-                            name="searchpresence"
-                            id="searchpresence"
-                            :placeholder="$t('cerca_presenza')"
-                            v-model.trim="searchpresence.filter"
-                            :aria-label="$t('cerca_presenza')"
-                            role="search"
-                            style="height: 50px;"
-                        />
-                        <Button role="button" buttoncolor="black" buttontext="Rimuovi Filtri" @click="clearFilter" style="width: fit-content"/>
+                        <div style="display: flex; column-gap: 20px; width: fit-content;">
+                            <input
+                                class="search"
+                                @input="searchChange"
+                                type="search"
+                                name="searchpresence"
+                                id="searchpresence"
+                                :placeholder="$t('cerca_presenza')"
+                                v-model.trim="searchpresence.filter"
+                                :aria-label="$t('cerca_presenza')"
+                                role="search"
+                                style="height: 58px;"
+                            />
+                            <v-select
+                                clearable
+                                :label="$t('seleziona_corso')"
+                                :aria-label="$t('seleziona_corso')"
+                                :items="this.courses.map(course => course.nome)"
+                                style="width: 200px;"
+                                variant="outlined"
+                                v-model="selectedCourse"
+                            ></v-select>
+                        </div>
+                        <Button role="button" buttoncolor="red" buttontext="Rimuovi Filtri" @click="clearFilter" style="width: fit-content; height: 58px;"/>
                     </div>
                     <div v-if="filteredPresences.length > 0">
                         <v-table
                             fixed-header
-                            style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 500px; width: fit-content;"
+                            style="outline: 1px solid rgba(0,0,0,0.2); border-radius: 10px; max-height: 420px; width: fit-content; min-width: 854px;"
                             role="table"
                             aria-colcount="3"
                         >
@@ -178,7 +409,7 @@
                                     :key="item.id"
                                     role="row"
                                 >
-                                    <td role="gridcell">{{ item.coursename }}</td>
+                                    <td role="gridcell">{{ item.course.coursename }}</td>
                                     <td role="gridcell">{{ item.presence.studentName }} {{ item.presence.studentSurname }}</td>
                                     <td role="gridcell">{{ item.presence.studentEmail }}</td>
                                     <td role="gridcell">{{ formatDateTime(item.presence.orarioPresenza) }}</td>
@@ -223,7 +454,6 @@
         height: auto;
         display: flex;
         justify-content: space-between;
-        align-items: center;
         column-gap: 20px;
     }
 </style>

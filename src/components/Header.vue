@@ -17,8 +17,8 @@
             return {
                 language: null,
                 HereIamLogo: HereIamLogo,
-                usersLinks: [this.$t('professori'),'ADMIN', this.$t('presenze')],
-                coursesLinks: [this.$t('corsi'),this.$t('docenze')],
+                usersLinks: [this.$t('professori'),'ADMIN'],
+                coursesLinks: [this.$t('corsi'),this.$t('docenze'), this.$t('presenze')],
             }
         },
         methods: {
