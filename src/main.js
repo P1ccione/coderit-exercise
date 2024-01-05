@@ -108,7 +108,8 @@ const i18n = createI18n({
       errore_eliminazione_docenza: "Errore nell'eliminazione della docenza:",
       successo_eliminazione_docenza: "Successo nell'eliminazione della docenza",
       errore_creazione_docenza: "Errore nella creazione della docenza:",
-      successo_creazione_docenza: "Successo nella creazione della docenza",
+      successo_creazione_docenza: "Docenza avviata con successo",
+      successo_avviamento_docenza: "Successo nell'avviare la docenza",
       conferma_eliminazione_corso: "È sicuro di voler cancellare questo corso?",
       conferma_eliminazione_professore:
         "È sicuro di voler cancellare questo professore?",
@@ -240,6 +241,7 @@ const i18n = createI18n({
       successo_eliminazione_docenza: "Successfully deleted lecture",
       errore_creazione_docenza: "Error creating lecture:",
       successo_creazione_docenza: "Successfully created lecture",
+      successo_avviamento_docenza: "Lecture started successfully",
       conferma_eliminazione_corso:
         "Are you sure you want to delete this course?",
       conferma_eliminazione_professore:

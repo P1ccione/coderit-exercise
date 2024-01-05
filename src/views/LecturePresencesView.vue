@@ -15,6 +15,7 @@
   
   <script>
   const axios = require('axios');
+import { useStore } from 'vuex';
   import LecturePresencesTable from '../components/LecturePresencesTable.vue'
   export default {
     data() {
@@ -22,6 +23,7 @@
         QrCodeUrl: null,
         presences: [],
         loading: true,
+        store: useStore(),
       };
     },
     components: {
@@ -83,6 +85,7 @@
             this.fetchQrCode(this.$route.query.lecture);
             this.fetchPresences(this.$route.query.lecture);
             this.loading = false;
+            this.store.dispatch('showAlert' , [this.$t('successo'), `${this.$t('successo_avviamento_docenza')}`, 5000, "#04c717"])
             setInterval(() => {
                 this.reloadQrCode();
             }, 30000); // 30 secondi
