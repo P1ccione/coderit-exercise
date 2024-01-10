@@ -129,7 +129,7 @@
                                         </v-tooltip>
                                     </template>
                                 </Button>
-                                <Button buttontext="VEDI DOCENZE" role="button" buttoncolor="grey" :to="'/assignments?teacher='+item.userId"/>
+                                <Button buttontext="VEDI DOCENZE" role="button" buttoncolor="grey" :to="'/assignments?teacherId='+item.userId+'&teacherName='+item.name+' '+item.surname"/>
                             </div>
                         </td>
                     </tr>

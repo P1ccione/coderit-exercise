@@ -135,7 +135,7 @@
                       </v-tooltip>
                     </template>
                   </Button>
-                  <Button buttontext="VEDI DOCENZE" role="button" buttoncolor="grey" :to="'/assignments?course='+item.id"/>
+                  <Button buttontext="VEDI DOCENZE" role="button" buttoncolor="grey" :to="'/assignments?courseId='+item.id+'&courseName='+item.nome"/>
                 </div>
               </td>
             </tr>

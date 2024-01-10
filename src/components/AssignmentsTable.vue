@@ -18,7 +18,8 @@
         data() {
             return {
                 store: useStore(),
-                filteredAssignments: []
+                filteredAssignments: [],
+                showFiltered: true,
             }
         },
         props: {
@@ -32,23 +33,35 @@
                 type: Array,
             },
         },
-        created() {
-            if(this.$route.query.teacher){
-                console.log(this.assignments, "assignments while filtering");
-                this.filteredAssignments = this.assignments.filter((assignment) =>
-                assignment.professore.userId == this.$route.query.teacher);
-                console.log(this.filteredAssignments, "filteredAssignments after filtering");
-            } else if(this.$route.query.course){
-                this.filteredAssignments = this.assignments.filter((assignment) =>
-                assignment.id == this.$route.query.course);
-                console.log(this.filteredAssignments, "filteredAssignments after filtering");
-            } else {
-                this.filteredAssignments = this.assignments
-            }
-        },
         methods: {
             resetFilter() {
                 this.filteredAssignments = this.assignments;
+                this.showFiltered = false;
+            },
+            filteredSearch() {
+                if(this.$route.query.teacherId){
+                    console.log(this.assignments, "assignments while filtering");
+                    this.filteredAssignments = this.assignments.filter((assignment) =>
+                    assignment.professore.userId == this.$route.query.teacherId);
+                    console.log(this.filteredAssignments, "filteredAssignments after filtering");
+                } else if(this.$route.query.courseId){
+                    console.log("filtered by course id");
+                    this.filteredAssignments = this.assignments.filter((assignment) =>
+                    assignment.id == this.$route.query.courseId);
+                    console.log(this.filteredAssignments, "filteredAssignments after filtering");
+                } else {
+                    this.filteredAssignments = this.assignments
+                }
+            },
+        },
+        mounted() {
+            this.filteredAssignments = [...this.assignments];
+            this.filteredSearch();
+        },
+        // reazione ai cambiamenti dei props
+        watch: {
+            assignments: function(newVal, oldVal) {
+                this.filteredSearch()
             }
         },
     }
@@ -56,10 +69,10 @@
 
 <template>
     <div class="p-table-container">
-        
+        <p class="title">Visualizzando <span v-if="this.showFiltered && this.$route.query.teacherName">docenze di {{ this.$route.query.teacherName }}</span><span v-if="this.showFiltered && this.$route.query.courseName">docenze del corso {{ this.$route.query.courseName }}</span><span v-else>tutte le docenze</span></p>
         <div class="top-container">
             <Button role="button" :aria-label="$t('agg_docenza')" buttoncolor="black" :buttontext="$t('agg_docenza')" @btn-click="this.store.dispatch('toggleCreateAssignment')"/>
-            <Button role="button" :aria-label="$t('reset_filtro_docenze')" buttoncolor="black" :buttontext="$t('reset_filtro_docenze')" @btn-click="resetFilter"/>
+            <Button v-if="this.showFiltered && (this.$route.query.teacherId || this.$route.query.courseId)" role="button" :aria-label="$t('reset_filtro_docenze')" buttoncolor="black" :buttontext="$t('reset_filtro_docenze')" @btn-click="resetFilter"/>
         </div>
         <div v-if="this.filteredAssignments.length > 0">
             <v-table
@@ -144,5 +157,9 @@
         justify-content: center;
         align-items: center;
         column-gap: 20px;
+    }
+    
+    .title {
+        font-size: 1.5rem;
     }
 </style>

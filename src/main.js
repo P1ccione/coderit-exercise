@@ -108,7 +108,7 @@ const i18n = createI18n({
       errore_eliminazione_docenza: "Errore nell'eliminazione della docenza:",
       successo_eliminazione_docenza: "Successo nell'eliminazione della docenza",
       errore_creazione_docenza: "Errore nella creazione della docenza:",
-      successo_creazione_docenza: "Docenza avviata con successo",
+      successo_creazione_docenza: "Docenza creata con successo",
       successo_avviamento_docenza: "Successo nell'avviare la docenza",
       conferma_eliminazione_corso: "È sicuro di voler cancellare questo corso?",
       conferma_eliminazione_professore:

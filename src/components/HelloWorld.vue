@@ -1,9 +1,9 @@
 <template>
-  <!-- {{ $t('benvenuto') }} {{ this.store.state.global.userData.lastname }} {{ this.store.state.global.userData.firstname }} -->
+  <h1 v-if="!this.store.state.global.authorized">{{ $t('benvenuto') }} {{ this.store.state.global.userData.lastname }} {{ this.store.state.global.userData.firstname }}</h1>
   <div class="header-img-container">
     <h1 class="header-title">{{ $t('header_titolo') }}</h1>
     <p class="header-text">{{ $t('header_testo') }}</p>
-    <Button v-if="!this.store.state.global.authorized" buttoncolor="white" :buttontext="$t('inizia') + ' ➠'" style="margin-top: 10px;" @click="login" class="header-button"/>
+    <Button v-if="this.store.state.global.authorized" buttoncolor="white" :buttontext="$t('inizia') + ' ➠'" style="margin-top: 10px;" @click="login" class="header-button"/>
   </div>
 
   <div class="marketing-row">
